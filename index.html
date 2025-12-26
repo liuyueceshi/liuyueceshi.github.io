@@ -3,9 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高三（1）班点名器V4.0即将更新。紧急通知乌龟高丸俱乐部炸单了避雷一下</title>
+    <title>高三（1）班点名器</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS将在这里添加 */
+    </style>
+</head>
+<body class="theme-blue">
+    <!-- 点击屏幕提示 -->
+    <div class="click-hint" id="clickHint">
+        <i class="fas fa-hand-pointer"></i> 2025.12.15
+    </div>
+    
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h1 id="urgentNotice">紧急通知网站崩了！</h1>
+            </div>
+            
+            <!-- 公告栏 -->
+            <div class="announcement-container" id="announcementContainer">
+                <div class="announcement-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="announcement-content" id="announcementContent">
+                    紧急通知网站崩了！
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <a href="https://wpa.qq.com/msgrd?v=3&uin=2793694488&site=qq&menu=yes" class="qq-avatar" target="_blank" title="联系开发者">
+                    <img src="https://q1.qlogo.cn/g?b=qq&nk=2793694488&s=640" alt="QQ头像">
+                </a>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i> <span>菜单</span>
+                </button>
+            </div>
+        </header>
+        
+        <!-- 主要内容区 -->
+        <div class="main-content">
+            <!-- 左边面板 - 开始点名按钮和抽取人数选择 -->
+            <div class="left-panel">
+                <!-- 随机一言 -->
+                <div class="quote-container" id="quoteContainer">
+                    <div class="quote-header">
+                        <i class="fas fa-quote-left"></i>
+                        <span class="quote-title">随机一言</span>
+                    </div>
+                    <div class="quote-content" id="quoteContent">
+                        加载中...
+                    </div>
+                    <div class="quote-author" id="quoteAuthor">
+                        —— 高三（1）班
+                    </div>
+                </div>
+                
+                <div class="number-selector-container">
+                    <h3><i class="fas fa-user-friends"></i> 选择抽取人数</h3>
+                    <div class="number-selector">
+                        <button class="number-btn active" data-count="1">1</button>
+                        <button class="number-btn" data-count="2">2</button>
+                        <button class="number-btn" data-count="3">3</button>
+                        <button class="number-btn" data-count="4">4</button>
+                        <button class="number-btn" data-count="5">5</button>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #666; text-align: center;">点击数字选择抽取人数</p>
+                </div>
+                
+                <button class="start-btn" id="startBtn">
+                    <i class="fas fa-play-circle"></i>
+                    <span>开始点名</span>
+                </button>
+                
+                <div class="info-panel">
+                    <div class="info-item">
+                        <span class="info-label">总人数:</span>
+                        <span class="info-value" id="totalStudents">70</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">已抽取:</span>
+                        <span class="info-value" id="drawnCount">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">模式:</span>
+                        <span class="info-value" id="modeStatus">随机点名</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">状态:</span>
+                        <span class="info-value" id="statusReady">准备就绪</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右边面板 - 结果区域 -->
+            <div class="right-panel">
+                <div class="result-container">
+                    <div class="result-title">
+                        <i class="fas fa-user-graduate"></i>
+                        <span id="resultTitle">等待点名...</span>
+                    </div>
+                    <div class="result-display" id="resultDisplay">
+                        <!-- 这里显示抽取结果 -->
+                        <div class="placeholder-card">
+                            <i class="fas fa-users"></i>
+                            <p style="font-size: 1.1rem;">点击"开始点名"按钮开始抽取</p>
+                            <p style="font-size: 0.85rem; color: #888; margin-top: 8px;">2025.12.15</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p>高三（1）班专用点名器 | 共70名学生 | 设计：高三（1）班技术小组</p>
+        </footer>
+        
+        <!-- 侧边菜单 -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-sliders-h"></i> 点名器设置</h2>
+                <button class="close-menu" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- 操作说明 -->
+            <div class="instructions">
+                <h4>使用说明</h4>
+                <ul>
+                    <li>选择抽取人数（1-5人）</li>
+                    <li>点击"开始点名"按钮开始抽取</li>
+                    <li>点击屏幕任意位置也可以开始点名</li>
+                    <li>在菜单中可进行更多设置</li>
+                </ul>
+            </div>
+            
+            <!-- 抽取设置 - 移到菜单中 -->
+            <div class="roll-settings-controls">
+                <h4><i class="fas fa-cog"></i> 抽取设置</h4>
+                <p>抽取时显示动画效果，已排除重复抽取</p>
+                <p>总人数: <strong id="totalStudentsMenu">70</strong> 人</p>
+                <p>当前排除: <strong id="excludedStudentsCount">0</strong> 人</p>
+                <p>概率模式: <strong id="probabilityModeStatus">已启用</strong></p>
+                <p>音效: <strong id="soundEffectStatus">已启用</strong></p>
+            </div>
+            
+            <!-- 头像资源管理 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-image"></i> 头像资源管理</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>头像资源管理</h4>
+                    <p>检查或下载头像资源，下载后可以离线使用，提高加载速度</p>
+                    
+                    <div class="resource-status" id="resourceStatus">
+                        <div class="status-item">
+                            <span class="status-label">头像资源状态:</span>
+                            <span class="status-value" id="avatarResourceStatus">检查中...</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">本地头像数量:</span>
+                            <span class="status-value" id="localAvatarCount">0/70</span>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-controls">
+                        <button class="btn btn-primary" id="checkResourcesBtn">
+                            <i class="fas fa-search"></i> 检查资源
+                        </button>
+                        <button class="btn btn-secondary" id="downloadResourcesBtn">
+                            <i class="fas fa-download"></i> 下载头像资源包
+                        </button>
+                    </div>
+                    
+                    <div class="resource-info">
+                        <p><strong>资源包说明:</strong></p>
+                        <ul>
+                            <li>下载包含70个学生头像的完整资源包</li>
+                            <li>下载后可在离线环境下使用</li>
+                            <li>资源包大小约2-3MB</li>
+                            <li>下载后请勿清除浏览器缓存</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="enableLocalResources" checked> 优先使用本地头像资源
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="clearLocalResourcesBtn">
+                        <i class="fas fa-trash"></i> 清除本地头像缓存
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 学生管理 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-user-edit"></i> 学生管理</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>学生信息管理</h4>
+                    <p>可以修改学生姓名和上传头像，学生序号保持不变</p>
+                    
+                    <div class="student-management-list" id="studentManagementList">
+                        <!-- 学生管理列表将在这里动态生成 -->
+                    </div>
+                    
+                    <div style="margin-bottom: 10px;">
+                        <button class="btn btn-secondary" id="resetStudentNamesBtn">
+                            <i class="fas fa-redo"></i> 恢复默认姓名
+                        </button>
+                    </div>
+                    
+                    <div style="margin-bottom: 10px;">
+                        <button class="btn btn-secondary" id="clearAllAvatarsBtn">
+                            <i class="fas fa-trash"></i> 清除所有头像
+                        </button>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="saveStudentManagementBtn">
+                        <i class="fas fa-save"></i> 保存所有修改
+                    </button>
+                    
+                    <p style="font-size:0.85rem; color:#666; margin-top:10px;">
+                        <i class="fas fa-info-circle"></i> 支持上传的图片格式：GIF、JPG、JPEG、PNG、WEBP。头像将保存到浏览器本地存储中。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 排除学生设置 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-user-minus"></i> 排除学生设置</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>选择不参与点名的学生</h4>
+                    <p>勾选的学生将不会被随机点名选中</p>
+                    
+                    <div class="student-list-view" id="excludeStudentListView">
+                        <!-- 排除学生列表将动态生成 -->
+                    </div>
+                    
+                    <div class="manual-selection-controls">
+                        <button class="btn btn-secondary" id="excludeAllBtn">
+                            <i class="fas fa-check-square"></i> 全选
+                        </button>
+                        <button class="btn btn-secondary" id="includeAllBtn">
+                            <i class="fas fa-square"></i> 全不选
+                        </button>
+                    </div>
+                    
+                    <p>已排除 <span id="excludedCount">0</span> 名学生</p>
+                    
+                    <button class="btn btn-primary" id="saveExcludedBtn">
+                        <i class="fas fa-save"></i> 保存排除设置
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 概率设置 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-percentage"></i> 学生概率设置</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>学生点名概率</h4>
+                    <p>为每个学生设置被点到的概率，所有概率总和应为1</p>
+                    
+                    <div class="probability-summary">
+                        <div>当前概率总和: <span class="sum-display" id="probabilitySum">1.00</span></div>
+                        <div class="sum-error" id="probabilityError" style="display:none">概率总和必须为1！</div>
+                    </div>
+                    
+                    <div class="probability-controls">
+                        <div class="probability-list" id="probabilityList">
+                            <!-- 学生概率列表将在这里动态生成 -->
+                        </div>
+                        
+                        <div class="probability-buttons">
+                            <button class="btn btn-secondary" id="resetProbabilitiesBtn">
+                                <i class="fas fa-redo"></i> 重置为平均
+                            </button>
+                            <button class="btn btn-primary" id="saveProbabilitiesBtn">
+                                <i class="fas fa-save"></i> 保存概率设置
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="enableProbability" checked> 启用概率点名模式
+                        </label>
+                    </div>
+                    
+                    <p style="font-size:0.85rem; color:#666; margin-top:10px;">
+                        <i class="fas fa-info-circle"></i> 概率越高，被点到的可能性越大。概率总和必须为1，否则无法保存。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 随机点名设置 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-random"></i> 随机点名设置</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>点名模式</h4>
+                    <div class="setting-control">
+                        <label>
+                            <input type="radio" name="rollMode" value="random" checked> 完全随机
+                        </label>
+                        <label>
+                            <input type="radio" name="rollMode" value="sequential"> 顺序点名
+                        </label>
+                        <label>
+                            <input type="radio" name="rollMode" value="group"> 分组点名
+                        </label>
+                    </div>
+                    
+                    <h4>防重复设置</h4>
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="preventRepeat" checked> 防止连续点到同一学生
+                        </label>
+                    </div>
+                    
+                    <h4>排除名单</h4>
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="excludeAbsent"> 自动排除已请假学生
+                        </label>
+                    </div>
+                    
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="excludeManual" checked> 排除手动选择的学生
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="saveRollSettings">
+                        <i class="fas fa-save"></i> 保存设置
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 点名动画效果 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-film"></i> 点名动画效果</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>动画设置</h4>
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="enableAnimation" checked> 启用点名动画
+                        </label>
+                    </div>
+                    
+                    <div class="setting-control">
+                        <label>动画速度</label>
+                        <select id="animationSpeed">
+                            <option value="slow">慢速</option>
+                            <option value="normal" selected>正常</option>
+                            <option value="fast">快速</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-control">
+                        <label>高亮效果</label>
+                        <select id="highlightEffect">
+                            <option value="glow">发光效果</option>
+                            <option value="pulse" selected>脉冲效果</option>
+                            <option value="bounce">弹跳效果</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="saveAnimationSettings">
+                        <i class="fas fa-save"></i> 保存设置
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 设置与个性化 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-cogs"></i> 设置与个性化</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>界面定制</h4>
+                    <div class="setting-control">
+                        <label>主题颜色</label>
+                        <select id="themeSelect">
+                            <option value="blue" selected>蓝色经典</option>
+                            <option value="green">绿色清新</option>
+                            <option value="purple">紫色浪漫</option>
+                            <option value="red">红色激情</option>
+                            <option value="dark">深色模式</option>
+                            <option value="orange">橙色活力</option>
+                        </select>
+                    </div>
+                    
+                    <h4>音效设置</h4>
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="enableSound" checked> 启用点名音效
+                        </label>
+                    </div>
+                    
+                    <div class="setting-control">
+                        <label>音效类型</label>
+                        <select id="soundType">
+                            <option value="ding" selected>清脆铃声</option>
+                            <option value="buzz">蜂鸣声</option>
+                            <option value="bell">钟声</option>
+                            <option value="click">点击声</option>
+                            <option value="drawing">抽取音效</option>
+                        </select>
+                    </div>
+                    
+                    <h4>语音播报</h4>
+                    <div class="setting-control">
+                        <label>
+                            <input type="checkbox" id="enableVoice" checked> 启用语音播报
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="saveGeneralSettings">
+                        <i class="fas fa-save"></i> 保存设置
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 关于 -->
+            <div class="menu-section">
+                <div class="menu-section-header" onclick="toggleMenuSection(this)">
+                    <span><i class="fas fa-info-circle"></i> 关于</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-section-content">
+                    <h4>系统信息</h4>
+                    <p><strong>版本:</strong> 3.5.0</p>
+                    <p><strong>开发者:</strong> 高三（1）班技术小组</p>
+                    <p><strong>联系方式:</strong> QQ: 2793694488 微信：h497076531</p>
+                    <p><strong>作者声明:</strong> 这款点名器用html开发webcat代理</p>
+                    
+                    <h4>数据安全</h4>
+                    <p>所有数据仅存储在本地浏览器中，不会上传到任何服务器，保护您的隐私安全。</p>
+                    
+                    <button class="btn btn-secondary" id="clearDataBtn" style="margin-top: 15px;">
+                        <i class="fas fa-trash"></i> 清除所有数据
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 覆盖层 -->
+        <div class="overlay" id="overlay"></div>
+    </div>
+
+    <!-- 音效元素 -->
+    <audio id="drawingSound" preload="auto">
+        <source src="yinxiao/1.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- 语音合成元素 -->
+    <div id="speechContainer" style="display: none;"></div>
+</body>
+</html>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -22,13 +501,6 @@
             --card-bg: #ffffff;
             --text-color: #333333;
             --shadow-color: rgba(0, 0, 0, 0.1);
-            --chat-primary: #4a6fa5;
-            --chat-secondary: #f0f4ff;
-            --chat-border: #d1ddff;
-            --message-text-color: #333333;
-            --message-own-text-color: #ffffff;
-            --wechat-green: #07c160;
-            --wechat-green-light: #e0f7e9;
         }
         
         body {
@@ -66,12 +538,15 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
         
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 180px;
         }
         
         .logo i {
@@ -82,6 +557,43 @@
         .logo h1 {
             font-size: 1.4rem;
             font-weight: 700;
+        }
+        
+        /* 公告栏样式 */
+        .announcement-container {
+            flex: 1;
+            margin: 0 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: calc(100% - 300px);
+            overflow: hidden;
+            position: relative;
+            height: 40px;
+        }
+        
+        .announcement-icon {
+            color: #ffcc00;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .announcement-content {
+            flex: 1;
+            font-size: 1.2rem;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .announcement-content.marquee {
+            animation: marquee 15s linear infinite;
+            padding-left: 100%;
+            white-space: nowrap;
         }
         
         .header-controls {
@@ -130,40 +642,6 @@
             background: rgba(255, 255, 255, 0.2);
         }
         
-        /* 留言板按钮 */
-        .chat-toggle {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.4rem;
-            cursor: pointer;
-            padding: 5px 8px;
-            border-radius: 5px;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            position: relative;
-        }
-        
-        .chat-toggle:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .chat-notification {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 8px;
-            height: 8px;
-            background-color: #ff4757;
-            border-radius: 50%;
-        }
-        
-        .chat-notification.hidden {
-            display: none;
-        }
-        
         /* 主要内容区 */
         .main-content {
             display: flex;
@@ -177,7 +655,7 @@
             flex: 0.7;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             min-width: 350px;
         }
@@ -188,6 +666,65 @@
             flex-direction: column;
             gap: 15px;
             justify-content: center;
+        }
+        
+        /* 随机一言容器 */
+        .quote-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 300px;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+        }
+        
+        .quote-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .quote-header i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .quote-title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+        
+        .quote-content {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #555;
+            margin-bottom: 8px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .quote-author {
+            text-align: right;
+            font-style: italic;
+            color: #777;
+            font-size: 0.9rem;
         }
         
         .start-btn {
@@ -207,15 +744,21 @@
             gap: 10px;
             width: 100%;
             max-width: 300px;
+            margin-top: 10px;
         }
         
-        .start-btn:hover {
+        .start-btn:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(255, 94, 0, 0.4);
         }
         
-        .start-btn:active {
+        .start-btn:active:not(:disabled) {
             transform: translateY(-1px);
+        }
+        
+        .start-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
         
         .start-btn i {
@@ -363,6 +906,2914 @@
         }
         
         .student-name {
+            font-weight: 700;
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+        
+        .student-number {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+        
+        /* 选中特效 */
+        .student-card.selected {
+            animation: selectEffect 0.8s ease-out;
+            box-shadow: 0 0 20px rgba(74, 111, 165, 0.4);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .student-card.highlight {
+            animation: highlightEffect 1.5s infinite alternate;
+        }
+        
+        /* 结果数字徽章 */
+        .result-badge {
+            position: absolute;
+            top: 140px;
+            right: 0px;
+            background: linear-gradient(135deg, #ff9a00, #ff5e00);
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 8px rgba(255, 94, 0, 0.3);
+            z-index: 10;
+        }
+        
+        /* 侧边菜单 */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -380px;
+            width: 360px;
+            height: 100%;
+            background: white;
+            box-shadow: 5px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: left 0.4s ease;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-header h2 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+        
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: #777;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-menu:hover {
+            background: #f5f5f5;
+        }
+        
+        /* 抽取设置 - 移到菜单中 */
+        .roll-settings-controls {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .roll-settings-controls p {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+        
+        .roll-settings-controls strong {
+            color: var(--primary-color);
+        }
+        
+        .menu-section {
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .menu-section-header {
+            padding: 12px;
+            background: #f8f9ff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+        
+        .menu-section-header i {
+            transition: transform 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .menu-section-header.active i {
+            transform: rotate(180deg);
+        }
+        
+        .menu-section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .menu-section-content.active {
+            padding: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .menu-section-content h4 {
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+            font-size: 1rem;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+        
+        .menu-section-content p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .menu-section-content ul {
+            padding-left: 18px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .menu-section-content li {
+            margin-bottom: 4px;
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        /* 资源管理样式 */
+        .resource-status {
+            background: #f8f9ff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #e0e8ff;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .status-label {
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .status-value {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .resource-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .resource-controls .btn {
+            flex: 1;
+        }
+        
+        .resource-info {
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .resource-info ul {
+            padding-left: 18px;
+            margin-top: 5px;
+        }
+        
+        /* 设置控件 */
+        .setting-control {
+            margin-bottom: 12px;
+        }
+        
+        .setting-control label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        
+        .setting-control input[type="number"],
+        .setting-control input[type="text"],
+        .setting-control select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .setting-control input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .btn {
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+        
+        .btn-secondary {
+            background: #f0f4ff;
+            color: var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e8ff;
+        }
+        
+        /* 学生名单视图 */
+        .student-list-view {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .student-list-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .student-list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .student-list-item.selected {
+            background-color: #e8f0ff;
+        }
+        
+        .student-list-item.excluded {
+            background-color: #ffeaea;
+            opacity: 0.7;
+        }
+        
+        .student-list-item .student-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .student-list-item .student-number {
+            font-weight: bold;
+            color: var(--secondary-color);
+            min-width: 28px;
+            font-size: 0.9rem;
+        }
+        
+        .student-list-item .student-name {
+            font-weight: normal;
+            color: #333;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        
+        /* 手动选择模式（未开发） */
+        .manual-selection-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .manual-selection-controls button {
+            flex: 1;
+            padding: 8px;
+        }
+        
+        /* 出勤统计 */
+        .attendance-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .stat-item {
+            background: #f8f9ff;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        /* 概率设置样式 */
+        .probability-controls {
+            margin-bottom: 12px;
+        }
+        
+        .probability-controls .probability-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .probability-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid #f5f5f5;
+            font-size: 0.9rem;
+        }
+        
+        .probability-item:last-child {
+            border-bottom: none;
+        }
+        
+        .probability-item .student-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .probability-item .probability-input {
+            width: 70px;
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .probability-item .probability-display {
+            width: 45px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .probability-summary {
+            background: #f8f9ff;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .probability-summary .sum-display {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .probability-summary .sum-error {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+        
+        .probability-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .probability-buttons button {
+            flex: 1;
+            padding: 8px;
+        }
+        
+        /* 头像上传样式 */
+        .avatar-upload-btn {
+            padding: 4px 8px;
+            background: #f0f4ff;
+            border: 1px solid #d1ddff;
+            border-radius: 4px;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .avatar-upload-btn:hover {
+            background: #e0e8ff;
+        }
+        
+        .avatar-preview {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #d1ddff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f9ff;
+        }
+        
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-preview i {
+            color: #b8c9ff;
+            font-size: 1.1rem;
+        }
+        
+        .avatar-input {
+            display: none;
+        }
+        
+        /* 学生管理样式 */
+        .student-management-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        
+        .student-management-item {
+            padding: 10px;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .student-management-item:last-child {
+            border-bottom: none;
+        }
+        
+        .student-management-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f9ff;
+            border: 2px solid #d1ddff;
+            flex-shrink: 0;
+        }
+        
+        .student-management-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .student-management-avatar i {
+            color: #b8c9ff;
+            font-size: 1.5rem;
+        }
+        
+        .student-management-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .student-management-number {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+        
+        .student-management-name-input {
+            width: 100%;
+            padding: 5px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .student-management-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .student-management-upload-btn {
+            padding: 5px 8px;
+            background: #f0f4ff;
+            border: 1px solid #d1ddff;
+            border-radius: 4px;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .student-management-upload-btn:hover {
+            background: #e0e8ff;
+        }
+        
+        .student-management-remove-btn {
+            padding: 5px 8px;
+            background: #ffeaea;
+            border: 1px solid #ffd1d1;
+            border-radius: 4px;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .student-management-remove-btn:hover {
+            background: #ffdbdb;
+        }
+        
+        /* 点击屏幕提示 */
+        .click-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: fadeInOut 3s infinite;
+        }
+        
+        /* 动画效果 */
+        @keyframes selectEffect {
+            0% { 
+                transform: scale(0.8); 
+                opacity: 0.5; 
+                box-shadow: 0 0 0 rgba(74, 111, 165, 0);
+            }
+            50% { 
+                transform: scale(1.05); 
+                opacity: 1; 
+                box-shadow: 0 0 25px rgba(74, 111, 165, 0.6);
+            }
+            100% { 
+                transform: scale(1); 
+                opacity: 1; 
+                box-shadow: 0 0 20px rgba(74, 111, 165, 0.4);
+            }
+        }
+        
+        @keyframes highlightEffect {
+            0% { 
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            }
+            100% { 
+                box-shadow: 0 12px 25px rgba(74, 111, 165, 0.3);
+                border-color: rgba(74, 111, 165, 0.2);
+            }
+        }
+        
+        @keyframes drawingEffect {
+            0% { 
+                transform: scale(1); 
+                opacity: 0.8;
+            }
+            100% { 
+                transform: scale(1.05); 
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(15px) scale(0.9); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes cardFlip {
+            0% { 
+                transform: perspective(1000px) rotateY(0deg) rotateX(0deg); 
+                opacity: 0;
+            }
+            50% { 
+                transform: perspective(1000px) rotateY(180deg) rotateX(10deg); 
+                opacity: 0.5;
+            }
+            100% { 
+                transform: perspective(1000px) rotateY(360deg) rotateX(0deg); 
+                opacity: 1;
+            }
+        }
+        
+        @keyframes cardReveal {
+            0% { 
+                transform: scale(0.5) rotate(-10deg); 
+                opacity: 0;
+                filter: blur(5px);
+            }
+            100% { 
+                transform: scale(1) rotate(0deg); 
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+        
+        @keyframes glowPulse {
+            0% { 
+                box-shadow: 0 0 5px rgba(255, 154, 0, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(255, 154, 0, 0.8), 0 0 30px rgba(255, 94, 0, 0.6);
+            }
+            100% { 
+                box-shadow: 0 0 5px rgba(255, 154, 0, 0.5);
+            }
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        .pulse {
+            animation: pulse 0.5s infinite;
+        }
+        
+        .spinning {
+            animation: spin 0.8s linear infinite;
+        }
+        
+        /* 抽取动画 */
+        .drawing-animation {
+            animation: drawingEffect 0.5s infinite alternate;
+            background: linear-gradient(135deg, #ffcc00, #ff9a00);
+        }
+        
+        /* 卡片翻转动画 */
+        .card-flip {
+            animation: cardFlip 1.5s ease-out forwards;
+        }
+        
+        /* 卡片揭示动画 */
+        .card-reveal {
+            animation: cardReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        /* 发光脉冲动画 */
+        .glow-pulse {
+            animation: glowPulse 2s infinite;
+        }
+        
+        /* 覆盖层 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* 移除大部分响应式设计，只保留必要的 */
+        @media (max-width: 768px) {
+            /* 保留基本响应式，但简化 */
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                height: 95vh;
+                border-radius: 10px;
+            }
+            
+            .result-display {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+            
+            .student-management-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .student-management-avatar {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .announcement-container {
+                display: none;
+            }
+        }
+        
+        /* 完全移除手机端的媒体查询，只保留电脑端 */
+        
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: #6c757d;
+            font-size: 0.85rem;
+            border-top: 1px solid #eee;
+        }
+        
+        /* 加载占位符 */
+        .placeholder-card {
+            text-align: center;
+            color: #666;
+            padding: 30px;
+            width: 100%;
+        }
+        
+        .placeholder-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #b8c9ff;
+        }
+        
+        /* 操作说明 */
+        .instructions {
+            background: #f8f9ff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .instructions h4 {
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+        
+        .instructions ul {
+            padding-left: 18px;
+            margin-bottom: 0;
+        }
+        
+        .instructions li {
+            margin-bottom: 4px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        /* 主题颜色 */
+        .theme-blue {
+            --primary-color: #4a6fa5;
+            --secondary-color: #3a5a8c;
+            --accent-color: #ff9a00;
+            --gradient-start: #6a11cb;
+            --gradient-end: #2575fc;
+        }
+        
+        .theme-green {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #f39c12;
+            --gradient-start: #0ba360;
+            --gradient-end: #3cba92;
+        }
+        
+        .theme-purple {
+            --primary-color: #9b59b6;
+            --secondary-color: #8e44ad;
+            --accent-color: #e74c3c;
+            --gradient-start: #7F00FF;
+            --gradient-end: #E100FF;
+        }
+        
+        .theme-red {
+            --primary-color: #e74c3c;
+            --secondary-color: #c0392b;
+            --accent-color: #f1c40f;
+            --gradient-start: #ED213A;
+            --gradient-end: #93291E;
+        }
+        
+        .theme-dark {
+            --primary-color: #34495e;
+            --secondary-color: #2c3e50;
+            --accent-color: #3498db;
+            --gradient-start: #2C3E50;
+            --gradient-end: #4CA1AF;
+        }
+        
+        .theme-orange {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #1abc9c;
+            --gradient-start: #FF8008;
+            --gradient-end: #FFC837;
+        }
+        
+        /* 头像加载状态 */
+        .avatar-loading {
+            background: linear-gradient(90deg, #f0f4ff 0%, #e8f0ff 50%, #f0f4ff 100%);
+            background-size: 200% 100%;
+            animation: loadingAnimation 1.5s infinite;
+        }
+        
+        @keyframes loadingAnimation {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* 抽取信息面板 */
+        .info-panel {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #666;
+        }
+        
+        .info-value {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* 抽卡特效容器 */
+        .card-effect-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+        
+        .card-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            opacity: 0;
+        }
+        
+        .card-sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
+    </style>
+    <script>
+    // 学生数据 - 固定70人
+    let students = [
+        {name: "李宇滔", probability: 1/70, attendance: "present", avatar: null, studentId: 1, excluded: false},
+        {name: "张奕", probability: 1/70, attendance: "present", avatar: null, studentId: 2, excluded: false},
+        {name: "钟惠映", probability: 1/70, attendance: "present", avatar: null, studentId: 3, excluded: false},
+        {name: "谢敏怡", probability: 1/70, attendance: "present", avatar: null, studentId: 4, excluded: false},
+        {name: "郭星", probability: 1/70, attendance: "present", avatar: null, studentId: 5, excluded: false},
+        {name: "何树坤", probability: 1/70, attendance: "present", avatar: null, studentId: 6, excluded: false},
+        {name: "莫海桃", probability: 1/70, attendance: "present", avatar: null, studentId: 7, excluded: false},
+        {name: "吕彩滢", probability: 1/70, attendance: "present", avatar: null, studentId: 8, excluded: false},
+        {name: "张海涛", probability: 1/70, attendance: "present", avatar: null, studentId: 9, excluded: false},
+        {name: "赖保成", probability: 1/70, attendance: "present", avatar: null, studentId: 10, excluded: false},
+        {name: "龚彦普", probability: 1/70, attendance: "present", avatar: null, studentId: 11, excluded: false},
+        {name: "郭永精", probability: 1/70, attendance: "present", avatar: null, studentId: 12, excluded: false},
+        {name: "林传武", probability: 1/70, attendance: "present", avatar: null, studentId: 13, excluded: false},
+        {name: "何金泉", probability: 1/70, attendance: "present", avatar: null, studentId: 14, excluded: false},
+        {name: "何发垚", probability: 1/70, attendance: "present", avatar: null, studentId: 15, excluded: false},
+        {name: "车锦旭", probability: 1/70, attendance: "present", avatar: null, studentId: 16, excluded: false},
+        {name: "李梓盛", probability: 1/70, attendance: "present", avatar: null, studentId: 17, excluded: false},
+        {name: "苏晓煜", probability: 1/70, attendance: "present", avatar: null, studentId: 18, excluded: false},
+        {name: "萧枫", probability: 1/70, attendance: "present", avatar: null, studentId: 19, excluded: false},
+        {name: "何伟业", probability: 1/70, attendance: "present", avatar: null, studentId: 20, excluded: false},
+        {name: "苏艳冰", probability: 1/70, attendance: "present", avatar: null, studentId: 21, excluded: false},
+        {name: "何美玲", probability: 1/70, attendance: "present", avatar: null, studentId: 22, excluded: false},
+        {name: "杨宇鹏", probability: 1/70, attendance: "present", avatar: null, studentId: 23, excluded: false},
+        {name: "林华城", probability: 1/70, attendance: "present", avatar: null, studentId: 24, excluded: false},
+        {name: "何宇钊", probability: 1/70, attendance: "present", avatar: null, studentId: 25, excluded: false},
+        {name: "郭忠辉", probability: 1/70, attendance: "present", avatar: null, studentId: 26, excluded: false},
+        {name: "朱键铭", probability: 1/70, attendance: "present", avatar: null, studentId: 27, excluded: false},
+        {name: "林子翔", probability: 1/70, attendance: "present", avatar: null, studentId: 28, excluded: false},
+        {name: "张华锦", probability: 1/70, attendance: "present", avatar: null, studentId: 29, excluded: false},
+        {name: "刘谦", probability: 1/70, attendance: "present", avatar: null, studentId: 30, excluded: false},
+        {name: "黎晓雯", probability: 1/70, attendance: "present", avatar: null, studentId: 31, excluded: false},
+        {name: "车思慧", probability: 1/70, attendance: "present", avatar: null, studentId: 32, excluded: false},
+        {name: "黄庆运", probability: 1/70, attendance: "present", avatar: null, studentId: 33, excluded: false},
+        {name: "詹志涛", probability: 1/70, attendance: "present", avatar: null, studentId: 34, excluded: false},
+        {name: "钟汶晓", probability: 1/70, attendance: "present", avatar: null, studentId: 35, excluded: false},
+        {name: "钟懿晴", probability: 1/70, attendance: "present", avatar: null, studentId: 36, excluded: false},
+        {name: "李婷婷", probability: 1/70, attendance: "present", avatar: null, studentId: 37, excluded: false},
+        {name: "叶宁洪", probability: 1/70, attendance: "present", avatar: null, studentId: 38, excluded: false},
+        {name: "欧秋堂", probability: 1/70, attendance: "present", avatar: null, studentId: 39, excluded: false},
+        {name: "王志城", probability: 1/70, attendance: "present", avatar: null, studentId: 40, excluded: false},
+        {name: "张景恒", probability: 1/70, attendance: "present", avatar: null, studentId: 41, excluded: false},
+        {name: "吕洛", probability: 1/70, attendance: "present", avatar: null, studentId: 42, excluded: false},
+        {name: "梁德铿", probability: 1/70, attendance: "present", avatar: null, studentId: 43, excluded: false},
+        {name: "吴健星", probability: 1/70, attendance: "present", avatar: null, studentId: 44, excluded: false},
+        {name: "李增强", probability: 1/70, attendance: "present", avatar: null, studentId: 45, excluded: false},
+        {name: "张棋峰", probability: 1/70, attendance: "present", avatar: null, studentId: 46, excluded: false},
+        {name: "梁连柯", probability: 1/70, attendance: "present", avatar: null, studentId: 47, excluded: false},
+        {name: "一水大王", probability: 1/70, attendance: "present", avatar: null, studentId: 48, excluded: false},
+        {name: "凌炜钦", probability: 1/70, attendance: "present", avatar: null, studentId: 49, excluded: false},
+        {name: "罗世鸿", probability: 1/70, attendance: "present", avatar: null, studentId: 50, excluded: false},
+        {name: "梁昊铭", probability: 1/70, attendance: "present", avatar: null, studentId: 51, excluded: false},
+        {name: "赖剑锋", probability: 1/70, attendance: "present", avatar: null, studentId: 52, excluded: false},
+        {name: "卢权颖", probability: 1/70, attendance: "present", avatar: null, studentId: 53, excluded: false},
+        {name: "黄梓铭", probability: 1/70, attendance: "present", avatar: null, studentId: 54, excluded: false},
+        {name: "陈洪远", probability: 1/70, attendance: "present", avatar: null, studentId: 55, excluded: false},
+        {name: "苏荣锦", probability: 1/70, attendance: "present", avatar: null, studentId: 56, excluded: false},
+        {name: "叶贵佳", probability: 1/70, attendance: "present", avatar: null, studentId: 57, excluded: false},
+        {name: "林杰龙", probability: 1/70, attendance: "present", avatar: null, studentId: 58, excluded: false},
+        {name: "吕俊威", probability: 1/70, attendance: "present", avatar: null, studentId: 59, excluded: false},
+        {name: "崔杨坚", probability: 1/70, attendance: "present", avatar: null, studentId: 60, excluded: false},
+        {name: "甲1", probability: 1/70, attendance: "present", avatar: null, studentId: 61, excluded: false},
+        {name: "甲2", probability: 1/70, attendance: "present", avatar: null, studentId: 62, excluded: false},
+        {name: "甲3", probability: 1/70, attendance: "present", avatar: null, studentId: 63, excluded: false},
+        {name: "甲4", probability: 1/70, attendance: "present", avatar: null, studentId: 64, excluded: false},
+        {name: "甲5", probability: 1/70, attendance: "present", avatar: null, studentId: 65, excluded: false},
+        {name: "甲6", probability: 1/70, attendance: "present", avatar: null, studentId: 66, excluded: false},
+        {name: "甲7", probability: 1/70, attendance: "present", avatar: null, studentId: 67, excluded: false},
+        {name: "甲8", probability: 1/70, attendance: "present", avatar: null, studentId: 68, excluded: false},
+        {name: "甲9", probability: 1/70, attendance: "present", avatar: null, studentId: 69, excluded: false},
+        {name: "甲10", probability: 1/70, attendance: "present", avatar: null, studentId: 70, excluded: false}
+    ];
+    
+    // 默认学生数据（用于恢复）
+    const defaultStudents = JSON.parse(JSON.stringify(students));
+    
+    // 全局变量
+    let selectedCount = 1;
+    let isDrawing = false;
+    let selectedStudents = []; // 手动选择的学生索引
+    let excludedStudents = []; // 排除的学生索引
+    let lastSelectedStudent = -1; // 上次被点到的学生索引
+    let settings = {}; // 系统设置
+    let drawnCount = 0; // 已抽取次数
+    
+    // GitHub Gist配置
+    const GITHUB_GIST_CONFIG = {
+        // 公告Gist - 请替换为您的实际Gist ID
+        announcement: {
+            url: "https://gist.githubusercontent.com/your-username/announcement-gist-id/raw/",
+            // 备用公告（当无法获取远程公告时使用）
+            fallback: "紧急通知：网站暂时维护中，预计30分钟后恢复！"
+        },
+        // 随机一言Gist - 请替换为您的实际Gist ID
+        quotes: {
+            url: "https://gist.githubusercontent.com/your-username/quotes-gist-id/raw/",
+            // 备用随机一言（当无法获取远程一言时使用）
+            fallback: [
+                {quote: "学习如逆水行舟，不进则退", author: "学习委员"},
+                {quote: "今天的努力，明天的实力", author: "班长"},
+                {quote: "不积跬步，无以至千里", author: "语文老师"},
+                {quote: "团结就是力量", author: "体育委员"},
+                {quote: "细节决定成败", author: "班主任"}
+            ]
+        }
+    };
+    
+    // DOM元素
+    const menuToggle = document.getElementById('menuToggle');
+    const closeMenu = document.getElementById('closeMenu');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const startBtn = document.getElementById('startBtn');
+    const numberButtons = document.querySelectorAll('.number-btn');
+    const resultDisplay = document.getElementById('resultDisplay');
+    const resultTitle = document.getElementById('resultTitle');
+    const totalStudents = document.getElementById('totalStudents');
+    const totalStudentsMenu = document.getElementById('totalStudentsMenu');
+    const excludedStudentsCount = document.getElementById('excludedStudentsCount');
+    const probabilityModeStatus = document.getElementById('probabilityModeStatus');
+    const soundEffectStatus = document.getElementById('soundEffectStatus');
+    const excludeStudentListView = document.getElementById('excludeStudentListView');
+    const excludedCountSpan = document.getElementById('excludedCount');
+    const excludeAllBtn = document.getElementById('excludeAllBtn');
+    const includeAllBtn = document.getElementById('includeAllBtn');
+    const saveExcludedBtn = document.getElementById('saveExcludedBtn');
+    const probabilityList = document.getElementById('probabilityList');
+    const probabilitySum = document.getElementById('probabilitySum');
+    const probabilityError = document.getElementById('probabilityError');
+    const resetProbabilitiesBtn = document.getElementById('resetProbabilitiesBtn');
+    const saveProbabilitiesBtn = document.getElementById('saveProbabilitiesBtn');
+    const enableProbability = document.getElementById('enableProbability');
+    const clickHint = document.getElementById('clickHint');
+    const drawnCountElement = document.getElementById('drawnCount');
+    const modeStatusElement = document.getElementById('modeStatus');
+    const statusReadyElement = document.getElementById('statusReady');
+    
+    // 新添加的DOM元素
+    const quoteContainer = document.getElementById('quoteContainer');
+    const quoteContent = document.getElementById('quoteContent');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+    const urgentNotice = document.getElementById('urgentNotice');
+    const announcementContainer = document.getElementById('announcementContainer');
+    const announcementContent = document.getElementById('announcementContent');
+    
+    // 学生管理相关DOM元素
+    const studentManagementList = document.getElementById('studentManagementList');
+    const resetStudentNamesBtn = document.getElementById('resetStudentNamesBtn');
+    const clearAllAvatarsBtn = document.getElementById('clearAllAvatarsBtn');
+    const saveStudentManagementBtn = document.getElementById('saveStudentManagementBtn');
+    
+    // 资源管理相关DOM元素
+    const checkResourcesBtn = document.getElementById('checkResourcesBtn');
+    const downloadResourcesBtn = document.getElementById('downloadResourcesBtn');
+    const clearLocalResourcesBtn = document.getElementById('clearLocalResourcesBtn');
+    const avatarResourceStatus = document.getElementById('avatarResourceStatus');
+    const localAvatarCount = document.getElementById('localAvatarCount');
+    const enableLocalResources = document.getElementById('enableLocalResources');
+    
+    // 音效元素
+    const drawingSound = document.getElementById('drawingSound');
+    let soundEnabled = true;
+    let currentSound = null;
+    
+    // 本地资源存储键名
+    const LOCAL_RESOURCES_KEY = 'classRollerLocalResources';
+    const LOCAL_RESOURCES_VERSION_KEY = 'classRollerResourcesVersion';
+    const CURRENT_RESOURCES_VERSION = '1.0.0';
+    
+    // 语音合成相关
+    let speechEnabled = true;
+    let speechSynthesis = window.speechSynthesis;
+    let voices = [];
+    
+    // 获取学生头像URL（优先本地资源，然后远程）
+    function getStudentAvatarUrl(studentId, studentName) {
+        const student = students.find(s => s.studentId === studentId);
+        if (!student) return null;
+        
+        // 如果学生有存储的base64头像，直接返回
+        if (student.avatar && student.avatar.startsWith('data:image')) {
+            return student.avatar;
+        }
+        
+        // 检查是否启用本地资源
+        const useLocalResources = enableLocalResources.checked;
+        const localResources = getLocalResources();
+        
+        // 如果启用了本地资源并且本地有该学生的头像
+        if (useLocalResources && localResources[studentId]) {
+            return localResources[studentId];
+        }
+        
+        // 否则尝试从images文件夹加载
+        const imageExtensions = ['gif', 'jpg', 'jpeg', 'png', 'webp', 'svg'];
+        
+        for (const ext of imageExtensions) {
+            // 尝试序号文件名
+            const pathByNumber = `images/${studentId}.${ext}`;
+            
+            // 尝试姓名文件名（替换空格为下划线）
+            const studentNameForImage = student.name.replace(/\s+/g, '_');
+            const pathByName = `images/${studentNameForImage}.${ext}`;
+            
+            // 这里我们只是返回路径，实际加载时检查文件是否存在
+            return pathByNumber;
+        }
+        
+        return null;
+    }
+    
+    // 创建图片元素（优先显示本地资源，然后是远程资源）
+    function createAvatarImg(studentId, studentName) {
+        const student = students.find(s => s.studentId === studentId);
+        const img = document.createElement('img');
+        img.className = 'avatar';
+        img.alt = studentName;
+        
+        // 如果有存储的base64头像，直接使用
+        if (student.avatar && student.avatar.startsWith('data:image')) {
+            img.src = student.avatar;
+            return img;
+        }
+        
+        // 否则尝试加载头像
+        const avatarUrl = getStudentAvatarUrl(studentId, studentName);
+        if (avatarUrl) {
+            img.src = avatarUrl;
+            img.classList.add('avatar-loading');
+            
+            img.onerror = function() {
+                this.classList.remove('avatar-loading');
+                
+                // 如果是本地资源且加载失败，尝试远程资源
+                if (this.src.includes('blob:') || this.src.includes('data:')) {
+                    // 已经是本地资源，显示默认头像
+                    this.onerror = null;
+                    this.style.display = 'none';
+                    const avatarContainer = this.parentElement;
+                    if (avatarContainer) {
+                        avatarContainer.innerHTML = '<div class="default-avatar"><i class="fas fa-user-graduate"></i></div>';
+                    }
+                    return;
+                }
+                
+                // 如果是序号路径，尝试姓名路径
+                const currentSrc = this.src;
+                if (currentSrc.includes(`/${studentId}.`)) {
+                    const studentNameForImage = student.name.replace(/\s+/g, '_');
+                    const extensionMatch = currentSrc.match(/\.([a-zA-Z0-9]+)(?:$|\?)/);
+                    
+                    if (extensionMatch) {
+                        const currentExt = extensionMatch[1].toLowerCase();
+                        const extensions = ['gif', 'jpg', 'jpeg', 'png', 'webp', 'svg'];
+                        const currentIndex = extensions.indexOf(currentExt);
+                        
+                        // 如果当前扩展名不是列表中的最后一个，尝试下一个扩展名
+                        if (currentIndex >= 0 && currentIndex < extensions.length - 1) {
+                            const nextExt = extensions[currentIndex + 1];
+                            // 先尝试序号+下一个扩展名
+                            const newSrcByNumber = currentSrc.replace(`.${currentExt}`, `.${nextExt}`);
+                            this.src = newSrcByNumber;
+                            this.classList.add('avatar-loading');
+                            return;
+                        }
+                    }
+                }
+                
+                // 如果所有扩展名都尝试过了，显示默认头像
+                this.onerror = null;
+                this.style.display = 'none';
+                const avatarContainer = this.parentElement;
+                if (avatarContainer) {
+                    avatarContainer.innerHTML = '<div class="default-avatar"><i class="fas fa-user-graduate"></i></div>';
+                }
+            };
+            
+            img.onload = function() {
+                this.classList.remove('avatar-loading');
+            };
+        } else {
+            // 没有头像，显示默认图标
+            img.style.display = 'none';
+            const avatarContainer = document.createElement('div');
+            avatarContainer.className = 'default-avatar';
+            avatarContainer.innerHTML = '<i class="fas fa-user-graduate"></i>';
+            return avatarContainer;
+        }
+        
+        return img;
+    }
+    
+    // 播放音效
+    function playSoundEffect(type = 'ding') {
+        if (!soundEnabled) return;
+        
+        if (currentSound) {
+            currentSound.pause();
+            currentSound.currentTime = 0;
+        }
+        
+        try {
+            if (type === 'drawing') {
+                // 播放抽取音效
+                drawingSound.currentTime = 0;
+                drawingSound.volume = 0.5;
+                drawingSound.play();
+                currentSound = drawingSound;
+            } else if (type === 'ding') {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 880;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+                
+                currentSound = { pause: function() {}, currentTime: 0 };
+            } else if (type === 'buzz') {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 440;
+                oscillator.type = 'square';
+                
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+                
+                currentSound = { pause: function() {}, currentTime: 0 };
+            } else {
+                currentSound = new Audio();
+                currentSound.src = 'https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3';
+                currentSound.volume = 0.3;
+                currentSound.play();
+            }
+        } catch (e) {
+            console.log("音效播放失败:", e);
+        }
+    }
+    
+    // 语音播报学生姓名
+    function speakStudentName(studentName) {
+        if (!speechEnabled || !speechSynthesis) return;
+        
+        try {
+            // 停止当前正在播放的语音
+            speechSynthesis.cancel();
+            
+            // 创建语音合成实例
+            const utterance = new SpeechSynthesisUtterance(studentName);
+            
+            // 设置语音参数
+            utterance.rate = 0.9; // 语速
+            utterance.pitch = 1.0; // 音调
+            utterance.volume = 1.0; // 音量
+            
+            // 尝试使用中文语音
+            if (voices.length === 0) {
+                voices = speechSynthesis.getVoices();
+            }
+            
+            const chineseVoice = voices.find(voice => 
+                voice.lang.startsWith('zh') || voice.lang.startsWith('cmn')
+            );
+            
+            if (chineseVoice) {
+                utterance.voice = chineseVoice;
+                utterance.lang = chineseVoice.lang;
+            } else {
+                utterance.lang = 'zh-CN';
+            }
+            
+            // 播放语音
+            speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.log("语音合成失败:", e);
+        }
+    }
+    
+    // 从本地存储获取本地资源
+    function getLocalResources() {
+        try {
+            const resources = localStorage.getItem(LOCAL_RESOURCES_KEY);
+            return resources ? JSON.parse(resources) : {};
+        } catch (e) {
+            console.error("获取本地资源失败:", e);
+            return {};
+        }
+    }
+    
+    // 保存本地资源到本地存储
+    function saveLocalResources(resources) {
+        try {
+            localStorage.setItem(LOCAL_RESOURCES_KEY, JSON.stringify(resources));
+            localStorage.setItem(LOCAL_RESOURCES_VERSION_KEY, CURRENT_RESOURCES_VERSION);
+        } catch (e) {
+            console.error("保存本地资源失败:", e);
+        }
+    }
+    
+    // 检查本地资源状态
+    function checkLocalResources() {
+        const resources = getLocalResources();
+        const resourceCount = Object.keys(resources).length;
+        
+        localAvatarCount.textContent = `${resourceCount}/70`;
+        
+        if (resourceCount === 0) {
+            avatarResourceStatus.textContent = "未下载";
+            avatarResourceStatus.style.color = "#e74c3c";
+            return false;
+        } else if (resourceCount < 70) {
+            avatarResourceStatus.textContent = "部分下载";
+            avatarResourceStatus.style.color = "#f39c12";
+            return true;
+        } else {
+            avatarResourceStatus.textContent = "已完整下载";
+            avatarResourceStatus.style.color = "#27ae60";
+            return true;
+        }
+    }
+    
+    // 下载头像资源包
+    async function downloadAvatarResources() {
+        try {
+            downloadResourcesBtn.disabled = true;
+            downloadResourcesBtn.innerHTML = '<i class="fas fa-spinner spinning"></i> 下载中...';
+            
+            // 显示进度
+            const progress = document.createElement('div');
+            progress.className = 'resource-progress';
+            progress.innerHTML = `
+                <div style="margin-bottom: 10px;">正在下载头像资源包 (0/70)</div>
+                <div style="width: 100%; height: 10px; background: #eee; border-radius: 5px; overflow: hidden;">
+                    <div id="downloadProgressBar" style="width: 0%; height: 100%; background: var(--primary-color); transition: width 0.3s;"></div>
+                </div>
+            `;
+            
+            const resourceControls = downloadResourcesBtn.parentElement;
+            resourceControls.appendChild(progress);
+            
+            // 模拟下载过程（实际使用时需要替换为真实的资源包URL）
+            let downloadedResources = getLocalResources();
+            let successCount = 0;
+            
+            for (let i = 1; i <= 70; i++) {
+                // 模拟下载每个头像（实际应下载资源包并解压）
+                // 这里使用延迟模拟下载过程
+                await new Promise(resolve => setTimeout(resolve, 50));
+                
+                // 模拟成功下载
+                successCount++;
+                
+                // 更新进度
+                const progressBar = document.getElementById('downloadProgressBar');
+                const progressPercent = Math.round((successCount / 70) * 100);
+                progressBar.style.width = `${progressPercent}%`;
+                
+                // 更新进度文本
+                progress.querySelector('div').textContent = `正在下载头像资源包 (${successCount}/70)`;
+            }
+            
+            // 保存资源信息（这里模拟保存）
+            downloadedResources = {};
+            for (let i = 1; i <= 70; i++) {
+                // 模拟资源URL（实际应是从资源包解压的blob URL）
+                downloadedResources[i] = `images/${i}.jpg`;
+            }
+            
+            saveLocalResources(downloadedResources);
+            
+            // 更新状态
+            checkLocalResources();
+            
+            // 移除进度条
+            progress.remove();
+            
+            downloadResourcesBtn.disabled = false;
+            downloadResourcesBtn.innerHTML = '<i class="fas fa-download"></i> 下载头像资源包';
+            
+            alert('头像资源包下载完成！现在可以离线使用本地头像了。');
+        } catch (e) {
+            console.error("下载资源包失败:", e);
+            alert('下载失败，请检查网络连接后重试。');
+            
+            downloadResourcesBtn.disabled = false;
+            downloadResourcesBtn.innerHTML = '<i class="fas fa-download"></i> 下载头像资源包';
+            
+            // 移除进度条
+            const progress = document.querySelector('.resource-progress');
+            if (progress) progress.remove();
+        }
+    }
+    
+    // 清除本地头像缓存
+    function clearLocalResources() {
+        if (!confirm('确定要清除本地头像缓存吗？清除后需要重新下载才能离线使用。')) {
+            return;
+        }
+        
+        localStorage.removeItem(LOCAL_RESOURCES_KEY);
+        localStorage.removeItem(LOCAL_RESOURCES_VERSION_KEY);
+        
+        checkLocalResources();
+        alert('本地头像缓存已清除！');
+    }
+    
+    // 从GitHub Gist获取公告
+    async function fetchAnnouncementFromGist() {
+        try {
+            const response = await fetch(GITHUB_GIST_CONFIG.announcement.url + '?_=' + Date.now());
+            if (response.ok) {
+                const text = await response.text();
+                return text.trim();
+            }
+        } catch (e) {
+            console.log("获取公告失败，使用备用公告:", e);
+        }
+        
+        return GITHUB_GIST_CONFIG.announcement.fallback;
+    }
+    
+    // 从GitHub Gist获取随机一言
+    async function fetchQuotesFromGist() {
+        try {
+            const response = await fetch(GITHUB_GIST_CONFIG.quotes.url + '?_=' + Date.now());
+            if (response.ok) {
+                const text = await response.text();
+                const quotes = JSON.parse(text);
+                return quotes;
+            }
+        } catch (e) {
+            console.log("获取随机一言失败，使用备用一言:", e);
+        }
+        
+        return GITHUB_GIST_CONFIG.quotes.fallback;
+    }
+    
+    // 更新公告
+    async function updateAnnouncement() {
+        try {
+            const announcement = await fetchAnnouncementFromGist();
+            
+            // 更新标题
+            urgentNotice.textContent = announcement;
+            
+            // 更新公告栏
+            announcementContent.textContent = announcement;
+            
+            // 检查是否需要走马灯效果
+            const containerWidth = announcementContainer.offsetWidth;
+            const contentWidth = announcementContent.scrollWidth;
+            
+            if (contentWidth > containerWidth - 50) { // 减去图标宽度
+                announcementContent.classList.add('marquee');
+            } else {
+                announcementContent.classList.remove('marquee');
+            }
+        } catch (e) {
+            console.error("更新公告失败:", e);
+        }
+    }
+    
+    // 更新随机一言
+    async function updateQuote() {
+        try {
+            const quotes = await fetchQuotesFromGist();
+            
+            if (quotes && quotes.length > 0) {
+                // 随机选择一言
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const quote = quotes[randomIndex];
+                
+                // 更新显示
+                quoteContent.textContent = quote.quote;
+                quoteAuthor.textContent = `—— ${quote.author}`;
+            }
+        } catch (e) {
+            console.error("更新随机一言失败:", e);
+        }
+    }
+    
+    // 初始化
+    async function init() {
+        // 尝试从本地存储加载数据
+        loadFromLocalStorage();
+        
+        // 更新学生总数显示
+        totalStudents.textContent = students.length;
+        totalStudentsMenu.textContent = students.length;
+        
+        // 生成学生列表
+        generateExcludeStudentList();
+        
+        // 更新排除学生计数
+        updateExcludedCount();
+        
+        // 检查本地资源状态
+        checkLocalResources();
+        
+        // 初始化语音合成
+        initSpeechSynthesis();
+        
+        // 获取远程内容
+        await updateAnnouncement();
+        await updateQuote();
+        
+        // 设置随机一言定时更新（每10秒）
+        setInterval(updateQuote, 10000);
+        
+        // 设置公告定时更新（每5分钟）
+        setInterval(updateAnnouncement, 300000);
+        
+        // 事件监听器
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // 选择人数按钮
+        numberButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                numberButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedCount = parseInt(btn.dataset.count);
+            });
+        });
+        
+        // 开始点名按钮
+        startBtn.addEventListener('click', startDrawing);
+        
+        // 点击屏幕开始点名功能
+        document.addEventListener('click', (e) => {
+            if (isDrawing) return;
+            if (e.target.closest('.sidebar')) return;
+            if (e.target.closest('.header-controls')) return;
+            if (e.target.closest('.number-selector-container')) return;
+            if (e.target.closest('.result-display')) return;
+            if (e.target.closest('.start-btn')) return;
+            if (e.target.closest('.number-btn')) return;
+            if (e.target.closest('#menuToggle')) return;
+            if (e.target.closest('#clickHint')) return;
+            if (e.target.closest('.info-panel')) return;
+            if (e.target.closest('.quote-container')) return;
+            
+            if (e.target.closest('.container') && !e.target.closest('.sidebar')) {
+                startDrawing();
+            }
+        });
+        
+        // 排除学生按钮
+        excludeAllBtn.addEventListener('click', excludeAllStudents);
+        includeAllBtn.addEventListener('click', includeAllStudents);
+        saveExcludedBtn.addEventListener('click', saveExcludedStudents);
+        
+        // 学生管理按钮
+        resetStudentNamesBtn.addEventListener('click', resetStudentNames);
+        clearAllAvatarsBtn.addEventListener('click', clearAllAvatars);
+        saveStudentManagementBtn.addEventListener('click', saveStudentManagement);
+        
+        // 概率设置
+        resetProbabilitiesBtn.addEventListener('click', resetProbabilities);
+        saveProbabilitiesBtn.addEventListener('click', saveProbabilities);
+        enableProbability.addEventListener('change', toggleProbabilityMode);
+        
+        // 资源管理按钮
+        checkResourcesBtn.addEventListener('click', checkLocalResources);
+        downloadResourcesBtn.addEventListener('click', downloadAvatarResources);
+        clearLocalResourcesBtn.addEventListener('click', clearLocalResources);
+        enableLocalResources.addEventListener('change', saveResourceSettings);
+        
+        // 设置保存按钮
+        document.getElementById('saveRollSettings').addEventListener('click', saveRollSettings);
+        document.getElementById('saveAnimationSettings').addEventListener('click', saveAnimationSettings);
+        document.getElementById('saveGeneralSettings').addEventListener('click', saveGeneralSettings);
+        document.getElementById('clearDataBtn').addEventListener('click', clearAllData);
+        document.getElementById('themeSelect').addEventListener('change', changeTheme);
+        
+        // 音效设置
+        document.getElementById('enableSound').addEventListener('change', toggleSoundEffect);
+        document.getElementById('soundType').addEventListener('change', saveSoundSettings);
+        
+        // 语音设置
+        document.getElementById('enableVoice').addEventListener('change', toggleVoice);
+        
+        // 初始显示
+        resultTitle.innerHTML = `<i class="fas fa-user-graduate"></i> 等待点名...`;
+        resultDisplay.innerHTML = `
+            <div class="placeholder-card">
+                <i class="fas fa-users"></i>
+                <p style="font-size: 1.1rem;">点击"开始点名"按钮开始抽取</p>
+                <p style="font-size: 0.85rem; color: #888; margin-top: 8px;">2025.12.15</p>
+            </div>
+        `;
+        
+        // 初始化设置
+        initSettings();
+        
+        // 更新概率模式状态
+        updateProbabilityModeStatus();
+        
+        // 更新音效状态
+        updateSoundEffectStatus();
+        
+        // 隐藏点击提示
+        setTimeout(() => {
+            clickHint.style.opacity = '0';
+            setTimeout(() => {
+                clickHint.style.display = 'none';
+            }, 1000);
+        }, 5000);
+        
+        // 更新抽取信息
+        updateDrawInfo();
+        
+        // 生成学生管理列表（无需密码）
+        generateStudentManagementList();
+        
+        // 生成概率列表（无需密码）
+        generateProbabilityList();
+    }
+    
+    // 初始化语音合成
+    function initSpeechSynthesis() {
+        if (!speechSynthesis) {
+            console.log("浏览器不支持语音合成");
+            speechEnabled = false;
+            document.getElementById('enableVoice').disabled = true;
+            return;
+        }
+        
+        // 获取语音列表
+        voices = speechSynthesis.getVoices();
+        
+        // 有些浏览器需要延迟加载语音
+        if (voices.length === 0) {
+            speechSynthesis.addEventListener('voiceschanged', () => {
+                voices = speechSynthesis.getVoices();
+            });
+        }
+    }
+    
+    // 从本地存储加载数据
+    function loadFromLocalStorage() {
+        // 加载学生数据
+        const savedStudents = localStorage.getItem('classRollerStudents');
+        if (savedStudents) {
+            try {
+                const parsedStudents = JSON.parse(savedStudents);
+                
+                for (let i = 0; i < students.length; i++) {
+                    const savedStudent = parsedStudents.find(s => s.studentId === students[i].studentId);
+                    if (savedStudent) {
+                        students[i].name = savedStudent.name || students[i].name;
+                        students[i].avatar = savedStudent.avatar || null;
+                        if (savedStudent.probability !== undefined) {
+                            students[i].probability = savedStudent.probability;
+                        }
+                        if (savedStudent.excluded !== undefined) {
+                            students[i].excluded = savedStudent.excluded;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("加载学生数据失败:", e);
+            }
+        }
+        
+        // 加载设置
+        const savedSettings = localStorage.getItem('classRollerSettings');
+        if (savedSettings) {
+            try {
+                settings = JSON.parse(savedSettings);
+            } catch (e) {
+                console.error("加载设置失败:", e);
+            }
+        }
+        
+        // 加载排除学生列表
+        const savedExcluded = localStorage.getItem('classRollerExcluded');
+        if (savedExcluded) {
+            try {
+                excludedStudents = JSON.parse(savedExcluded);
+            } catch (e) {
+                console.error("加载排除学生列表失败:", e);
+            }
+        }
+        
+        // 加载抽取次数
+        const savedDrawnCount = localStorage.getItem('classRollerDrawnCount');
+        if (savedDrawnCount) {
+            drawnCount = parseInt(savedDrawnCount) || 0;
+        }
+        
+        // 加载资源设置
+        const savedResourceSettings = localStorage.getItem('classRollerResourceSettings');
+        if (savedResourceSettings) {
+            try {
+                const resourceSettings = JSON.parse(savedResourceSettings);
+                enableLocalResources.checked = resourceSettings.enableLocalResources !== false;
+            } catch (e) {
+                console.error("加载资源设置失败:", e);
+            }
+        }
+    }
+    
+    // 生成学生管理列表
+    function generateStudentManagementList() {
+        studentManagementList.innerHTML = '';
+        
+        for (let i = 0; i < students.length; i++) {
+            const student = students[i];
+            const managementItem = document.createElement('div');
+            managementItem.className = 'student-management-item';
+            managementItem.dataset.studentId = student.studentId;
+            
+            const avatarContainer = document.createElement('div');
+            avatarContainer.className = 'student-management-avatar';
+            
+            if (student.avatar && student.avatar.startsWith('data:image')) {
+                const img = document.createElement('img');
+                img.src = student.avatar;
+                img.alt = student.name;
+                avatarContainer.appendChild(img);
+            } else {
+                // 尝试使用本地资源
+                const useLocalResources = enableLocalResources.checked;
+                const localResources = getLocalResources();
+                
+                if (useLocalResources && localResources[student.studentId]) {
+                    const img = document.createElement('img');
+                    img.src = localResources[student.studentId];
+                    img.alt = student.name;
+                    avatarContainer.appendChild(img);
+                } else {
+                    avatarContainer.innerHTML = '<i class="fas fa-user-graduate"></i>';
+                }
+            }
+            
+            const infoContainer = document.createElement('div');
+            infoContainer.className = 'student-management-info';
+            
+            const numberSpan = document.createElement('div');
+            numberSpan.className = 'student-management-number';
+            numberSpan.textContent = `第${student.studentId}号`;
+            
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.className = 'student-management-name-input';
+            nameInput.value = student.name;
+            nameInput.dataset.studentId = student.studentId;
+            
+            nameInput.addEventListener('input', (e) => {
+                const studentId = parseInt(e.target.dataset.studentId);
+                const newName = e.target.value.trim();
+                const student = students.find(s => s.studentId === studentId);
+                if (student) {
+                    student.name = newName || `学生${studentId}`;
+                }
+            });
+            
+            infoContainer.appendChild(numberSpan);
+            infoContainer.appendChild(nameInput);
+            
+            const actionsContainer = document.createElement('div');
+            actionsContainer.className = 'student-management-actions';
+            
+            const uploadBtn = document.createElement('div');
+            uploadBtn.className = 'student-management-upload-btn';
+            uploadBtn.textContent = '上传头像';
+            uploadBtn.dataset.studentId = student.studentId;
+            
+            uploadBtn.addEventListener('click', (e) => {
+                const studentId = parseInt(e.target.dataset.studentId);
+                uploadAvatarForStudent(studentId);
+            });
+            
+            const removeBtn = document.createElement('div');
+            removeBtn.className = 'student-management-remove-btn';
+            removeBtn.textContent = '移除头像';
+            removeBtn.dataset.studentId = student.studentId;
+            
+            removeBtn.addEventListener('click', (e) => {
+                const studentId = parseInt(e.target.dataset.studentId);
+                removeAvatarForStudent(studentId);
+            });
+            
+            actionsContainer.appendChild(uploadBtn);
+            actionsContainer.appendChild(removeBtn);
+            
+            managementItem.appendChild(avatarContainer);
+            managementItem.appendChild(infoContainer);
+            managementItem.appendChild(actionsContainer);
+            
+            studentManagementList.appendChild(managementItem);
+        }
+    }
+    
+    // 上传学生头像
+    function uploadAvatarForStudent(studentId) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/gif,image/jpeg,image/jpg,image/png,image/webp';
+        input.style.display = 'none';
+        
+        input.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            // 检查文件类型
+            const validTypes = ['image/gif', 'image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                alert('请选择有效的图片文件 (GIF, JPG, JPEG, PNG, WEBP)');
+                return;
+            }
+            
+            // 检查文件大小 (限制为2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('图片大小不能超过2MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64Image = event.target.result;
+                
+                // 更新学生数据
+                const student = students.find(s => s.studentId === studentId);
+                if (student) {
+                    student.avatar = base64Image;
+                    
+                    // 更新UI
+                    const managementItem = document.querySelector(`.student-management-item[data-student-id="${studentId}"]`);
+                    if (managementItem) {
+                        const avatarContainer = managementItem.querySelector('.student-management-avatar');
+                        avatarContainer.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = base64Image;
+                        img.alt = student.name;
+                        avatarContainer.appendChild(img);
+                    }
+                    
+                    // 保存到本地存储
+                    saveStudents();
+                    
+                    alert('头像上传成功！');
+                }
+            };
+            
+            reader.readAsDataURL(file);
+        });
+        
+        document.body.appendChild(input);
+        input.click();
+        document.body.removeChild(input);
+    }
+    
+    // 移除学生头像
+    function removeAvatarForStudent(studentId) {
+        if (!confirm('确定要移除该学生的头像吗？')) {
+            return;
+        }
+        
+        const student = students.find(s => s.studentId === studentId);
+        if (student) {
+            student.avatar = null;
+            
+            // 更新UI
+            const managementItem = document.querySelector(`.student-management-item[data-student-id="${studentId}"]`);
+            if (managementItem) {
+                const avatarContainer = managementItem.querySelector('.student-management-avatar');
+                
+                // 尝试使用本地资源
+                const useLocalResources = enableLocalResources.checked;
+                const localResources = getLocalResources();
+                
+                if (useLocalResources && localResources[studentId]) {
+                    const img = document.createElement('img');
+                    img.src = localResources[studentId];
+                    img.alt = student.name;
+                    avatarContainer.innerHTML = '';
+                    avatarContainer.appendChild(img);
+                } else {
+                    avatarContainer.innerHTML = '<i class="fas fa-user-graduate"></i>';
+                }
+            }
+            
+            // 保存到本地存储
+            saveStudents();
+            
+            alert('头像已移除！');
+        }
+    }
+    
+    // 重置学生姓名
+    function resetStudentNames() {
+        if (!confirm('确定要恢复所有学生的默认姓名吗？这将覆盖所有修改过的姓名。')) {
+            return;
+        }
+        
+        for (let i = 0; i < students.length; i++) {
+            const defaultStudent = defaultStudents.find(s => s.studentId === students[i].studentId);
+            if (defaultStudent) {
+                students[i].name = defaultStudent.name;
+            }
+        }
+        
+        // 更新UI
+        generateStudentManagementList();
+        
+        // 保存到本地存储
+        saveStudents();
+        
+        alert('学生姓名已恢复为默认值！');
+    }
+    
+    // 清除所有头像
+    function clearAllAvatars() {
+        if (!confirm('确定要清除所有学生的头像吗？这将删除所有上传的头像。')) {
+            return;
+        }
+        
+        for (let i = 0; i < students.length; i++) {
+            students[i].avatar = null;
+        }
+        
+        // 更新UI
+        generateStudentManagementList();
+        
+        // 保存到本地存储
+        saveStudents();
+        
+        alert('所有头像已清除！');
+    }
+    
+    // 保存学生管理修改
+    function saveStudentManagement() {
+        saveStudents();
+        alert('学生信息已保存！');
+    }
+    
+    // 生成排除学生列表
+    function generateExcludeStudentList() {
+        excludeStudentListView.innerHTML = '';
+        
+        for (let i = 0; i < students.length; i++) {
+            const listItem = document.createElement('div');
+            listItem.className = 'student-list-item';
+            if (students[i].excluded) {
+                listItem.classList.add('excluded');
+            }
+            listItem.dataset.index = i;
+            
+            listItem.innerHTML = `
+                <div class="student-info">
+                    <span class="student-number">${students[i].studentId}</span>
+                    <span class="student-name">${students[i].name}</span>
+                </div>
+                <div>
+                    <input type="checkbox" class="exclude-checkbox" ${students[i].excluded ? 'checked' : ''}>
+                </div>
+            `;
+            
+            listItem.addEventListener('click', (e) => {
+                if (e.target.type === 'checkbox') return;
+                
+                const index = parseInt(listItem.dataset.index);
+                toggleExcludeStudent(index);
+            });
+            
+            const checkbox = listItem.querySelector('.exclude-checkbox');
+            checkbox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const index = parseInt(listItem.dataset.index);
+                toggleExcludeStudent(index);
+            });
+            
+            excludeStudentListView.appendChild(listItem);
+        }
+        
+        updateExcludedCount();
+    }
+    
+    // 生成概率设置列表
+    function generateProbabilityList() {
+        probabilityList.innerHTML = '';
+        
+        for (let i = 0; i < students.length; i++) {
+            const probabilityItem = document.createElement('div');
+            probabilityItem.className = 'probability-item';
+            
+            const probabilityValue = students[i].probability;
+            const displayValue = probabilityValue.toFixed(4);
+            
+            probabilityItem.innerHTML = `
+                <div class="student-info">
+                    <span class="student-number">${students[i].studentId}</span>
+                    <span class="student-name">${students[i].name}</span>
+                </div>
+                <div>
+                    <input type="number" class="probability-input" value="${displayValue}" step="0.0001" min="0" max="1" data-id="${students[i].studentId}">
+                    <div class="probability-display">${(probabilityValue * 100).toFixed(2)}%</div>
+                </div>
+            `;
+            
+            const probabilityInput = probabilityItem.querySelector('.probability-input');
+            probabilityInput.addEventListener('input', (e) => {
+                const studentId = parseInt(e.target.dataset.id);
+                const newValue = parseFloat(e.target.value) || 0;
+                
+                const student = students.find(s => s.studentId === studentId);
+                if (student) {
+                    student.probability = newValue;
+                    
+                    const displayElement = probabilityItem.querySelector('.probability-display');
+                    displayElement.textContent = `${(newValue * 100).toFixed(2)}%`;
+                    
+                    updateProbabilitySum();
+                }
+            });
+            
+            probabilityList.appendChild(probabilityItem);
+        }
+        
+        updateProbabilitySum();
+    }
+    
+    // 更新概率总和显示
+    function updateProbabilitySum() {
+        let sum = 0;
+        for (let i = 0; i < students.length; i++) {
+            sum += students[i].probability;
+        }
+        
+        probabilitySum.textContent = sum.toFixed(4);
+        
+        if (Math.abs(sum - 1.0) > 0.0001) {
+            probabilityError.style.display = 'block';
+            saveProbabilitiesBtn.disabled = true;
+            saveProbabilitiesBtn.style.opacity = '0.6';
+        } else {
+            probabilityError.style.display = 'none';
+            saveProbabilitiesBtn.disabled = false;
+            saveProbabilitiesBtn.style.opacity = '1';
+        }
+    }
+    
+    // 重置概率为平均分配
+    function resetProbabilities() {
+        const avgProbability = 1 / students.length;
+        
+        for (let i = 0; i < students.length; i++) {
+            students[i].probability = avgProbability;
+        }
+        
+        generateProbabilityList();
+        saveStudents();
+    }
+    
+    // 保存概率设置
+    function saveProbabilities() {
+        let sum = 0;
+        for (let i = 0; i < students.length; i++) {
+            sum += students[i].probability;
+        }
+        
+        if (Math.abs(sum - 1.0) > 0.0001) {
+            alert('概率总和必须为1！当前总和为' + sum.toFixed(4));
+            return;
+        }
+        
+        saveStudents();
+        alert('概率设置已保存！');
+    }
+    
+    // 切换概率模式
+    function toggleProbabilityMode() {
+        const enabled = enableProbability.checked;
+        settings.enableProbability = enabled;
+        saveSettings();
+        updateProbabilityModeStatus();
+        
+        if (enabled) {
+            alert('概率点名模式已启用，将按照设置的概率进行随机抽取。');
+        } else {
+            alert('概率点名模式已禁用，将使用平均概率进行随机抽取。');
+        }
+    }
+    
+    // 更新概率模式状态显示
+    function updateProbabilityModeStatus() {
+        const enabled = settings.enableProbability !== false;
+        probabilityModeStatus.textContent = enabled ? '已启用' : '已禁用';
+        probabilityModeStatus.style.color = enabled ? '#27ae60' : '#e74c3c';
+        
+        if (enableProbability) {
+            enableProbability.checked = enabled;
+        }
+    }
+    
+    // 切换音效
+    function toggleSoundEffect() {
+        soundEnabled = document.getElementById('enableSound').checked;
+        settings.enableSound = soundEnabled;
+        saveSettings();
+        updateSoundEffectStatus();
+        
+        if (soundEnabled) {
+            playSoundEffect('ding');
+        }
+    }
+    
+    // 切换语音播报
+    function toggleVoice() {
+        speechEnabled = document.getElementById('enableVoice').checked;
+        settings.enableVoice = speechEnabled;
+        saveSettings();
+    }
+    
+    // 更新音效状态显示
+    function updateSoundEffectStatus() {
+        const enabled = settings.enableSound !== false;
+        soundEffectStatus.textContent = enabled ? '已启用' : '已禁用';
+        soundEffectStatus.style.color = enabled ? '#27ae60' : '#e74c3c';
+        
+        const enableSoundCheckbox = document.getElementById('enableSound');
+        if (enableSoundCheckbox) {
+            enableSoundCheckbox.checked = enabled;
+        }
+        
+        soundEnabled = enabled;
+    }
+    
+    // 保存音效设置
+    function saveSoundSettings() {
+        settings.soundType = document.getElementById('soundType').value;
+        saveSettings();
+    }
+    
+    // 保存资源设置
+    function saveResourceSettings() {
+        const resourceSettings = {
+            enableLocalResources: enableLocalResources.checked
+        };
+        localStorage.setItem('classRollerResourceSettings', JSON.stringify(resourceSettings));
+    }
+    
+    // 切换排除学生状态
+    function toggleExcludeStudent(index) {
+        const student = students[index];
+        student.excluded = !student.excluded;
+        
+        const listItem = document.querySelector(`.student-list-item[data-index="${index}"]`);
+        if (student.excluded) {
+            listItem.classList.add('excluded');
+        } else {
+            listItem.classList.remove('excluded');
+        }
+        
+        const checkbox = listItem.querySelector('.exclude-checkbox');
+        checkbox.checked = student.excluded;
+        
+        updateExcludedCount();
+    }
+    
+    // 更新排除学生计数
+    function updateExcludedCount() {
+        let excludedCount = 0;
+        for (let i = 0; i < students.length; i++) {
+            if (students[i].excluded) {
+                excludedCount++;
+            }
+        }
+        
+        excludedCountSpan.textContent = excludedCount;
+        excludedStudentsCount.textContent = excludedCount;
+    }
+    
+    // 排除所有学生
+    function excludeAllStudents() {
+        for (let i = 0; i < students.length; i++) {
+            students[i].excluded = true;
+        }
+        generateExcludeStudentList();
+    }
+    
+    // 包含所有学生（取消排除）
+    function includeAllStudents() {
+        for (let i = 0; i < students.length; i++) {
+            students[i].excluded = false;
+        }
+        generateExcludeStudentList();
+    }
+    
+    // 保存排除学生设置
+    function saveExcludedStudents() {
+        saveStudents();
+        alert('排除学生设置已保存！');
+    }
+    
+    // 保存学生数据到本地存储
+    function saveStudents() {
+        localStorage.setItem('classRollerStudents', JSON.stringify(students));
+    }
+    
+    // 保存设置到本地存储
+    function saveSettings() {
+        localStorage.setItem('classRollerSettings', JSON.stringify(settings));
+    }
+    
+    // 初始化设置
+    function initSettings() {
+        const defaultSettings = {
+            rollMode: 'random',
+            preventRepeat: true,
+            excludeAbsent: true,
+            excludeManual: true,
+            enableAnimation: true,
+            animationSpeed: 'normal',
+            highlightEffect: 'pulse',
+            theme: 'blue',
+            repeatInterval: 5,
+            enableBackup: true,
+            enableProbability: true,
+            enableSound: true,
+            enableVoice: true,
+            soundType: 'ding'
+        };
+        
+        settings = {...defaultSettings, ...settings};
+        
+        applySettingsToUI();
+        saveSettings();
+    }
+    
+    // 应用设置到UI
+    function applySettingsToUI() {
+        const rollModeRadio = document.querySelector(`input[name="rollMode"][value="${settings.rollMode}"]`);
+        if (rollModeRadio) rollModeRadio.checked = true;
+        
+        document.getElementById('preventRepeat').checked = settings.preventRepeat;
+        document.getElementById('excludeAbsent').checked = settings.excludeAbsent;
+        document.getElementById('excludeManual').checked = settings.excludeManual !== false;
+        document.getElementById('enableAnimation').checked = settings.enableAnimation;
+        document.getElementById('animationSpeed').value = settings.animationSpeed;
+        document.getElementById('highlightEffect').value = settings.highlightEffect;
+        document.getElementById('themeSelect').value = settings.theme;
+        document.getElementById('enableProbability').checked = settings.enableProbability !== false;
+        document.getElementById('enableSound').checked = settings.enableSound !== false;
+        document.getElementById('soundType').value = settings.soundType || 'ding';
+        document.getElementById('enableVoice').checked = settings.enableVoice !== false;
+        
+        // 应用主题
+        document.body.className = `theme-${settings.theme}`;
+    }
+    
+    // 保存点名设置
+    function saveRollSettings() {
+        const rollMode = document.querySelector('input[name="rollMode"]:checked').value;
+        settings.rollMode = rollMode;
+        settings.preventRepeat = document.getElementById('preventRepeat').checked;
+        settings.excludeAbsent = document.getElementById('excludeAbsent').checked;
+        settings.excludeManual = document.getElementById('excludeManual').checked;
+        
+        saveSettings();
+        alert('点名设置已保存！');
+    }
+    
+    // 保存动画设置
+    function saveAnimationSettings() {
+        settings.enableAnimation = document.getElementById('enableAnimation').checked;
+        settings.animationSpeed = document.getElementById('animationSpeed').value;
+        settings.highlightEffect = document.getElementById('highlightEffect').value;
+        
+        saveSettings();
+        alert('动画设置已保存！');
+    }
+    
+    // 保存通用设置
+    function saveGeneralSettings() {
+        const theme = document.getElementById('themeSelect').value;
+        document.body.className = `theme-${theme}`;
+        settings.theme = theme;
+        settings.enableSound = document.getElementById('enableSound').checked;
+        settings.soundType = document.getElementById('soundType').value;
+        settings.enableVoice = document.getElementById('enableVoice').checked;
+        
+        saveSettings();
+        alert('通用设置已保存！');
+        updateSoundEffectStatus();
+    }
+    
+    // 清除所有数据
+    function clearAllData() {
+        if (confirm('确定要清除所有数据吗？这将删除所有学生信息、设置和出勤记录，此操作不可撤销！')) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+    
+    // 更改主题
+    function changeTheme() {
+        const theme = document.getElementById('themeSelect').value;
+        document.body.className = `theme-${theme}`;
+        settings.theme = theme;
+        saveSettings();
+    }
+    
+    // 根据概率随机选择学生
+    function selectRandomStudentsByProbability(count) {
+        const selected = [];
+        const availableStudents = [];
+        
+        for (let i = 0; i < students.length; i++) {
+            if (settings.preventRepeat && lastSelectedStudent === i) {
+                continue;
+            }
+            
+            if (settings.excludeAbsent && 
+                (students[i].attendance === 'leave' || students[i].attendance === 'absent')) {
+                continue;
+            }
+            
+            if (settings.excludeManual && students[i].excluded) {
+                continue;
+            }
+            
+            availableStudents.push({
+                index: i,
+                probability: students[i].probability
+            });
+        }
+        
+        if (availableStudents.length < count) {
+            availableStudents.length = 0;
+            for (let i = 0; i < students.length; i++) {
+                if (settings.excludeAbsent && 
+                    (students[i].attendance === 'leave' || students[i].attendance === 'absent')) {
+                    continue;
+                }
+                
+                if (settings.excludeManual && students[i].excluded) {
+                    continue;
+                }
+                
+                availableStudents.push({
+                    index: i,
+                    probability: students[i].probability
+                });
+            }
+        }
+        
+        if (availableStudents.length < count) {
+            availableStudents.length = 0;
+            for (let i = 0; i < students.length; i++) {
+                if (settings.excludeAbsent && 
+                    (students[i].attendance === 'leave' || students[i].attendance === 'absent')) {
+                    continue;
+                }
+                
+                availableStudents.push({
+                    index: i,
+                    probability: students[i].probability
+                });
+            }
+        }
+        
+        if (!settings.enableProbability) {
+            for (let i = 0; i < count; i++) {
+                if (availableStudents.length === 0) break;
+                
+                const randomIndex = Math.floor(Math.random() * availableStudents.length);
+                const selectedIndex = availableStudents[randomIndex].index;
+                
+                selected.push(selectedIndex);
+                availableStudents.splice(randomIndex, 1);
+            }
+            
+            if (selected.length === 1) {
+                lastSelectedStudent = selected[0];
+            }
+            
+            return selected;
+        }
+        
+        for (let i = 0; i < count; i++) {
+            if (availableStudents.length === 0) break;
+            
+            let totalProbability = 0;
+            for (const student of availableStudents) {
+                totalProbability += student.probability;
+            }
+            
+            const random = Math.random() * totalProbability;
+            
+            let cumulativeProbability = 0;
+            let selectedIndex = -1;
+            let selectedStudentIndexInArray = -1;
+            
+            for (let j = 0; j < availableStudents.length; j++) {
+                cumulativeProbability += availableStudents[j].probability;
+                if (random <= cumulativeProbability) {
+                    selectedIndex = availableStudents[j].index;
+                    selectedStudentIndexInArray = j;
+                    break;
+                }
+            }
+            
+            if (selectedIndex === -1) {
+                selectedIndex = availableStudents[0].index;
+                selectedStudentIndexInArray = 0;
+            }
+            
+            selected.push(selectedIndex);
+            availableStudents.splice(selectedStudentIndexInArray, 1);
+        }
+        
+        if (selected.length === 1) {
+            lastSelectedStudent = selected[0];
+        }
+        
+        return selected;
+    }
+    
+    // 创建抽卡动画特效
+    function createCardEffectAnimation() {
+        const effectContainer = document.createElement('div');
+        effectContainer.className = 'card-effect-container';
+        effectContainer.id = 'cardEffectContainer';
+        document.querySelector('.container').appendChild(effectContainer);
+        
+        // 创建粒子效果
+        for (let i = 0; i < 20; i++) {
+            createParticle(effectContainer);
+        }
+        
+        // 创建闪光效果
+        for (let i = 0; i < 10; i++) {
+            createSparkle(effectContainer);
+        }
+        
+        // 3.5秒后移除效果
+        setTimeout(() => {
+            if (effectContainer.parentNode) {
+                effectContainer.parentNode.removeChild(effectContainer);
+            }
+        }, 3500);
+    }
+    
+    // 创建粒子
+    function createParticle(container) {
+        const particle = document.createElement('div');
+        particle.className = 'card-particle';
+        
+        // 随机位置
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        particle.style.left = `${x}%`;
+        particle.style.top = `${y}%`;
+        
+        // 随机大小
+        const size = Math.random() * 10 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // 随机颜色
+        const hue = Math.random() * 360;
+        particle.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+        
+        container.appendChild(particle);
+        
+        // 动画
+        const duration = Math.random() * 2 + 1;
+        const delay = Math.random() * 1;
+        
+        particle.style.animation = `
+            particleFloat ${duration}s ease-in-out ${delay}s infinite alternate
+        `;
+        
+        // 创建关键帧
+        if (!document.querySelector('#particleKeyframes')) {
+            const style = document.createElement('style');
+            style.id = 'particleKeyframes';
+            style.textContent = `
+                @keyframes particleFloat {
+                    0% {
+                        transform: translate(0, 0) scale(1);
+                        opacity: 0;
+                    }
+                    50% {
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0.5);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    // 创建闪光
+    function createSparkle(container) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'card-sparkle';
+        
+        // 随机位置
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        sparkle.style.left = `${x}%`;
+        sparkle.style.top = `${y}%`;
+        
+        container.appendChild(sparkle);
+        
+        // 动画
+        const duration = Math.random() * 1 + 0.5;
+        const delay = Math.random() * 0.5;
+        
+        sparkle.style.animation = `
+            sparkleTwinkle ${duration}s ease-in-out ${delay}s infinite alternate
+        `;
+        
+        // 创建关键帧
+        if (!document.querySelector('#sparkleKeyframes')) {
+            const style = document.createElement('style');
+            style.id = 'sparkleKeyframes';
+            style.textContent = `
+                @keyframes sparkleTwinkle {
+                    0% {
+                        transform: scale(0) rotate(0deg);
+                        opacity: 0;
+                    }
+                    50% {
+                        transform: scale(1) rotate(180deg);
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: scale(0) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    // 模拟抽取动画
+    function showDrawingAnimation(count) {
+        resultDisplay.innerHTML = '';
+        resultTitle.innerHTML = `<i class="fas fa-spinner spinning"></i> 正在随机抽取中...`;
+        statusReadyElement.textContent = "抽取中...";
+        
+        // 创建抽卡动画特效
+        createCardEffectAnimation();
+        
+        // 播放抽取音效
+        playSoundEffect('drawing');
+        
+        if (!settings.enableAnimation) {
+            return;
+        }
+        
+        for (let i = 0; i < count; i++) {
+            const card = document.createElement('div');
+            card.className = 'student-card card-flip';
+            card.style.animationDelay = `${i * 0.1}s`;
+            card.style.animationDuration = settings.animationSpeed === 'slow' ? '1.8s' : 
+                                          settings.animationSpeed === 'fast' ? '1s' : '1.5s';
+            
+            // 添加光效
+            const glowEffect = document.createElement('div');
+            glowEffect.style.position = 'absolute';
+            glowEffect.style.top = '0';
+            glowEffect.style.left = '0';
+            glowEffect.style.width = '100%';
+            glowEffect.style.height = '100%';
+            glowEffect.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)';
+            glowEffect.style.borderRadius = '12px';
+            glowEffect.style.opacity = '0';
+            glowEffect.style.animation = 'glowPulse 1s infinite alternate';
+            
+            card.appendChild(glowEffect);
+            
+            card.innerHTML += `
+                <div class="avatar-container">
+                    <div class="default-avatar">
+                        <i class="fas fa-random"></i>
+                    </div>
+                </div>
+                <div class="student-info">
+                    <div class="student-name">随机抽取中...</div>
+                    <div class="student-number">${i + 1}号</div>
+                </div>
+            `;
+            
+            resultDisplay.appendChild(card);
+        }
+    }
+    
+    // 更新抽取信息
+    function updateDrawInfo() {
+        drawnCountElement.textContent = drawnCount;
+        localStorage.setItem('classRollerDrawnCount', drawnCount);
+        
+        // 更新模式状态
+        const rollMode = settings.rollMode || 'random';
+        if (rollMode === 'random') {
+            modeStatusElement.textContent = "随机点名";
+        } else if (rollMode === 'sequential') {
+            modeStatusElement.textContent = "顺序点名";
+        } else if (rollMode === 'group') {
+            modeStatusElement.textContent = "分组点名";
+        }
+    }
+    
+    // 开始抽取
+    function startDrawing() {
+        if (isDrawing) return;
+        
+        isDrawing = true;
+        startBtn.disabled = true;
+        startBtn.innerHTML = `<i class="fas fa-spinner spinning"></i> 抽取中...`;
+        
+        showDrawingAnimation(selectedCount);
+        
+        setTimeout(() => {
+            const selectedIndices = selectRandomStudentsByProbability(selectedCount);
+            
+            displayResults(selectedIndices);
+            
+            // 重置按钮状态
+            startBtn.innerHTML = `<i class="fas fa-play-circle"></i> 开始点名`;
+            startBtn.disabled = false;
+            isDrawing = false;
+            
+            // 更新抽取次数
+            drawnCount++;
+            updateDrawInfo();
+            
+            // 播放结果音效
+            const soundType = document.getElementById('soundType').value;
+            if (soundType === 'drawing') {
+                // 已经播放了抽取音效，现在播放结束音效
+                playSoundEffect('ding');
+            } else {
+                playSoundEffect(soundType);
+            }
+            
+            // 恢复状态显示
+            setTimeout(() => {
+                statusReadyElement.textContent = "准备就绪";
+            }, 2000);
+        }, 3500); // 3.5秒动画时间
+    }
+    
+    // 显示抽取结果
+    function displayResults(selectedIndices) {
+        resultDisplay.innerHTML = '';
+        
+        selectedIndices.forEach((index, i) => {
+            const card = document.createElement('div');
+            card.className = 'student-card card-reveal';
+            card.style.animationDelay = `${i * 0.2}s`;
+            
+            setTimeout(() => {
+                card.classList.add('selected');
+                
+                if (selectedIndices.length === 1) {
+                    setTimeout(() => {
+                        card.classList.add('highlight');
+                    }, 1000);
+                }
+            }, i * 200 + 800);
+            
+            const badge = document.createElement('div');
+            badge.className = 'result-badge';
+            badge.textContent = i + 1;
+            
+            const avatarContainer = document.createElement('div');
+            avatarContainer.className = 'avatar-container';
+            
+            const student = students[index];
+            const avatarElement = createAvatarImg(student.studentId, student.name);
+            
+            if (avatarElement.tagName === 'IMG') {
+                avatarContainer.appendChild(avatarElement);
+            } else {
+                avatarContainer.appendChild(avatarElement);
+            }
+            
+            card.appendChild(avatarContainer);
+            card.appendChild(badge);
+            
+            const studentInfo = document.createElement('div');
+            studentInfo.className = 'student-info';
+            studentInfo.innerHTML = `
+                <div class="student-name">${student.name}</div>
+                <div class="student-number">${student.studentId}号</div>
+            `;
+            
+            card.appendChild(studentInfo);
+            resultDisplay.appendChild(card);
+        });
+        
+        if (selectedIndices.length === 1) {
+            const studentName = students[selectedIndices[0]].name;
+            resultTitle.innerHTML = `<i class="fas fa-user-check"></i> 点到：${studentName}`;
+            
+            // 语音播报学生姓名
+            if (speechEnabled) {
+                setTimeout(() => {
+                    speakStudentName(studentName);
+                }, 500);
+            }
+        } else {
+            const names = selectedIndices.map(idx => students[idx].name).join('、');
+            resultTitle.innerHTML = `<i class="fas fa-users"></i> 点到：${names}`;
+            
+            // 语音播报所有学生姓名
+            if (speechEnabled) {
+                setTimeout(() => {
+                    const nameList = selectedIndices.map(idx => students[idx].name);
+                    speakStudentName(`点到 ${nameList.join('、')}`);
+                }, 500);
+            }
+        }
+    }
+    
+    // 切换菜单部分
+    function toggleMenuSection(header) {
+        const content = header.nextElementSibling;
+        const isActive = content.classList.contains('active');
+        
+        document.querySelectorAll('.menu-section-content').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        document.querySelectorAll('.menu-section-header').forEach(h => {
+            h.classList.remove('active');
+        });
+        
+        if (!isActive) {
+            content.classList.add('active');
+            header.classList.add('active');
+        }
+    }
+    
+    // GitHub Gist使用教程
+    function showGistTutorial() {
+        alert(`GitHub Gist 使用教程：
+        
+1. 在手机上访问: https://gist.github.com
+2. 如果没有GitHub账号，先注册一个（免费）
+3. 创建Gist：
+   - 点击右上角"+"号或"New gist"
+   - 在"Filename"中输入文件名，如：announcement.txt
+   - 在内容区输入您的公告内容
+   - 可以选择"Public"（公开）或"Secret"（私密）
+   - 点击"Create gist"创建
+
+4. 获取Gist ID：
+   - 创建成功后，URL会变为：https://gist.github.com/你的用户名/一串随机字符
+   - 这串随机字符就是Gist ID，复制它
+
+5. 获取原始文件URL：
+   - 在Gist页面点击"Raw"按钮
+   - 会打开原始文本URL，格式为：https://gist.githubusercontent.com/你的用户名/GistID/raw/
+   - 这个URL就是我们需要在代码中使用的
+
+6. 更新代码中的Gist URL：
+   - 打开JavaScript代码
+   - 找到第52-66行的GITHUB_GIST_CONFIG配置
+   - 将URL中的"your-username"和"gist-id"替换为您自己的信息
+
+注意事项：
+- 确保Gist是公开的，否则无法访问
+- 内容更新后，可能需要几分钟才能生效
+- 建议定期备份重要数据`);
+    }
+    
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', init);
+    
+    // 添加Gist教程按钮到关于部分
+    setTimeout(() => {
+        const aboutSection = document.querySelector('.menu-section-content');
+        if (aboutSection) {
+            const tutorialBtn = document.createElement('button');
+            tutorialBtn.className = 'btn btn-secondary';
+            tutorialBtn.style.marginTop = '10px';
+            tutorialBtn.innerHTML = '<i class="fas fa-graduation-cap"></i> GitHub Gist使用教程';
+            tutorialBtn.onclick = showGistTutorial;
+            aboutSection.appendChild(tutorialBtn);
+        }
+    }, 1000);
+</script> {
             font-weight: 700;
             color: #333;
             font-size: 1rem;
