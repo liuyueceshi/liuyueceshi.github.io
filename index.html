@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="tupian/yuanshi.png" type="image/x-icon">
+    <title>高一(1)班点名抽卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            overflow: hidden;
+            color: white;
+        }
+        
+        #app {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* 背景 */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('tupian/beijing.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+        
+        /* 左侧卡池选择 */
+        .pool-nav {
+            position: absolute;
+            top: 5%;
+            left: 2%;
+            width: 12%;
+            height: 90%;
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 25px;
+            z-index: 10;
+            overflow-y: auto;
+            padding: 15px 0;
+        }
+        
+        .pool-nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .pool-item {
+            position: relative;
+            width: 80%;
+            height: 15%;
+            margin: 10% auto;
+            border-radius: 15px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pool-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+        
+        .pool-item.active {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+            border: 2px solid gold;
+        }
+        
+        /* 右上角资源显示 */
+        .resource-container {
+            position: absolute;
+            top: 4%;
+            right: 2%;
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+        
+        .resource-box {
+            position: relative;
+            width: 180px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .resource-count {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .resource-icon {
+            width: 36px;
+            height: 36px;
+        }
+        
+        /* 卡池主界面 */
+        .pool-main {
+            position: absolute;
+            width: 72%;
+            height: 68%;
+            top: 50%;
+            left: 58%;
+            transform: translate(-50%, -50%);
+            background-size: cover;
+            background-position: center;
+            border-radius: 25px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            z-index: 5;
+            overflow: hidden;
+        }
+        
+        .pool-stats {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stat-item {
+            font-size: 22px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 8px 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .stat-value {
+            color: gold;
+            font-weight: bold;
+        }
+        
+        /* 抽卡按钮 */
+        .draw-buttons {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 30px;
+            z-index: 10;
+        }
+        
+        .draw-btn {
+            width: 280px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+        
+        .draw-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .draw-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* 历史记录按钮 */
+        .history-btn {
+            position: absolute;
+            top: 4%;
+            right: 16%;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .history-btn:hover {
+            background-color: rgba(30, 30, 60, 0.8);
+            transform: scale(1.1);
+        }
+        
+        /* 抽卡视频 */
+        #draw-video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            z-index: 100;
+            display: none;
+        }
+        
+        .skip-btn {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            font-size: 28px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 101;
+            display: none;
+            transition: background-color 0.3s;
+        }
+        
+        .skip-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* 单抽结果 */
+        .single-result {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: url('tupian/jieguo.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 90;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .single-result-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid gold;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            margin-bottom: 30px;
+        }
+        
+        .single-result-name {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px 40px;
+            border-radius: 15px;
+        }
+        
+        /* 十连结果 */
+        .multi-result {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 90;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .multi-result-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+        
+        .multi-result-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        
+        .multi-result-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .multi-result-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid gold;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+        
+        .multi-result-name {
+            font-size: 18px;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* 历史记录面板 */
+        .history-panel {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(10, 10, 30, 0.95);
+            border-radius: 20px;
+            z-index: 80;
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .history-title {
+            font-size: 32px;
+            color: gold;
+        }
+        
+        .close-history {
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            padding: 5px 15px;
+            background-color: rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .close-history:hover {
+            background-color: rgba(255, 0, 0, 0.6);
+        }
+        
+        .history-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .history-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .history-content::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 215, 0, 0.5);
+            border-radius: 4px;
+        }
+        
+        .history-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: rgba(30, 30, 60, 0.7);
+            border-radius: 10px;
+            border-left: 5px solid gold;
+        }
+        
+        .history-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+        
+        .history-item-info {
+            flex: 1;
+        }
+        
+        .history-item-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .history-item-time {
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        .history-item-type {
+            padding: 5px 15px;
+            background-color: rgba(0, 100, 200, 0.5);
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        
+        /* 兑换界面 */
+        .exchange-panel {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 70;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .exchange-box {
+            width: 500px;
+            background-color: #1a1a2e;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+        
+        .exchange-title {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: gold;
+        }
+        
+        .exchange-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .exchange-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: #2a2a4a;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .exchange-btn:hover {
+            background-color: #3a3a6a;
+        }
+        
+        .exchange-value {
+            font-size: 36px;
+            min-width: 100px;
+            text-align: center;
+            color: gold;
+        }
+        
+        .exchange-info {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .exchange-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .action-btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .confirm-btn {
+            background-color: #2a7a2a;
+            color: white;
+        }
+        
+        .confirm-btn:hover {
+            background-color: #3a9a3a;
+        }
+        
+        .cancel-btn {
+            background-color: #7a2a2a;
+            color: white;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #9a3a3a;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 1400px) {
+            .pool-nav {
+                width: 15%;
+            }
+            
+            .pool-main {
+                width: 75%;
+                left: 60%;
+            }
+            
+            .draw-btn {
+                width: 240px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .pool-nav {
+                width: 18%;
+            }
+            
+            .pool-main {
+                width: 78%;
+                left: 62%;
+            }
+            
+            .draw-btn {
+                width: 200px;
+            }
+            
+            .multi-result-grid {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(3, auto);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 背景 -->
+        <div class="background"></div>
+        
+        <!-- 左侧卡池选择 -->
+        <div class="pool-nav">
+            <div class="pool-item active" style="background-image: url('tupian/ccj.png');" data-pool="1"></div>
+            <div class="pool-item" style="background-image: url('tupian/ccj2.png');" data-pool="2"></div>
+            <div class="pool-item" style="background-image: url('tupian/ccj3.png');" data-pool="3"></div>
+        </div>
+        
+        <!-- 右上角资源显示 -->
+        <div class="resource-container">
+            <div class="resource-box">
+                <span class="resource-count" id="primogem-count">16000000000</span>
+                <img src="tupian/yuanshi.png" alt="原石" class="resource-icon">
+            </div>
+            <div class="resource-box">
+                <span class="resource-count" id="fate-count">9999999999826</span>
+                <img src="tupian/yuanshi.png" alt="纠缠之缘" class="resource-icon">
+            </div>
+        </div>
+        
+        <!-- 历史记录按钮 -->
+        <div class="history-btn" id="history-btn">📜</div>
+        
+        <!-- 卡池主界面 -->
+        <div class="pool-main" style="background-image: url('tupian/ccj.png');">
+            <div class="pool-stats">
+                <div class="stat-item">今天幸运度：<span class="stat-value" id="luck-value">0</span></div>
+                <div class="stat-item">出紫保底：<span class="stat-value" id="purple-guarantee">0</span></div>
+                <div class="stat-item">出金保底：<span class="stat-value" id="gold-guarantee">17</span></div>
+            </div>
+            
+            <div class="draw-buttons">
+                <img src="tupian/xiangyu1.png" alt="单抽" class="draw-btn" id="single-draw-btn">
+                <img src="tupian/jiuchan10.png" alt="十连" class="draw-btn" id="multi-draw-btn">
+            </div>
+        </div>
+        
+        <!-- 抽卡视频 -->
+        <video id="draw-video" controls>
+            <source src="video/j.mp4" type="video/mp4">
+            您的浏览器不支持视频播放
+        </video>
+        <div class="skip-btn" id="skip-btn">跳过</div>
+        
+        <!-- 单抽结果 -->
+        <div class="single-result" id="single-result">
+            <img class="single-result-img" id="single-result-img" src="touxiang/1.jpg" alt="抽卡结果">
+            <div class="single-result-name" id="single-result-name">李宇滔</div>
+        </div>
+        
+        <!-- 十连结果 -->
+        <div class="multi-result" id="multi-result">
+            <h2 class="multi-result-title">十连抽结果</h2>
+            <div class="multi-result-grid" id="multi-result-grid">
+                <!-- 十连结果将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 历史记录面板 -->
+        <div class="history-panel" id="history-panel">
+            <div class="history-header">
+                <h2 class="history-title">抽卡历史记录</h2>
+                <div class="close-history" id="close-history">关闭</div>
+            </div>
+            <div class="history-content" id="history-content">
+                <!-- 历史记录将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 兑换界面 -->
+        <div class="exchange-panel" id="exchange-panel">
+            <div class="exchange-box">
+                <h2 class="exchange-title">兑换纠缠之缘</h2>
+                <div class="exchange-controls">
+                    <button class="exchange-btn" id="exchange-minus-five">-5</button>
+                    <button class="exchange-btn" id="exchange-minus">-</button>
+                    <div class="exchange-value" id="exchange-value">1</div>
+                    <button class="exchange-btn" id="exchange-plus">+</button>
+                    <button class="exchange-btn" id="exchange-max">MAX</button>
+                </div>
+                <div class="exchange-info">
+                    160个原石兑换1个纠缠之缘。<br>
+                    总计消耗：<span id="exchange-total">160</span>原石
+                </div>
+                <div class="exchange-actions">
+                    <button class="action-btn confirm-btn" id="exchange-confirm">确认</button>
+                    <button class="action-btn cancel-btn" id="exchange-cancel">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 学生名单
+        const students = [
+            "李宇滔", "张奕", "钟惠映", "谢敏怡", "郭星", "何树坤", "莫海桃", "吕彩滢", "张海涛", "赖保成",
+            "龚彦普", "郭永精", "林传武", "何金泉", "何发垚", "车锦旭", "李梓盛", "苏晓煜", "萧枫", "何伟业",
+            "苏艳冰", "何美玲", "杨宇鹏", "林华城", "何宇钊", "郭忠辉", "朱键铭", "林子翔", "张华锦", "刘谦",
+            "黎晓雯", "车思慧", "黄庆运", "詹志涛", "钟汶晓", "钟懿晴", "李婷婷", "叶宁洪", "欧秋堂", "王志城",
+            "张景恒", "吕洛", "梁德铿", "吴健星", "李增强", "张棋峰", "梁连柯", "一水大王", "凌伟钦", "罗世鸿",
+            "梁昊铭", "赖剑锋", "卢权颖", "黄梓铭", "陈洪远", "苏荣锦", "叶贵佳", "林杰龙", "吕俊威", "崔杨坚"
+        ];
+        
+        // 游戏状态
+        const state = {
+            primogems: 16000000000,  // 原石数量
+            fates: 9999999999826,    // 纠缠之缘数量
+            luck: 0,                  // 今天幸运度
+            purpleGuarantee: 0,       // 出紫保底
+            goldGuarantee: 17,        // 出金保底
+            currentPool: 1,           // 当前卡池
+            drawHistory: []           // 抽卡历史记录
+        };
+        
+        // 初始化DOM元素引用
+        const primogemCount = document.getElementById('primogem-count');
+        const fateCount = document.getElementById('fate-count');
+        const luckValue = document.getElementById('luck-value');
+        const purpleGuarantee = document.getElementById('purple-guarantee');
+        const goldGuarantee = document.getElementById('gold-guarantee');
+        const singleDrawBtn = document.getElementById('single-draw-btn');
+        const multiDrawBtn = document.getElementById('multi-draw-btn');
+        const drawVideo = document.getElementById('draw-video');
+        const skipBtn = document.getElementById('skip-btn');
+        const singleResult = document.getElementById('single-result');
+        const singleResultImg = document.getElementById('single-result-img');
+        const singleResultName = document.getElementById('single-result-name');
+        const multiResult = document.getElementById('multi-result');
+        const multiResultGrid = document.getElementById('multi-result-grid');
+        const historyBtn = document.getElementById('history-btn');
+        const historyPanel = document.getElementById('history-panel');
+        const closeHistory = document.getElementById('close-history');
+        const historyContent = document.getElementById('history-content');
+        const exchangePanel = document.getElementById('exchange-panel');
+        const exchangeValue = document.getElementById('exchange-value');
+        const exchangeTotal = document.getElementById('exchange-total');
+        const exchangeMinusFive = document.getElementById('exchange-minus-five');
+        const exchangeMinus = document.getElementById('exchange-minus');
+        const exchangePlus = document.getElementById('exchange-plus');
+        const exchangeMax = document.getElementById('exchange-max');
+        const exchangeConfirm = document.getElementById('exchange-confirm');
+        const exchangeCancel = document.getElementById('exchange-cancel');
+        const poolItems = document.querySelectorAll('.pool-item');
+        const poolMain = document.querySelector('.pool-main');
+        
+        // 更新UI显示
+        function updateUI() {
+            primogemCount.textContent = state.primogems.toLocaleString();
+            fateCount.textContent = state.fates.toLocaleString();
+            luckValue.textContent = state.luck;
+            purpleGuarantee.textContent = state.purpleGuarantee;
+            goldGuarantee.textContent = state.goldGuarantee;
+        }
+        
+        // 随机生成今天的幸运度
+        function generateDailyLuck() {
+            state.luck = Math.floor(Math.random() * 101); // 0-100
+            updateUI();
+        }
+        
+        // 初始化
+        function init() {
+            updateUI();
+            generateDailyLuck();
+            
+            // 从本地存储加载历史记录
+            const savedHistory = localStorage.getItem('drawHistory');
+            if (savedHistory) {
+                state.drawHistory = JSON.parse(savedHistory);
+                updateHistoryPanel();
+            }
+            
+            // 设置卡池点击事件
+            poolItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 移除所有激活状态
+                    poolItems.forEach(i => i.classList.remove('active'));
+                    // 添加当前激活状态
+                    this.classList.add('active');
+                    
+                    // 更新当前卡池
+                    state.currentPool = parseInt(this.getAttribute('data-pool'));
+                    
+                    // 更新卡池背景
+                    let bgImage = '';
+                    switch(state.currentPool) {
+                        case 1:
+                            bgImage = "url('tupian/ccj.png')";
+                            break;
+                        case 2:
+                            bgImage = "url('tupian/ccj2.png')";
+                            break;
+                        case 3:
+                            bgImage = "url('tupian/ccj3.png')";
+                            break;
+                    }
+                    poolMain.style.backgroundImage = bgImage;
+                });
+            });
+            
+            // 单抽按钮事件
+            singleDrawBtn.addEventListener('click', function() {
+                if (state.fates < 1) {
+                    alert('纠缠之缘不足！');
+                    return;
+                }
+                
+                // 消耗纠缠之缘
+                state.fates--;
+                
+                // 播放抽卡视频
+                drawVideo.style.display = 'block';
+                skipBtn.style.display = 'block';
+                drawVideo.play();
+                
+                // 更新UI
+                updateUI();
+                
+                // 记录抽卡历史
+                recordDraw('单抽');
+            });
+            
+            // 十连按钮事件
+            multiDrawBtn.addEventListener('click', function() {
+                if (state.fates < 10) {
+                    alert('纠缠之缘不足！至少需要10个进行十连抽！');
+                    return;
+                }
+                
+                // 消耗纠缠之缘
+                state.fates -= 10;
+                
+                // 播放抽卡视频
+                drawVideo.style.display = 'block';
+                skipBtn.style.display = 'block';
+                drawVideo.play();
+                
+                // 更新UI
+                updateUI();
+                
+                // 记录抽卡历史
+                recordDraw('十连');
+            });
+            
+            // 跳过按钮事件
+            skipBtn.addEventListener('click', function() {
+                drawVideo.pause();
+                drawVideo.style.display = 'none';
+                skipBtn.style.display = 'none';
+                
+                // 显示抽卡结果
+                showDrawResult();
+            });
+            
+            // 视频结束事件
+            drawVideo.addEventListener('ended', function() {
+                drawVideo.style.display = 'none';
+                skipBtn.style.display = 'none';
+                
+                // 显示抽卡结果
+                showDrawResult();
+            });
+            
+            // 历史记录按钮事件
+            historyBtn.addEventListener('click', function() {
+                historyPanel.style.display = 'flex';
+                updateHistoryPanel();
+            });
+            
+            // 关闭历史记录面板
+            closeHistory.addEventListener('click', function() {
+                historyPanel.style.display = 'none';
+            });
+            
+            // 点击抽卡结果区域关闭
+            singleResult.addEventListener('click', function() {
+                singleResult.style.display = 'none';
+            });
+            
+            multiResult.addEventListener('click', function() {
+                multiResult.style.display = 'none';
+            });
+            
+            // 兑换界面逻辑
+            let exchangeCount = 1;
+            
+            function updateExchangeDisplay() {
+                exchangeValue.textContent = exchangeCount;
+                exchangeTotal.textContent = (exchangeCount * 160).toLocaleString();
+            }
+            
+            exchangeMinusFive.addEventListener('click', function() {
+                exchangeCount = Math.max(1, exchangeCount - 5);
+                updateExchangeDisplay();
+            });
+            
+            exchangeMinus.addEventListener('click', function() {
+                exchangeCount = Math.max(1, exchangeCount - 1);
+                updateExchangeDisplay();
+            });
+            
+            exchangePlus.addEventListener('click', function() {
+                exchangeCount = Math.min(Math.floor(state.primogems / 160), exchangeCount + 1);
+                updateExchangeDisplay();
+            });
+            
+            exchangeMax.addEventListener('click', function() {
+                exchangeCount = Math.floor(state.primogems / 160);
+                updateExchangeDisplay();
+            });
+            
+            exchangeConfirm.addEventListener('click', function() {
+                const totalCost = exchangeCount * 160;
+                if (state.primogems < totalCost) {
+                    alert('原石不足！');
+                    return;
+                }
+                
+                state.primogems -= totalCost;
+                state.fates += exchangeCount;
+                
+                updateUI();
+                exchangePanel.style.display = 'none';
+                
+                alert(`成功兑换${exchangeCount}个纠缠之缘！`);
+            });
+            
+            exchangeCancel.addEventListener('click', function() {
+                exchangePanel.style.display = 'none';
+            });
+            
+            // 原石框点击打开兑换界面
+            document.querySelectorAll('.resource-box')[0].addEventListener('click', function() {
+                exchangeCount = 1;
+                updateExchangeDisplay();
+                exchangePanel.style.display = 'flex';
+            });
+            
+            // 初始化兑换显示
+            updateExchangeDisplay();
+        }
+        
+        // 随机选择学生
+        function getRandomStudent() {
+            const index = Math.floor(Math.random() * students.length);
+            return {
+                id: index + 1,
+                name: students[index]
+            };
+        }
+        
+        // 显示抽卡结果
+        function showDrawResult() {
+            // 判断是单抽还是十连
+            const lastRecord = state.drawHistory[state.drawHistory.length - 1];
+            if (!lastRecord) return;
+            
+            if (lastRecord.type === '单抽') {
+                // 显示单抽结果
+                const student = getRandomStudent();
+                
+                // 尝试加载图片，如果失败则使用默认图片
+                const imgUrl = `touxiang/${student.id}.jpg`;
+                const img = new Image();
+                img.onload = function() {
+                    singleResultImg.src = imgUrl;
+                };
+                img.onerror = function() {
+                    singleResultImg.src = `touxiang/${student.id}.gif`;
+                };
+                img.src = imgUrl;
+                
+                singleResultName.textContent = student.name;
+                singleResult.style.display = 'flex';
+                
+                // 更新抽卡记录中的学生信息
+                lastRecord.studentId = student.id;
+                lastRecord.studentName = student.name;
+                saveHistoryToStorage();
+                updateHistoryPanel();
+            } else {
+                // 显示十连结果
+                multiResultGrid.innerHTML = '';
+                
+                for (let i = 0; i < 10; i++) {
+                    const student = getRandomStudent();
+                    
+                    const item = document.createElement('div');
+                    item.className = 'multi-result-item';
+                    
+                    const img = document.createElement('img');
+                    img.className = 'multi-result-img';
+                    
+                    // 尝试加载图片，如果失败则使用默认图片
+                    const imgUrl = `touxiang/${student.id}.jpg`;
+                    const testImg = new Image();
+                    testImg.onload = function() {
+                        img.src = imgUrl;
+                    };
+                    testImg.onerror = function() {
+                        img.src = `touxiang/${student.id}.gif`;
+                    };
+                    testImg.src = imgUrl;
+                    
+                    const name = document.createElement('div');
+                    name.className = 'multi-result-name';
+                    name.textContent = student.name;
+                    
+                    item.appendChild(img);
+                    item.appendChild(name);
+                    multiResultGrid.appendChild(item);
+                }
+                
+                multiResult.style.display = 'flex';
+                
+                // 更新抽卡记录中的学生信息
+                lastRecord.students = [];
+                for (let i = 0; i < 10; i++) {
+                    const student = getRandomStudent();
+                    lastRecord.students.push({
+                        id: student.id,
+                        name: student.name
+                    });
+                }
+                saveHistoryToStorage();
+                updateHistoryPanel();
+            }
+            
+            // 更新保底计数器
+            state.purpleGuarantee = (state.purpleGuarantee + 1) % 10;
+            state.goldGuarantee = Math.max(0, state.goldGuarantee - 1);
+            
+            // 如果金保底为0，重置为随机值(70-90)
+            if (state.goldGuarantee === 0) {
+                state.goldGuarantee = Math.floor(Math.random() * 21) + 70;
+            }
+            
+            updateUI();
+        }
+        
+        // 记录抽卡历史
+        function recordDraw(type) {
+            const record = {
+                id: Date.now(),
+                type: type,
+                time: new Date().toLocaleString('zh-CN'),
+                pool: state.currentPool
+            };
+            
+            state.drawHistory.unshift(record); // 添加到开头
+            if (state.drawHistory.length > 100) {
+                state.drawHistory = state.drawHistory.slice(0, 100); // 限制最多100条记录
+            }
+            
+            saveHistoryToStorage();
+        }
+        
+        // 保存历史记录到本地存储
+        function saveHistoryToStorage() {
+            localStorage.setItem('drawHistory', JSON.stringify(state.drawHistory));
+        }
+        
+        // 更新历史记录面板
+        function updateHistoryPanel() {
+            historyContent.innerHTML = '';
+            
+            if (state.drawHistory.length === 0) {
+                historyContent.innerHTML = '<div style="text-align: center; padding: 40px; color: #aaa;">暂无抽卡记录</div>';
+                return;
+            }
+            
+            state.drawHistory.forEach(record => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                
+                // 尝试获取学生信息
+                let studentName = "未知";
+                let studentId = 1;
+                
+                if (record.studentName) {
+                    studentName = record.studentName;
+                    studentId = record.studentId;
+                } else if (record.students && record.students.length > 0) {
+                    studentName = record.students[0].name;
+                    studentId = record.students[0].id;
+                }
+                
+                // 尝试加载头像
+                const imgUrl = `touxiang/${studentId}.jpg`;
+                const img = new Image();
+                img.onload = function() {
+                    item.innerHTML = `
+                        <img class="history-item-img" src="${imgUrl}" alt="${studentName}">
+                        <div class="history-item-info">
+                            <div class="history-item-name">${studentName}</div>
+                            <div class="history-item-time">${record.time} • 卡池${record.pool}</div>
+                        </div>
+                        <div class="history-item-type">${record.type}</div>
+                    `;
+                };
+                img.onerror = function() {
+                    // 如果jpg加载失败，尝试gif
+                    const gifUrl = `touxiang/${studentId}.gif`;
+                    const gifImg = new Image();
+                    gifImg.onload = function() {
+                        item.innerHTML = `
+                            <img class="history-item-img" src="${gifUrl}" alt="${studentName}">
+                            <div class="history-item-info">
+                                <div class="history-item-name">${studentName}</div>
+                                <div class="history-item-time">${record.time} • 卡池${record.pool}</div>
+                            </div>
+                            <div class="history-item-type">${record.type}</div>
+                        `;
+                    };
+                    gifImg.onerror = function() {
+                        // 如果都没有，使用默认头像
+                        item.innerHTML = `
+                            <img class="history-item-img" src="touxiang/1.jpg" alt="${studentName}">
+                            <div class="history-item-info">
+                                <div class="history-item-name">${studentName}</div>
+                                <div class="history-item-time">${record.time} • 卡池${record.pool}</div>
+                            </div>
+                            <div class="history-item-type">${record.type}</div>
+                        `;
+                    };
+                    gifImg.src = gifUrl;
+                };
+                img.src = imgUrl;
+                
+                historyContent.appendChild(item);
+            });
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
