@@ -9,111 +9,111 @@
             --bg: #f5f5f7;
             --card-bg: #ffffff;
             --primary: #2563eb;
+            --primary-light: #3b82f6;
             --primary-dark: #1d4ed8;
-            --primary-light: #eff6ff;
-            --text: #1a1a1e;
+            --primary-bg: #eff6ff;
+            --text: #1a1a1a;
             --text-secondary: #6b7280;
             --text-tertiary: #9ca3af;
             --border: #e5e7eb;
+            --border-light: #f3f4f6;
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.09), 0 4px 8px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.12);
-            --radius: 14px;
-            --radius-sm: 10px;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.10), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.14);
             --radius-xs: 8px;
+            --radius-sm: 12px;
+            --radius: 16px;
             --radius-lg: 20px;
             --radius-xl: 24px;
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', 'Menlo', monospace;
-            --status-bar-height: 40px;
+            --transition-smooth: 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+            --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', 'JetBrains Mono', monospace;
+            --status-bar-h: 40px;
             --safe-bottom: env(safe-area-inset-bottom, 12px);
             --accent-red: #ef4444;
+            --accent-red-light: #fef2f2;
             --accent-green: #10b981;
+            --accent-green-light: #ecfdf5;
             --accent-orange: #f59e0b;
+            --accent-orange-light: #fffbeb;
             --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --glass: rgba(255, 255, 255, 0.82);
-            --max-memory-mb: 180;
-            --nav-height: 56px;
-            --bottom-bar-height: 60px;
+            --glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.6);
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
         }
         html {
-            -webkit-tap-highlight-color: transparent;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             scroll-behavior: smooth;
             overscroll-behavior: contain;
-            -webkit-overscroll-behavior: contain;
-            height: 100%;
             overflow: hidden;
+            height: 100%;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
             background: #e8eaed;
             color: var(--text);
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            user-select: none;
-            -webkit-user-select: none;
             overflow: hidden;
-            overscroll-behavior: contain;
-            -webkit-overscroll-behavior: contain;
-            touch-action: manipulation;
+            transition: background var(--transition-smooth);
+            position: fixed;
+            inset: 0;
         }
-
         .app-wrapper {
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all var(--transition-slow);
+            transition: all var(--transition-smooth);
         }
         .app-container {
             position: relative;
             width: 100%;
             height: 100%;
-            max-width: 440px;
+            max-width: 480px;
             background: var(--bg);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
-            transition: all var(--transition-slow);
+            transition: all var(--transition-smooth);
             border-radius: 0;
             will-change: transform;
-            transform: translateZ(0);
             -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
         .app-wrapper.desktop-mode .app-container {
-            max-width: 960px;
+            max-width: 1100px;
             width: 96%;
             height: 94vh;
             height: 94dvh;
-            border-radius: 18px;
+            border-radius: 22px;
             margin: 0 16px;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.13), 0 0 0 1px rgba(0, 0, 0, 0.04);
         }
         .app-wrapper.desktop-mode {
-            background: #e8eaed;
-            padding: 0;
+            background: #dde0e4;
         }
-
+        .app-wrapper.desktop-mode .app-container {
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05);
+        }
         .status-bar {
-            height: var(--status-bar-height);
+            height: var(--status-bar-h);
             background: var(--card-bg);
             display: flex;
             align-items: center;
@@ -125,26 +125,27 @@
             z-index: 100;
             cursor: pointer;
             flex-shrink: 0;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
             border-bottom: 1px solid transparent;
-            transition: all var(--transition-fast);
+            transition: all var(--transition);
+            position: relative;
         }
         .status-bar:active {
-            background: #f3f4f6;
+            background: #f0f2f5;
         }
         .status-bar .time-display {
             font-size: 12px;
             font-weight: 700;
-            letter-spacing: 0.3px;
-            min-width: 42px;
-            font-variant-numeric: tabular-nums;
-            font-family: var(--font-mono);
+            letter-spacing: 0.5px;
+            min-width: 40px;
+            color: var(--text);
         }
         .status-bar .status-icons {
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 10px;
+            color: var(--text-secondary);
         }
         .status-bar .notif-dot {
             position: relative;
@@ -153,45 +154,32 @@
             cursor: pointer;
             padding: 4px;
             border-radius: 50%;
-            transition: all var(--transition-fast);
+            transition: background var(--transition);
         }
         .status-bar .notif-dot:active {
-            background: #f0f0f0;
+            background: #e8eaed;
         }
         .status-bar .notif-badge {
             position: absolute;
             top: -2px;
-            right: -2px;
+            right: -4px;
             background: var(--accent-red);
             color: #fff;
-            font-size: 9px;
-            min-width: 16px;
-            height: 16px;
+            font-size: 8px;
+            min-width: 15px;
+            height: 15px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            padding: 0 3px;
+            padding: 0 4px;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform: scale(0);
-            pointer-events: none;
-            line-height: 1;
+            letter-spacing: 0;
         }
         .status-bar .notif-badge.show {
             transform: scale(1);
-            animation: badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        @keyframes badgePop {
-            0% {
-                transform: scale(0);
-            }
-            60% {
-                transform: scale(1.25);
-            }
-            100% {
-                transform: scale(1);
-            }
         }
         .status-bar .notif-icon {
             font-size: 15px;
@@ -206,44 +194,40 @@
             100% {
                 transform: rotate(0);
             }
-            15% {
-                transform: rotate(16deg);
+            20% {
+                transform: rotate(18deg);
             }
-            30% {
-                transform: rotate(-12deg);
-            }
-            45% {
-                transform: rotate(8deg);
+            40% {
+                transform: rotate(-13deg);
             }
             60% {
+                transform: rotate(9deg);
+            }
+            80% {
                 transform: rotate(-5deg);
             }
-            75% {
-                transform: rotate(2deg);
-            }
-            90% {
-                transform: rotate(-1deg);
+            100% {
+                transform: rotate(0);
             }
         }
-
         .notification-panel {
             position: absolute;
-            top: var(--status-bar-height);
-            left: 0;
-            right: 0;
+            top: var(--status-bar-h);
+            left: 6px;
+            right: 6px;
             background: var(--glass);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             z-index: 99;
-            border-radius: 0 0 18px 18px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
-            padding: 6px 10px 14px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            padding: 4px 8px 14px;
             max-height: 0;
             overflow: hidden;
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
             pointer-events: none;
-            will-change: max-height, opacity;
+            border: 1px solid var(--glass-border);
         }
         .notification-panel.open {
             max-height: 380px;
@@ -255,36 +239,37 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 6px 10px;
+            padding: 10px 10px 10px;
             font-size: 12px;
             font-weight: 700;
             color: var(--text);
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
         }
         .notification-panel .notif-clear {
             font-size: 11px;
             color: var(--primary);
             cursor: pointer;
             font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 16px;
-            transition: all var(--transition-fast);
-            background: transparent;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all var(--transition);
+            background: var(--primary-bg);
             border: none;
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
         }
         .notification-panel .notif-clear:active {
-            background: rgba(37, 99, 235, 0.08);
+            background: #dbeafe;
+            transform: scale(0.94);
         }
         .notification-panel .notif-item {
             display: flex;
             align-items: flex-start;
-            gap: 8px;
-            padding: 9px 8px;
-            border-radius: 10px;
-            margin-bottom: 2px;
-            background: rgba(255, 255, 255, 0.5);
-            transition: all var(--transition-fast);
+            gap: 10px;
+            padding: 10px 10px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            transition: all var(--transition);
             cursor: pointer;
             animation: slideInNotif 0.28s ease-out;
         }
@@ -299,20 +284,19 @@
             }
         }
         .notification-panel .notif-item:active {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             transform: scale(0.97);
         }
         .notification-panel .notif-item .notif-emoji {
             font-size: 18px;
             flex-shrink: 0;
-            width: 24px;
+            width: 26px;
             text-align: center;
-            line-height: 1;
         }
         .notification-panel .notif-item .notif-content {
             flex: 1;
             font-size: 12px;
-            line-height: 1.4;
+            line-height: 1.5;
             color: var(--text);
         }
         .notification-panel .notif-item .notif-time {
@@ -322,14 +306,12 @@
         }
         .notification-panel .notif-empty {
             text-align: center;
-            padding: 24px;
+            padding: 28px;
             color: var(--text-tertiary);
             font-size: 12px;
-            letter-spacing: 0.2px;
         }
-
         .search-bar-wrap {
-            padding: 6px 12px;
+            padding: 8px 14px 4px;
             flex-shrink: 0;
             z-index: 10;
         }
@@ -338,16 +320,15 @@
             align-items: center;
             background: var(--card-bg);
             border-radius: 22px;
-            padding: 8px 12px;
-            gap: 8px;
+            padding: 8px 14px;
+            gap: 9px;
             box-shadow: var(--shadow-sm);
             transition: all var(--transition);
-            will-change: transform, box-shadow;
             border: 1.5px solid transparent;
         }
         .search-bar:focus-within {
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10), var(--shadow-md);
             border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08), var(--shadow-md);
             transform: translateY(-1px);
         }
         .search-bar input {
@@ -357,19 +338,19 @@
             font-size: 14px;
             background: transparent;
             color: var(--text);
-            letter-spacing: 0.2px;
+            letter-spacing: 0.3px;
             min-width: 0;
-            font-family: inherit;
+            -webkit-user-select: text;
+            user-select: text;
         }
         .search-bar input::placeholder {
-            color: #b0b5bc;
+            color: #b0b5bb;
         }
         .search-bar .search-icon {
             font-size: 15px;
             color: var(--text-tertiary);
             flex-shrink: 0;
             transition: all var(--transition);
-            line-height: 1;
         }
         .search-bar:focus-within .search-icon {
             color: var(--primary);
@@ -377,12 +358,12 @@
         }
         .search-bar .search-clear {
             font-size: 13px;
-            color: #b0b5bc;
+            color: #b0b5bb;
             cursor: pointer;
-            padding: 3px 7px;
+            padding: 5px 8px;
             border-radius: 50%;
             display: none;
-            transition: all var(--transition-fast);
+            transition: all var(--transition);
             background: none;
             border: none;
             flex-shrink: 0;
@@ -395,36 +376,34 @@
             background: #eee;
             color: #555;
         }
-
         .stats-row {
             display: flex;
-            gap: 6px;
-            padding: 2px 12px 6px;
+            gap: 7px;
+            padding: 4px 14px 8px;
             flex-shrink: 0;
         }
         .stat-chip {
             flex: 1;
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 9px 10px;
+            border-radius: var(--radius-sm);
+            padding: 10px 10px;
             text-align: center;
             box-shadow: var(--shadow-sm);
-            transition: all var(--transition);
+            transition: all var(--transition-bounce);
             cursor: default;
             position: relative;
             overflow: hidden;
-            border: 1px solid transparent;
+            border: 1px solid var(--border-light);
         }
         .stat-chip:active {
-            transform: scale(0.96);
+            transform: scale(0.94);
             box-shadow: var(--shadow-md);
-            border-color: #e0e0e0;
         }
         .stat-chip .stat-num {
             font-size: 20px;
             font-weight: 700;
             color: var(--primary);
-            letter-spacing: -0.3px;
+            letter-spacing: -0.5px;
             transition: all 0.3s;
             font-variant-numeric: tabular-nums;
             font-family: var(--font-mono);
@@ -438,30 +417,34 @@
                 transform: scale(1);
                 color: var(--primary);
             }
-            50% {
-                transform: scale(1.22);
+            40% {
+                transform: scale(1.3);
                 color: var(--accent-orange);
+            }
+            70% {
+                transform: scale(0.95);
             }
         }
         .stat-chip .stat-label {
             font-size: 9px;
             color: var(--text-tertiary);
-            margin-top: 2px;
-            letter-spacing: 0.3px;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
+            font-weight: 500;
         }
         .stat-chip .stat-pulse {
             position: absolute;
             inset: 0;
-            border-radius: 12px;
-            background: rgba(37, 99, 235, 0.08);
+            border-radius: var(--radius-sm);
+            background: rgba(37, 99, 235, 0.1);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s;
         }
         .stat-chip.pulse .stat-pulse {
             opacity: 1;
-            animation: pulseOut 0.55s ease-out forwards;
+            animation: pulseOut 0.7s ease-out forwards;
         }
         @keyframes pulseOut {
             0% {
@@ -473,30 +456,35 @@
                 transform: scale(1.06);
             }
         }
-
         .photo-grid-scroll {
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
-            padding: 2px 10px 14px;
+            padding: 4px 12px 16px;
             -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
             overscroll-behavior: contain;
-            -webkit-overscroll-behavior: contain;
+            will-change: scroll-position;
         }
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 7px;
+            gap: 8px;
         }
         .app-wrapper.desktop-mode .photo-grid {
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
-        @media (min-width: 800px) {
+        @media (min-width: 860px) {
             .app-wrapper.desktop-mode .photo-grid {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 12px;
+            }
+        }
+        @media (min-width: 1020px) {
+            .app-wrapper.desktop-mode .photo-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 14px;
             }
         }
         .photo-card {
@@ -509,12 +497,12 @@
             position: relative;
             animation: fadeInUp 0.35s ease-out both;
             will-change: transform;
-            border: 1px solid transparent;
+            border: 1px solid var(--border-light);
         }
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(12px);
+                transform: translateY(14px);
             }
             to {
                 opacity: 1;
@@ -524,14 +512,13 @@
         .photo-card:active {
             transform: scale(0.94);
             box-shadow: var(--shadow-lg);
-            border-color: #dde;
         }
         .photo-card .card-img-wrap {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
             overflow: hidden;
-            background: #f0f1f3;
+            background: #f0f2f5;
             cursor: pointer;
         }
         .photo-card .card-img-wrap img {
@@ -543,15 +530,16 @@
             pointer-events: none;
         }
         .photo-card:hover .card-img-wrap img {
-            transform: scale(1.04);
+            transform: scale(1.06);
         }
         .photo-card .card-shimmer {
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+            background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
             transform: translateX(-100%);
             pointer-events: none;
             z-index: 3;
+            border-radius: var(--radius) var(--radius) 0 0;
         }
         .photo-card.shimmer .card-shimmer {
             animation: shimmer 0.9s ease-in-out;
@@ -565,7 +553,8 @@
             }
         }
         .photo-card .card-info {
-            padding: 7px 9px 9px;
+            padding: 8px 10px 10px;
+            cursor: pointer;
         }
         .photo-card .card-workorder {
             font-size: 11px;
@@ -574,29 +563,32 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            letter-spacing: 0.15px;
+            letter-spacing: 0.2px;
         }
         .photo-card .card-meta {
             font-size: 9px;
             color: var(--text-tertiary);
-            margin-top: 2px;
+            margin-top: 3px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .photo-card .card-remark-preview {
             font-size: 9px;
-            color: #a0a5ac;
-            margin-top: 1px;
+            color: var(--text-tertiary);
+            margin-top: 2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .photo-card .card-action-btn {
+        .photo-card .card-delete-btn {
             position: absolute;
+            top: 6px;
+            left: 6px;
             width: 24px;
             height: 24px;
             border-radius: 50%;
+            background: rgba(239, 68, 68, 0.9);
             color: #fff;
             border: none;
             font-size: 10px;
@@ -605,38 +597,54 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: all var(--transition-fast);
+            transition: all var(--transition);
             z-index: 4;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
         }
-        .photo-card .card-delete-btn {
-            top: 6px;
-            left: 6px;
-            background: rgba(239, 68, 68, 0.85);
-        }
-        .photo-card .card-download-btn {
-            top: 6px;
-            right: 6px;
-            background: rgba(37, 99, 235, 0.85);
-        }
-        .photo-card:hover .card-action-btn,
-        .photo-card:active .card-action-btn {
+        .photo-card:hover .card-delete-btn,
+        .photo-card:active .card-delete-btn {
             opacity: 1;
         }
-
+        .photo-card .card-download-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.9);
+            color: #fff;
+            border: none;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all var(--transition);
+            z-index: 4;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+        .photo-card:hover .card-download-btn,
+        .photo-card:active .card-download-btn {
+            opacity: 1;
+        }
         .empty-state {
             text-align: center;
-            padding: 44px 16px;
+            padding: 40px 20px;
             grid-column: 1 / -1;
+            animation: fadeInUp 0.5s ease-out;
         }
         .empty-state .empty-emoji {
-            font-size: 52px;
-            margin-bottom: 10px;
-            animation: float 2.8s ease-in-out infinite;
+            font-size: 56px;
+            margin-bottom: 12px;
+            animation: floatEmoji 3s ease-in-out infinite;
             display: inline-block;
+            filter: grayscale(0.1);
         }
-        @keyframes float {
+        @keyframes floatEmoji {
             0%,
             100% {
                 transform: translateY(0);
@@ -648,37 +656,29 @@
         .empty-state .empty-text {
             font-size: 13px;
             color: var(--text-tertiary);
-            letter-spacing: 0.3px;
-            line-height: 1.6;
+            letter-spacing: 0.4px;
+            line-height: 1.7;
         }
-
         .bottom-bar {
             flex-shrink: 0;
             background: var(--card-bg);
-            padding: 7px 10px calc(7px + var(--safe-bottom));
+            padding: 8px 12px calc(8px + var(--safe-bottom));
             display: flex;
-            gap: 5px;
+            gap: 6px;
             align-items: center;
-            box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.04);
             z-index: 20;
-            border-top: 1px solid var(--border);
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        .bottom-bar::-webkit-scrollbar {
-            display: none;
+            border-top: 1px solid var(--border-light);
         }
         .btn {
             border: none;
-            border-radius: 20px;
-            padding: 9px 14px;
+            border-radius: 22px;
+            padding: 10px 14px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all var(--transition-fast);
-            letter-spacing: 0.2px;
+            transition: all var(--transition);
+            letter-spacing: 0.3px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -688,22 +688,21 @@
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
-            font-family: inherit;
             outline: none;
-            -webkit-appearance: none;
-            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
         }
         .btn .ripple-effect {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.45);
             transform: scale(0);
             animation: ripple 0.55s ease-out;
             pointer-events: none;
         }
         @keyframes ripple {
             to {
-                transform: scale(4);
+                transform: scale(5);
                 opacity: 0;
             }
         }
@@ -715,21 +714,20 @@
             background: var(--primary);
             color: #fff;
             font-size: 13px;
-            padding: 11px 16px;
-            box-shadow: 0 3px 10px rgba(37, 99, 235, 0.28);
+            padding: 12px 16px;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
             min-width: 0;
-            border-radius: 22px;
+            letter-spacing: 0.5px;
         }
         .btn-primary:active {
-            box-shadow: 0 1px 4px rgba(37, 99, 235, 0.18);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
             background: var(--primary-dark);
         }
         .btn-secondary {
             background: #f3f4f6;
             color: var(--text);
-            padding: 8px 11px;
+            padding: 9px 12px;
             font-size: 11px;
-            border-radius: 18px;
         }
         .btn-secondary:active {
             background: #e5e7eb;
@@ -738,29 +736,26 @@
             background: transparent;
             color: var(--primary);
             border: 1.5px solid var(--primary);
-            padding: 7px 11px;
+            padding: 8px 12px;
             font-size: 11px;
-            border-radius: 18px;
         }
         .btn-outline:active {
-            background: var(--primary-light);
+            background: var(--primary-bg);
         }
         .btn-danger {
             background: var(--accent-red);
             color: #fff;
             padding: 8px 12px;
             font-size: 11px;
-            border-radius: 18px;
         }
         .btn-danger:active {
             background: #dc2626;
         }
         .btn-sm {
-            padding: 5px 10px;
+            padding: 7px 10px;
             font-size: 10px;
-            border-radius: 14px;
+            border-radius: 18px;
         }
-
         .camera-overlay {
             position: fixed;
             inset: 0;
@@ -792,30 +787,28 @@
             display: flex;
             gap: 18px;
             align-items: center;
-            padding: 24px 16px 40px;
+            padding: 24px 16px 44px;
             width: 100%;
             justify-content: center;
         }
         .cam-btn {
-            width: 58px;
-            height: 58px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 3px solid #fff;
+            border: 4px solid #fff;
             background: rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: all var(--transition-fast);
+            transition: all var(--transition);
             position: relative;
-            box-shadow: 0 0 28px rgba(0, 0, 0, 0.28);
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
         }
         .cam-btn:active {
             transform: scale(0.82);
             background: rgba(255, 255, 255, 0.4);
         }
         .cam-btn-inner {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: #fff;
             position: absolute;
@@ -839,10 +832,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: all var(--transition-fast);
-            -webkit-tap-highlight-color: transparent;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition);
         }
         .cam-close:active {
             background: rgba(0, 0, 0, 0.7);
@@ -853,20 +844,18 @@
             height: 38px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.16);
-            border: 2px solid rgba(255, 255, 255, 0.45);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             color: #fff;
             cursor: pointer;
             font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: all var(--transition-fast);
-            -webkit-tap-highlight-color: transparent;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition);
         }
         .cam-switch:active {
-            background: rgba(255, 255, 255, 0.32);
+            background: rgba(255, 255, 255, 0.3);
             transform: scale(0.88);
         }
         .cam-flash {
@@ -882,11 +871,10 @@
             opacity: 1;
             transition: opacity 0s;
         }
-
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.42);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 150;
             display: flex;
             align-items: flex-end;
@@ -903,15 +891,15 @@
         }
         .modal-sheet {
             background: #fff;
-            border-radius: 18px 18px 0 0;
+            border-radius: 22px 22px 0 0;
             width: 100%;
-            max-width: 460px;
+            max-width: 500px;
             max-height: 80vh;
             overflow-y: auto;
-            padding: 6px 14px 22px;
+            padding: 6px 16px 26px;
             transform: translateY(100%);
             transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
-            box-shadow: 0 -6px 28px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
             will-change: transform;
             -webkit-overflow-scrolling: touch;
         }
@@ -919,18 +907,19 @@
             transform: translateY(0);
         }
         .modal-handle {
-            width: 30px;
-            height: 4px;
-            background: #d4d4d4;
-            border-radius: 2px;
-            margin: 6px auto 10px;
+            width: 32px;
+            height: 5px;
+            background: #d4d6d9;
+            border-radius: 3px;
+            margin: 8px auto 12px;
         }
         .modal-sheet h3 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-align: center;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.4px;
+            color: var(--text);
         }
         .modal-sheet .form-group {
             margin-bottom: 10px;
@@ -940,39 +929,40 @@
             font-size: 10px;
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 3px;
-            letter-spacing: 0.3px;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
         .modal-sheet input,
         .modal-sheet textarea {
             width: 100%;
-            padding: 10px 11px;
+            padding: 10px 12px;
             border: 1.5px solid var(--border);
             border-radius: 10px;
             font-size: 13px;
             font-family: inherit;
-            transition: all var(--transition-fast);
-            background: #fafafa;
+            transition: all var(--transition);
+            background: #fafbfc;
             color: var(--text);
-            letter-spacing: 0.15px;
-            -webkit-appearance: none;
+            letter-spacing: 0.2px;
+            -webkit-user-select: text;
+            user-select: text;
         }
         .modal-sheet input:focus,
         .modal-sheet textarea:focus {
             outline: none;
             border-color: var(--primary);
             background: #fff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.05);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.05);
         }
         .modal-sheet textarea {
             resize: vertical;
             min-height: 55px;
-            line-height: 1.45;
+            line-height: 1.5;
         }
         .modal-sheet .form-row {
             display: flex;
-            gap: 6px;
+            gap: 8px;
         }
         .modal-sheet .form-row .form-group {
             flex: 1;
@@ -980,13 +970,12 @@
         }
         .modal-sheet .btn-row {
             display: flex;
-            gap: 6px;
-            margin-top: 14px;
+            gap: 8px;
+            margin-top: 16px;
         }
         .modal-sheet .btn-row .btn {
             flex: 1;
         }
-
         .image-viewer-overlay {
             position: fixed;
             inset: 0;
@@ -997,100 +986,118 @@
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.22s ease;
-            touch-action: none;
+            transition: opacity 0.24s ease;
+            overflow: hidden;
         }
         .image-viewer-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
-        .image-viewer-overlay .img-container {
+        .image-viewer-container {
             position: relative;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
-            touch-action: pan-x pan-y pinch-zoom;
+            touch-action: none;
         }
-        .image-viewer-overlay img {
-            max-width: 92%;
-            max-height: 84vh;
+        .image-viewer-container img {
+            max-width: 95%;
+            max-height: 85vh;
             border-radius: 8px;
             object-fit: contain;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-            transition: transform 0.08s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.05s linear;
             will-change: transform;
-            user-select: none;
-            -webkit-user-select: none;
-            pointer-events: none;
+            pointer-events: auto;
+            touch-action: manipulation;
         }
         .image-viewer-close {
             position: absolute;
-            top: 14px;
-            right: 14px;
-            width: 36px;
-            height: 36px;
+            top: 16px;
+            right: 16px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.12);
             color: #fff;
             border: none;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             z-index: 5;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all var(--transition-fast);
-            -webkit-tap-highlight-color: transparent;
+            transition: all var(--transition);
         }
         .image-viewer-close:active {
             background: rgba(255, 255, 255, 0.25);
             transform: scale(0.86);
         }
-        .image-viewer-zoom-controls {
+        .image-viewer-zoom-hint {
             position: absolute;
-            bottom: 28px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 5;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .zoom-btn {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.14);
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            transition: all var(--transition-fast);
-            -webkit-tap-highlight-color: transparent;
-            font-weight: 700;
-        }
-        .zoom-btn:active {
-            background: rgba(255, 255, 255, 0.28);
-            transform: scale(0.84);
-        }
-        .zoom-reset-btn {
-            width: auto;
-            padding: 0 14px;
-            border-radius: 16px;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 11px;
-            letter-spacing: 0.2px;
+            z-index: 5;
+            pointer-events: none;
+            letter-spacing: 0.3px;
+            transition: opacity 0.5s;
         }
-
+        .toast-container {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            pointer-events: none;
+        }
+        .toast {
+            background: #333;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            animation: toastIn 0.3s ease-out, toastOut 0.25s 1.6s ease-in forwards;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            pointer-events: auto;
+            text-align: center;
+            max-width: 80vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes toastOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+        }
         .settings-panel {
             position: absolute;
             inset: 0;
@@ -1111,13 +1118,14 @@
             padding: 12px 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--border);
+            gap: 10px;
+            border-bottom: 1px solid var(--border-light);
             background: var(--card-bg);
             flex-shrink: 0;
             position: sticky;
             top: 0;
             z-index: 2;
+            backdrop-filter: blur(10px);
         }
         .settings-panel .settings-content {
             padding: 12px;
@@ -1125,48 +1133,49 @@
         }
         .settings-panel .settings-content .setting-item {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: var(--radius-sm);
+            padding: 13px;
             margin-bottom: 8px;
             box-shadow: var(--shadow-sm);
-            transition: all var(--transition-fast);
-            border: 1px solid transparent;
+            transition: all var(--transition);
+            border: 1px solid var(--border-light);
         }
         .settings-panel .settings-content .setting-item label {
             font-weight: 600;
             font-size: 12px;
-            letter-spacing: 0.15px;
+            letter-spacing: 0.2px;
             display: block;
             margin-bottom: 4px;
+            color: var(--text);
         }
         .settings-panel .settings-content .setting-item .setting-desc {
             font-size: 10px;
             color: var(--text-tertiary);
             margin-bottom: 6px;
-            line-height: 1.5;
+            line-height: 1.6;
             word-break: break-all;
         }
-        .settings-panel .settings-content .setting-item input {
+        .settings-panel .settings-content .setting-item input[type="text"] {
             width: 100%;
             padding: 8px 10px;
             border: 1.5px solid var(--border);
             border-radius: 8px;
             font-size: 11px;
             font-family: var(--font-mono);
-            background: #fafafa;
-            letter-spacing: 0.15px;
-            -webkit-appearance: none;
+            background: #fafbfc;
+            letter-spacing: 0.2px;
+            -webkit-user-select: text;
+            user-select: text;
         }
         .settings-panel .settings-content .setting-item input:focus {
             outline: none;
             border-color: var(--primary);
             background: #fff;
         }
-
         .about-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.48);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 170;
             display: flex;
             align-items: center;
@@ -1174,8 +1183,8 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.24s ease;
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
         }
         .about-overlay.active {
             opacity: 1;
@@ -1183,43 +1192,45 @@
         }
         .about-dialog {
             background: #fff;
-            border-radius: 16px;
-            padding: 20px 18px 18px;
+            border-radius: var(--radius-lg);
+            padding: 22px 18px 18px;
             text-align: center;
-            max-width: 340px;
+            max-width: 350px;
             width: 86%;
             box-shadow: var(--shadow-xl);
-            transform: translateY(16px);
-            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             will-change: transform;
         }
         .about-overlay.active .about-dialog {
             transform: translateY(0);
         }
         .about-dialog .about-icon {
-            font-size: 42px;
+            font-size: 44px;
             margin-bottom: 8px;
-            animation: float 2.4s ease-in-out infinite;
+            animation: floatEmoji 2.5s ease-in-out infinite;
             display: inline-block;
         }
         .about-dialog h3 {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 700;
             margin-bottom: 4px;
+            color: var(--text);
         }
         .about-dialog .about-version {
-            font-size: 10px;
+            font-size: 11px;
             color: var(--text-tertiary);
             margin-bottom: 10px;
         }
         .about-dialog .about-info {
             font-size: 11px;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.8;
             text-align: left;
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 10px 12px;
+            background: #f8fafb;
+            border-radius: 10px;
+            padding: 11px 13px;
+            border: 1px solid var(--border-light);
         }
         .about-dialog .about-info strong {
             color: var(--text);
@@ -1229,117 +1240,38 @@
             width: 100%;
             justify-content: center;
         }
-
-        .toast-container {
-            position: fixed;
-            top: 48px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 300;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            pointer-events: none;
-        }
-        .toast {
-            background: #333;
-            color: #fff;
-            padding: 7px 14px;
-            border-radius: 18px;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            animation: toastIn 0.3s ease-out, toastOut 0.24s 1.5s ease-in forwards;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-            pointer-events: auto;
-            text-align: center;
-            max-width: 78vw;
-            line-height: 1.3;
-        }
-        @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateY(-14px);
+        @media (max-width: 420px) {
+            .app-container {
+                border-radius: 0;
+                max-width: 100%;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes toastOut {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-        }
-
-        .memory-warning-bar {
-            position: absolute;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 50;
-            background: rgba(245, 158, 11, 0.92);
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 16px;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.2px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            white-space: nowrap;
-        }
-        .memory-warning-bar.show {
-            opacity: 1;
-            animation: pulseWarn 1.5s ease-in-out infinite;
-        }
-        @keyframes pulseWarn {
-            0%,
-            100% {
-                opacity: 0.85;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 380px) {
             .photo-grid {
-                gap: 5px;
+                gap: 6px;
             }
             .photo-card .card-info {
-                padding: 5px 7px 7px;
+                padding: 6px 8px 8px;
             }
             .photo-card .card-workorder {
                 font-size: 10px;
             }
             .bottom-bar {
-                padding: 5px 7px calc(5px + var(--safe-bottom));
-                gap: 3px;
+                padding: 6px 8px calc(6px + var(--safe-bottom));
+                gap: 4px;
             }
             .btn {
-                padding: 7px 9px;
+                padding: 8px 10px;
                 font-size: 10px;
-                border-radius: 16px;
             }
             .btn-primary {
                 font-size: 11px;
-                padding: 9px 11px;
-                border-radius: 18px;
+                padding: 10px 12px;
             }
             .status-bar {
                 padding: 0 10px;
                 font-size: 10px;
             }
             .stats-row {
-                padding: 1px 8px 4px;
+                padding: 3px 8px 5px;
                 gap: 4px;
             }
             .stat-chip {
@@ -1350,11 +1282,10 @@
                 font-size: 16px;
             }
             .search-bar-wrap {
-                padding: 4px 8px;
+                padding: 5px 8px;
             }
             .search-bar {
-                padding: 6px 9px;
-                border-radius: 18px;
+                padding: 7px 10px;
             }
             .search-bar input {
                 font-size: 12px;
@@ -1363,9 +1294,9 @@
     </style>
 </head>
 <body>
-
     <div class="app-wrapper" id="appWrapper">
         <div class="app-container" id="appContainer">
+            <!-- 状态栏 -->
             <div class="status-bar" id="statusBar" title="点击查看通知">
                 <span class="time-display" id="timeDisplay">12:00</span>
                 <div class="status-icons">
@@ -1376,49 +1307,75 @@
                     </span>
                 </div>
             </div>
+            <!-- 通知面板 -->
             <div class="notification-panel" id="notificationPanel">
-                <div class="notif-header"><span>📋 通知中心</span><button class="notif-clear" id="notifClearBtn">全部清除</button></div>
-                <div class="notif-list" id="notifList"><div class="notif-empty">暂无通知</div></div>
+                <div class="notif-header">
+                    <span>📋 通知中心</span>
+                    <button class="notif-clear" id="notifClearBtn">全部清除</button>
+                </div>
+                <div class="notif-list" id="notifList">
+                    <div class="notif-empty">暂无通知</div>
+                </div>
             </div>
+            <!-- 搜索栏 -->
             <div class="search-bar-wrap">
                 <div class="search-bar">
                     <span class="search-icon">🔍</span>
-                    <input type="text" id="searchInput" placeholder="搜索工单号、备注...">
+                    <input type="text" id="searchInput" placeholder="搜索工单号、备注..." autocomplete="off">
                     <button class="search-clear" id="searchClearBtn">✕</button>
                 </div>
             </div>
+            <!-- 统计栏 -->
             <div class="stats-row">
-                <div class="stat-chip" id="statChipTotal"><div class="stat-num" id="statTotal">0</div><div class="stat-label">📸 总照片</div><div class="stat-pulse"></div></div>
-                <div class="stat-chip" id="statChipToday"><div class="stat-num" id="statToday">0</div><div class="stat-label">📅 今日</div><div class="stat-pulse"></div></div>
-                <div class="stat-chip" id="statChipStorage"><div class="stat-num" id="statStorage">0</div><div class="stat-label">💾 MB</div><div class="stat-pulse"></div></div>
-            </div>
-            <div class="memory-warning-bar" id="memoryWarningBar">⚠️ 内存使用接近阈值，建议导出数据</div>
-            <div class="photo-grid-scroll" id="photoGridScroll">
-                <div class="photo-grid" id="photoGrid">
-                    <div class="empty-state"><div class="empty-emoji">📷</div><div class="empty-text">点击下方按钮拍照<br>或上传照片开始记录</div></div>
+                <div class="stat-chip" id="statChipTotal">
+                    <div class="stat-num" id="statTotal">0</div>
+                    <div class="stat-label">📸 总照片</div>
+                    <div class="stat-pulse"></div>
+                </div>
+                <div class="stat-chip" id="statChipToday">
+                    <div class="stat-num" id="statToday">0</div>
+                    <div class="stat-label">📅 今日</div>
+                    <div class="stat-pulse"></div>
+                </div>
+                <div class="stat-chip" id="statChipStorage">
+                    <div class="stat-num" id="statStorage">0</div>
+                    <div class="stat-label">💾 MB</div>
+                    <div class="stat-pulse"></div>
                 </div>
             </div>
-            <div class="bottom-bar" id="bottomBar">
+            <!-- 照片网格 -->
+            <div class="photo-grid-scroll" id="photoGridScroll">
+                <div class="photo-grid" id="photoGrid">
+                    <div class="empty-state">
+                        <div class="empty-emoji">📷</div>
+                        <div class="empty-text">点击下方按钮拍照<br>或上传照片开始记录</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 底部栏 -->
+            <div class="bottom-bar">
                 <button class="btn btn-outline btn-sm" id="btnUpload" title="从相册选择">📁 上传</button>
                 <button class="btn btn-primary" id="btnCamera" title="打开相机拍照">📷 拍照</button>
-                <button class="btn btn-secondary btn-sm" id="btnExport" title="导出数据到JSON文件">📤 导出</button>
-                <button class="btn btn-secondary btn-sm" id="btnImport" title="从JSON文件导入数据">📥 导入</button>
+                <button class="btn btn-secondary btn-sm" id="btnExport" title="导出数据">📤 导出</button>
                 <button class="btn btn-secondary btn-sm" id="btnSettings" title="设置">⚙️</button>
-                <button class="btn btn-outline btn-sm" id="btnModeSwitch" title="切换PC/手机模式">🔄</button>
+                <button class="btn btn-outline btn-sm" id="btnModeSwitch" title="切换模式">🔄</button>
             </div>
+            <!-- 相机 -->
             <div class="camera-overlay" id="cameraOverlay">
                 <video id="cameraVideo" autoplay playsinline muted></video>
                 <div class="cam-flash" id="camFlash"></div>
                 <button class="cam-close" id="camCloseBtn">✕</button>
                 <div class="cam-controls">
                     <button class="cam-switch" id="camSwitchBtn" title="切换摄像头">🔄</button>
-                    <button class="cam-btn" id="camCaptureBtn"><div class="cam-btn-inner"></div></button>
+                    <button class="cam-btn" id="camCaptureBtn">
+                        <div class="cam-btn-inner"></div>
+                    </button>
                     <button class="cam-switch" id="camUploadFallbackBtn" title="从相册选择">🖼️</button>
                 </div>
                 <input type="file" id="hiddenFileInput" accept="image/*" capture="environment" style="display:none;">
                 <input type="file" id="hiddenFileInputMulti" accept="image/*" multiple style="display:none;">
-                <input type="file" id="importFileInput" accept=".json" style="display:none;">
             </div>
+            <!-- 编辑弹窗 -->
             <div class="modal-overlay" id="editModalOverlay">
                 <div class="modal-sheet">
                     <div class="modal-handle"></div>
@@ -1433,20 +1390,18 @@
                         <button class="btn btn-danger btn-sm" id="btnDeleteRecord">🗑️ 删除</button>
                         <button class="btn btn-primary" id="btnSaveEdit">💾 保存</button>
                     </div>
-                    <button class="btn btn-secondary" style="width:100%;margin-top:4px;" id="btnCancelEdit">取消</button>
+                    <button class="btn btn-secondary" style="width:100%;margin-top:6px;" id="btnCancelEdit">取消</button>
                 </div>
             </div>
+            <!-- 图片查看器 -->
             <div class="image-viewer-overlay" id="imageViewerOverlay">
                 <button class="image-viewer-close" id="imageViewerClose">✕</button>
-                <div class="img-container" id="imgContainer">
+                <div class="image-viewer-container" id="imageViewerContainer">
                     <img src="" alt="照片预览" id="imageViewerImg">
                 </div>
-                <div class="image-viewer-zoom-controls" id="zoomControls">
-                    <button class="zoom-btn" id="zoomOutBtn" title="缩小">−</button>
-                    <button class="zoom-btn zoom-reset-btn" id="zoomResetBtn" title="重置">1:1</button>
-                    <button class="zoom-btn" id="zoomInBtn" title="放大">+</button>
-                </div>
+                <div class="image-viewer-zoom-hint" id="imageViewerZoomHint">🖐️ 双指缩放 · 双击放大</div>
             </div>
+            <!-- 设置面板 -->
             <div class="settings-panel" id="settingsPanel">
                 <div class="settings-header">
                     <button class="btn btn-secondary btn-sm" id="btnSettingsBack">← 返回</button>
@@ -1454,37 +1409,47 @@
                 </div>
                 <div class="settings-content">
                     <div class="setting-item">
-                        <label>📂 存储路径配置</label>
-                        <div class="setting-desc">数据JSON文件保存路径（用于导出和MT管理器管理）<br>默认：<strong>/storage/emulated/0/pzhao/</strong></div>
-                        <input type="text" id="storagePathInput" placeholder="/storage/emulated/0/pzhao/">
-                        <button class="btn btn-primary btn-sm" style="margin-top:6px;width:100%;" id="btnSaveStoragePath">💾 保存路径配置</button>
-                        <div class="setting-desc" style="margin-top:6px;color:var(--accent-green);" id="storagePathStatus"></div>
-                    </div>
-                    <div class="setting-item">
-                        <label>💾 数据存储说明</label>
+                        <label>📂 数据存储说明</label>
                         <div class="setting-desc">
-                            数据以JSON文件形式存储，包含所有照片（Base64编码）。<br>
-                            导出：下载JSON文件 → 用MT管理器移动到pzhao文件夹<br>
-                            导入：从pzhao文件夹选择JSON文件恢复数据<br>
-                            <strong>换设备：</strong>旧设备导出JSON → 新设备导入JSON<br>
-                            <small style="color:var(--accent-orange);">浏览器限制：无法直接写入手机文件夹，需MT管理器辅助</small>
+                            所有数据（含照片）存储在浏览器本地数据库中。<br>
+                            <strong>导出JSON文件</strong>后，可用MT管理器移动到<br>
+                            <code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;">/storage/emulated/0/pzhao/</code><br>
+                            换设备时，导入该JSON即可恢复全部数据。<br>
+                            <span style="color:var(--accent-green);">✅ 数据不会因关闭页面而丢失</span>
                         </div>
                     </div>
                     <div class="setting-item">
+                        <label>📤 导出数据</label>
+                        <div class="setting-desc" id="exportPathInfo">
+                            导出为JSON文件到下载目录<br>
+                            文件名：拍照工单数据_日期时间.json<br>
+                            <small>导出后用MT管理器移动到pzhao文件夹</small>
+                        </div>
+                        <button class="btn btn-primary btn-sm" style="width:100%;" id="btnExportInSettings">📤 立即导出</button>
+                    </div>
+                    <div class="setting-item">
                         <label>📥 导入数据</label>
-                        <div class="setting-desc">选择之前导出的JSON文件恢复数据（自动去重）</div>
-                        <button class="btn btn-primary btn-sm" style="width:100%;" id="btnImportDataSettings">📥 选择JSON文件导入</button>
+                        <div class="setting-desc">
+                            选择之前导出的JSON文件恢复数据<br>
+                            <small style="color:var(--accent-orange);">⚠️ 重复数据会自动跳过</small>
+                        </div>
+                        <input type="file" id="importFileInput" accept=".json" style="display:block;margin-bottom:8px;width:100%;">
+                        <button class="btn btn-primary btn-sm" style="width:100%;" id="btnImportData">执行导入</button>
+                    </div>
+                    <div class="setting-item">
+                        <label>💾 存储阈值</label>
+                        <div class="setting-desc" id="storageThresholdInfo">
+                            当前已用：<strong id="storageUsedDisplay">0 MB</strong><br>
+                            阈值设置：<strong id="thresholdDisplay">500 MB</strong><br>
+                            超过阈值时将发出警告
+                        </div>
+                        <input type="range" id="storageThresholdSlider" min="50" max="2000" value="500" step="10" style="width:100%;margin:6px 0;">
+                        <button class="btn btn-outline btn-sm" style="width:100%;" id="btnSetThreshold">设置阈值</button>
                     </div>
                     <div class="setting-item">
                         <label>🗑️ 清除所有数据</label>
                         <div class="setting-desc" style="color:var(--accent-red);">此操作不可恢复，请先导出备份</div>
                         <button class="btn btn-danger btn-sm" style="width:100%;" id="btnClearAllData">清除全部数据</button>
-                    </div>
-                    <div class="setting-item">
-                        <label>📊 内存阈值设置</label>
-                        <div class="setting-desc">当存储超过此值时提醒导出（默认180MB）</div>
-                        <input type="number" id="memoryThresholdInput" placeholder="180" min="10" max="500" step="5">
-                        <button class="btn btn-outline btn-sm" style="margin-top:4px;width:100%;" id="btnSaveThreshold">保存阈值</button>
                     </div>
                     <div class="setting-item">
                         <label>📱 当前模式</label>
@@ -1493,29 +1458,32 @@
                     </div>
                     <div class="setting-item">
                         <label>ℹ️ 关于</label>
-                        <div class="setting-desc">查看应用信息和版本说明</div>
+                        <div class="setting-desc">查看应用信息和版本详情</div>
                         <button class="btn btn-outline btn-sm" style="width:100%;" id="btnAbout">📋 关于拍照工单管理</button>
                     </div>
                 </div>
             </div>
+            <!-- 关于弹窗 -->
             <div class="about-overlay" id="aboutOverlay">
                 <div class="about-dialog">
                     <div class="about-icon">📷</div>
                     <h3>拍照工单管理</h3>
                     <div class="about-version">版本 3.0.0 · 2026</div>
                     <div class="about-info">
-                        <strong>功能：</strong>拍照、上传、工单管理<br>
-                        <strong>数据：</strong>JSON文件（含照片Base64）<br>
-                        <strong>路径：</strong>/storage/emulated/0/pzhao/<br>
-                        <strong>换设备：</strong>导出JSON → MT管理器 → 导入<br>
-                        <strong>存储：</strong>内存+导出JSON文件<br>
-                        <strong>特性：</strong>拍照、缩放、音效、动画<br>
-                        <strong>网络：</strong>完全离线可用<br>
-                        <small style="color:var(--text-tertiary);">运行于浏览器/WebView环境<br>所有功能真实可用，无模拟数据</small>
+                        <strong>📸 功能：</strong>拍照、上传、工单管理<br>
+                        <strong>💾 存储：</strong>本地数据库 + JSON导出<br>
+                        <strong>📂 路径：</strong>/storage/emulated/0/pzhao/<br>
+                        <strong>🔄 换设备：</strong>导出→MT管理器→导入<br>
+                        <strong>🔍 特性：</strong>通知面板、搜索、编辑<br>
+                        <strong>🖼️ 图片：</strong>支持缩放查看<br>
+                        <strong>🔊 反馈：</strong>操作提示+音效<br>
+                        <strong>📱 模式：</strong>手机/PC自适应<br>
+                        <small style="color:var(--text-tertiary);display:block;margin-top:4px;">完全离线可用·无需网络</small>
                     </div>
                     <button class="btn btn-primary" id="btnAboutClose">关闭</button>
                 </div>
             </div>
+            <!-- Toast -->
             <div class="toast-container" id="toastContainer"></div>
         </div>
     </div>
@@ -1543,11 +1511,9 @@
             const statChipTotal = $('statChipTotal');
             const statChipToday = $('statChipToday');
             const statChipStorage = $('statChipStorage');
-            const memoryWarningBar = $('memoryWarningBar');
             const btnCamera = $('btnCamera');
             const btnUpload = $('btnUpload');
             const btnExport = $('btnExport');
-            const btnImport = $('btnImport');
             const btnSettings = $('btnSettings');
             const btnModeSwitch = $('btnModeSwitch');
             const cameraOverlay = $('cameraOverlay');
@@ -1559,7 +1525,6 @@
             const camUploadFallbackBtn = $('camUploadFallbackBtn');
             const hiddenFileInput = $('hiddenFileInput');
             const hiddenFileInputMulti = $('hiddenFileInputMulti');
-            const importFileInput = $('importFileInput');
             const editModalOverlay = $('editModalOverlay');
             const editWorkOrder = $('editWorkOrder');
             const editRemark = $('editRemark');
@@ -1570,32 +1535,116 @@
             const btnCancelEdit = $('btnCancelEdit');
             const imageViewerOverlay = $('imageViewerOverlay');
             const imageViewerImg = $('imageViewerImg');
-            const imgContainer = $('imgContainer');
+            const imageViewerContainer = $('imageViewerContainer');
             const imageViewerClose = $('imageViewerClose');
-            const zoomControls = $('zoomControls');
-            const zoomOutBtn = $('zoomOutBtn');
-            const zoomInBtn = $('zoomInBtn');
-            const zoomResetBtn = $('zoomResetBtn');
+            const imageViewerZoomHint = $('imageViewerZoomHint');
             const settingsPanel = $('settingsPanel');
             const btnSettingsBack = $('btnSettingsBack');
-            const btnImportDataSettings = $('btnImportDataSettings');
+            const importFileInput = $('importFileInput');
+            const btnImportData = $('btnImportData');
             const btnClearAllData = $('btnClearAllData');
             const btnToggleModeInSettings = $('btnToggleModeInSettings');
             const currentModeLabel = $('currentModeLabel');
+            const exportPathInfo = $('exportPathInfo');
             const toastContainer = $('toastContainer');
-            const storagePathInput = $('storagePathInput');
-            const btnSaveStoragePath = $('btnSaveStoragePath');
-            const storagePathStatus = $('storagePathStatus');
             const aboutOverlay = $('aboutOverlay');
             const btnAbout = $('btnAbout');
             const btnAboutClose = $('btnAboutClose');
-            const memoryThresholdInput = $('memoryThresholdInput');
-            const btnSaveThreshold = $('btnSaveThreshold');
-            const bottomBar = $('bottomBar');
+            const btnExportInSettings = $('btnExportInSettings');
+            const storageThresholdSlider = $('storageThresholdSlider');
+            const btnSetThreshold = $('btnSetThreshold');
+            const storageUsedDisplay = $('storageUsedDisplay');
+            const thresholdDisplay = $('thresholdDisplay');
+            const storageThresholdInfo = $('storageThresholdInfo');
+
+            // ==================== 音效系统 ====================
+            let audioCtx = null;
+
+            function getAudioContext() {
+                if (!audioCtx) {
+                    try {
+                        audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                    } catch (e) {
+                        audioCtx = null;
+                    }
+                }
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume().catch(() => {});
+                }
+                return audioCtx;
+            }
+
+            function playSound(type) {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                try {
+                    const now = ctx.currentTime;
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    switch (type) {
+                        case 'click':
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(800, now);
+                            osc.frequency.exponentialRampToValueAtTime(400, now + 0.08);
+                            gain.gain.setValueAtTime(0.15, now);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                            osc.start(now);
+                            osc.stop(now + 0.08);
+                            break;
+                        case 'success':
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(600, now);
+                            osc.frequency.exponentialRampToValueAtTime(900, now + 0.1);
+                            osc.frequency.exponentialRampToValueAtTime(1100, now + 0.2);
+                            gain.gain.setValueAtTime(0.18, now);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                            osc.start(now);
+                            osc.stop(now + 0.25);
+                            break;
+                        case 'error':
+                            osc.type = 'square';
+                            osc.frequency.setValueAtTime(200, now);
+                            osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+                            gain.gain.setValueAtTime(0.12, now);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                            osc.start(now);
+                            osc.stop(now + 0.2);
+                            break;
+                        case 'delete':
+                            osc.type = 'triangle';
+                            osc.frequency.setValueAtTime(500, now);
+                            osc.frequency.exponentialRampToValueAtTime(200, now + 0.15);
+                            gain.gain.setValueAtTime(0.14, now);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                            osc.start(now);
+                            osc.stop(now + 0.15);
+                            break;
+                        case 'camera':
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(1000, now);
+                            osc.frequency.exponentialRampToValueAtTime(600, now + 0.12);
+                            gain.gain.setValueAtTime(0.2, now);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                            osc.start(now);
+                            osc.stop(now + 0.12);
+                            break;
+                        default:
+                            osc.type = 'sine';
+                            osc.frequency.setValueAtTime(700, now);
+                            gain.gain.setValueAtTime(0.1, now);
+                            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                            osc.start(now);
+                            osc.stop(now + 0.06);
+                    }
+                } catch (e) {
+                    // 音效失败不影响功能
+                }
+            }
 
             // ==================== 状态变量 ====================
             const DEFAULT_STORAGE_PATH = '/storage/emulated/0/pzhao/';
-            const DEFAULT_MEMORY_THRESHOLD_MB = 180;
             let allRecords = [];
             let filteredRecords = [];
             let currentEditId = null;
@@ -1605,102 +1654,143 @@
             let notifications = [];
             let searchQuery = '';
             let configuredStoragePath = DEFAULT_STORAGE_PATH;
-            let memoryThresholdMB = DEFAULT_MEMORY_THRESHOLD_MB;
             let viewStack = [];
-            let currentZoom = 1;
-            let zoomMin = 0.3;
-            let zoomMax = 4;
-            let isZoomDragging = false;
-            let lastPinchDist = 0;
-            let lastPanX = 0;
-            let lastPanY = 0;
-            let panOffsetX = 0;
-            let panOffsetY = 0;
-            let imgNaturalW = 0;
-            let imgNaturalH = 0;
-            let totalStorageMB = 0;
-            let audioCtx = null;
+            let storageThresholdMB = 500;
+            let imageViewerScale = 1;
+            let imageViewerTranslateX = 0;
+            let imageViewerTranslateY = 0;
+            let lastTouchDistance = 0;
+            let lastTouchCenter = { x: 0, y: 0 };
+            let isDragging = false;
+            let dragStart = { x: 0, y: 0 };
+            let dragStartTranslate = { x: 0, y: 0 };
 
-            // ==================== 音效系统（Web Audio API - 无需网络） ====================
-            function getAudioCtx() {
-                if (!audioCtx) {
-                    try {
-                        audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-                    } catch (e) {
-                        audioCtx = null;
-                    }
-                }
-                return audioCtx;
-            }
+            // ==================== IndexedDB ====================
+            const DB_NAME = 'PhotoWorkOrderDB_V3';
+            const DB_VERSION = 4;
+            const STORE_NAME = 'records';
+            const CONFIG_STORE = 'config';
+            let db = null;
 
-            function playSound(freq, duration, type = 'sine', vol = 0.08) {
-                const ctx = getAudioCtx();
-                if (!ctx) return;
-                try {
-                    if (ctx.state === 'suspended') ctx.resume();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = type;
-                    osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                    gain.gain.setValueAtTime(vol, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start(ctx.currentTime);
-                    osc.stop(ctx.currentTime + duration);
-                } catch (e) { /* 静默处理 */ }
-            }
-
-            function playClickSound() { playSound(800, 0.08, 'sine', 0.06);
-                playSound(1200, 0.05, 'sine', 0.03); }
-
-            function playSuccessSound() { playSound(600, 0.1, 'sine', 0.07);
-                playSound(900, 0.08, 'sine', 0.05);
-                playSound(1200, 0.06, 'sine', 0.03); }
-
-            function playDeleteSound() { playSound(300, 0.12, 'triangle', 0.06);
-                playSound(180, 0.1, 'triangle', 0.04); }
-
-            function playCameraSound() { playSound(500, 0.06, 'sine', 0.05);
-                playSound(700, 0.04, 'sine', 0.03); }
-
-            function playErrorSound() { playSound(200, 0.15, 'square', 0.05);
-                playSound(150, 0.12, 'square', 0.04); }
-
-            function playOpenSound() { playSound(400, 0.08, 'sine', 0.04);
-                playSound(600, 0.06, 'sine', 0.03); }
-
-            function playCloseSound() { playSound(600, 0.06, 'sine', 0.04);
-                playSound(400, 0.05, 'sine', 0.03); }
-
-            // ==================== Toast ====================
-            let toastTimer = null;
-
-            function showToast(message, duration = 1700) {
-                const toast = document.createElement('div');
-                toast.className = 'toast';
-                toast.textContent = message;
-                toastContainer.appendChild(toast);
-                const removeToast = () => {
-                    if (toast.parentNode) toast.remove();
-                };
-                toast.addEventListener('animationend', function(e) {
-                    if (e.animationName === 'toastOut') removeToast();
+            function openDB() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(DB_NAME, DB_VERSION);
+                    request.onupgradeneeded = (e) => {
+                        const dbRef = e.target.result;
+                        if (!dbRef.objectStoreNames.contains(STORE_NAME)) {
+                            const store = dbRef.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                            store.createIndex('createdAt', 'createdAt', { unique: false });
+                            store.createIndex('workOrderNo', 'workOrderNo', { unique: false });
+                        }
+                        if (!dbRef.objectStoreNames.contains(CONFIG_STORE)) {
+                            dbRef.createObjectStore(CONFIG_STORE, { keyPath: 'key' });
+                        }
+                    };
+                    request.onsuccess = (e) => {
+                        db = e.target.result;
+                        resolve(db);
+                    };
+                    request.onerror = (e) => {
+                        console.error('IndexedDB打开失败:', e);
+                        reject(e);
+                    };
                 });
-                setTimeout(() => {
-                    if (toast.parentNode) {
-                        toast.style.animation = 'toastOut 0.24s 0s ease-in forwards';
-                        setTimeout(removeToast, 260);
+            }
+
+            function getAllRecords() {
+                return new Promise((resolve) => {
+                    if (!db) { resolve([]); return; }
+                    try {
+                        const tx = db.transaction(STORE_NAME, 'readonly');
+                        const store = tx.objectStore(STORE_NAME);
+                        store.getAll().onsuccess = (e) => resolve(e.target.result || []);
+                        tx.onerror = () => resolve([]);
+                    } catch (e) {
+                        resolve([]);
                     }
-                }, duration);
+                });
+            }
+
+            function saveRecord(record) {
+                return new Promise((resolve, reject) => {
+                    if (!db) { reject('数据库未就绪'); return; }
+                    try {
+                        const tx = db.transaction(STORE_NAME, 'readwrite');
+                        tx.objectStore(STORE_NAME).put(record);
+                        tx.oncomplete = () => resolve();
+                        tx.onerror = () => reject(tx.error);
+                    } catch (e) {
+                        reject(e);
+                    }
+                });
+            }
+
+            function deleteRecordFromDB(id) {
+                return new Promise((resolve, reject) => {
+                    if (!db) { reject('数据库未就绪'); return; }
+                    try {
+                        const tx = db.transaction(STORE_NAME, 'readwrite');
+                        tx.objectStore(STORE_NAME).delete(id);
+                        tx.oncomplete = () => resolve();
+                        tx.onerror = () => reject(tx.error);
+                    } catch (e) {
+                        reject(e);
+                    }
+                });
+            }
+
+            function clearAllRecords() {
+                return new Promise((resolve, reject) => {
+                    if (!db) { reject('数据库未就绪'); return; }
+                    try {
+                        const tx = db.transaction(STORE_NAME, 'readwrite');
+                        tx.objectStore(STORE_NAME).clear();
+                        tx.oncomplete = () => resolve();
+                        tx.onerror = () => reject(tx.error);
+                    } catch (e) {
+                        reject(e);
+                    }
+                });
+            }
+
+            function getConfig(key) {
+                return new Promise((resolve) => {
+                    if (!db) { resolve(null); return; }
+                    try {
+                        const tx = db.transaction(CONFIG_STORE, 'readonly');
+                        const req = tx.objectStore(CONFIG_STORE).get(key);
+                        req.onsuccess = () => resolve(req.result ? req.result.value : null);
+                        req.onerror = () => resolve(null);
+                    } catch (e) {
+                        resolve(null);
+                    }
+                });
+            }
+
+            function setConfig(key, value) {
+                return new Promise((resolve, reject) => {
+                    if (!db) { reject('数据库未就绪'); return; }
+                    try {
+                        const tx = db.transaction(CONFIG_STORE, 'readwrite');
+                        tx.objectStore(CONFIG_STORE).put({ key, value });
+                        tx.oncomplete = () => resolve();
+                        tx.onerror = () => reject(tx.error);
+                    } catch (e) {
+                        reject(e);
+                    }
+                });
             }
 
             // ==================== 通知系统 ====================
             function addNotification(message, emoji = '📸') {
-                const notif = { id: Date.now() + Math.random(), message, emoji, time: new Date().toLocaleString(
-                    'zh-CN') };
+                const notif = {
+                    id: Date.now(),
+                    message,
+                    emoji,
+                    time: new Date().toLocaleString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                };
                 notifications.unshift(notif);
-                if (notifications.length > 60) notifications = notifications.slice(0, 60);
+                if (notifications.length > 100) notifications = notifications.slice(0, 100);
                 updateNotifUI();
                 notifIcon.classList.add('bell-active');
                 setTimeout(() => notifIcon.classList.remove('bell-active'), 500);
@@ -1709,11 +1799,8 @@
             function updateNotifUI() {
                 const count = notifications.length;
                 notifBadge.textContent = count > 99 ? '99+' : count;
-                if (count > 0) {
-                    notifBadge.classList.add('show');
-                } else {
-                    notifBadge.classList.remove('show');
-                }
+                if (count > 0) notifBadge.classList.add('show');
+                else notifBadge.classList.remove('show');
                 renderNotifList();
             }
 
@@ -1721,7 +1808,7 @@
                 if (notifications.length === 0) {
                     notifList.innerHTML = '<div class="notif-empty">暂无通知</div>';
                 } else {
-                    notifList.innerHTML = notifications.slice(0, 20).map(n =>
+                    notifList.innerHTML = notifications.slice(0, 25).map(n =>
                         `<div class="notif-item"><span class="notif-emoji">${n.emoji}</span><div class="notif-content">${n.message}<div class="notif-time">${n.time}</div></div></div>`
                     ).join('');
                 }
@@ -1732,7 +1819,7 @@
                 updateNotifUI();
                 closeNotificationPanel();
                 showToast('通知已清除');
-                playClickSound();
+                playSound('delete');
             }
 
             function toggleNotificationPanel() {
@@ -1747,7 +1834,7 @@
                 notificationPanel.classList.add('open');
                 renderNotifList();
                 pushView('notificationPanel');
-                playOpenSound();
+                playSound('click');
             }
 
             function closeNotificationPanel() {
@@ -1755,12 +1842,9 @@
                 popView('notificationPanel');
             }
 
-            // ==================== 返回栈 ====================
+            // ==================== 返回栈管理 ====================
             function pushView(name) {
                 if (!viewStack.includes(name)) viewStack.push(name);
-                if (viewStack.length === 1) {
-                    try { history.pushState({ view: name }, '', ''); } catch (e) {}
-                }
             }
 
             function popView(name) {
@@ -1768,7 +1852,7 @@
             }
 
             function goBack() {
-                if (viewStack.length === 0) return;
+                if (viewStack.length === 0) return false;
                 const lastView = viewStack[viewStack.length - 1];
                 viewStack.pop();
                 switch (lastView) {
@@ -1791,9 +1875,20 @@
                         closeAbout();
                         break;
                     default:
-                        break;
+                        return false;
                 }
-                playCloseSound();
+                return true;
+            }
+
+            // ==================== Toast ====================
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.textContent = message;
+                toastContainer.appendChild(toast);
+                setTimeout(() => {
+                    if (toast.parentNode) toast.remove();
+                }, 2000);
             }
 
             // ==================== 涟漪效果 ====================
@@ -1810,25 +1905,25 @@
             }
             document.addEventListener('click', function(e) {
                 const btn = e.target.closest('.btn');
-                if (btn) {
-                    addRipple(e, btn);
-                    playClickSound();
-                }
+                if (btn) addRipple(e, btn);
             });
 
             // ==================== 图片压缩 ====================
-            function compressImage(base64, maxWidth, quality = 0.72) {
+            function compressImage(base64, maxWidth, quality = 0.75) {
                 return new Promise((resolve) => {
                     const img = new Image();
                     img.onload = () => {
                         let w = img.width,
                             h = img.height;
-                        if (w > maxWidth) { h = Math.round(h * (maxWidth / w));
-                            w = maxWidth; }
+                        if (w > maxWidth) {
+                            h = Math.round(h * (maxWidth / w));
+                            w = maxWidth;
+                        }
                         const canvas = document.createElement('canvas');
                         canvas.width = w;
                         canvas.height = h;
-                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
                         resolve(canvas.toDataURL('image/jpeg', quality));
                     };
                     img.onerror = () => resolve(base64);
@@ -1838,12 +1933,10 @@
 
             function estimateBase64SizeMB(base64) {
                 if (!base64) return 0;
-                const headerLen = (base64.indexOf(',') + 1) || 0;
-                const data = base64.substring(headerLen);
-                return (data.length * 0.75) / (1024 * 1024);
+                return (base64.length * 0.75) / (1024 * 1024);
             }
 
-            function calculateTotalStorage() {
+            function getTotalStorageMB() {
                 let total = 0;
                 allRecords.forEach(r => {
                     total += estimateBase64SizeMB(r.photo || '');
@@ -1852,23 +1945,30 @@
                 return total;
             }
 
-            function checkMemoryThreshold() {
-                totalStorageMB = calculateTotalStorage();
-                if (totalStorageMB >= memoryThresholdMB * 0.85) {
-                    memoryWarningBar.classList.add('show');
-                    memoryWarningBar.textContent =
-                        `⚠️ 存储占用 ${totalStorageMB.toFixed(1)}MB / ${memoryThresholdMB}MB 阈值，建议导出数据`;
-                } else if (totalStorageMB >= memoryThresholdMB) {
-                    memoryWarningBar.classList.add('show');
-                    memoryWarningBar.textContent =
-                        `🚨 已超过阈值 ${memoryThresholdMB}MB！当前 ${totalStorageMB.toFixed(1)}MB，请立即导出`;
-                } else {
-                    memoryWarningBar.classList.remove('show');
+            function checkStorageThreshold() {
+                const totalMB = getTotalStorageMB();
+                storageUsedDisplay.textContent = totalMB.toFixed(1) + ' MB';
+                if (totalMB > storageThresholdMB) {
+                    showToast('⚠️ 存储已超过阈值 ' + storageThresholdMB + ' MB，建议清理或导出');
+                    addNotification('存储超过阈值 ⚠️', '⚠️');
                 }
+                return totalMB;
             }
 
             // ==================== 数据处理 ====================
-            function generateId() { return 'rec_' + Date.now() + '_' + Math.random().toString(36).substring(2, 10); }
+            async function loadAllRecords() {
+                try {
+                    allRecords = await getAllRecords();
+                    allRecords.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                    applySearchFilter();
+                    updateStats();
+                    checkStorageThreshold();
+                } catch (e) {
+                    console.error('加载记录失败:', e);
+                    allRecords = [];
+                    filteredRecords = [];
+                }
+            }
 
             function applySearchFilter() {
                 const q = searchQuery.trim().toLowerCase();
@@ -1898,20 +1998,29 @@
                 statTotal.textContent = allRecords.length;
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
-                const todayTs = today.getTime();
-                statToday.textContent = allRecords.filter(r => r.createdAt >= todayTs).length;
-                totalStorageMB = calculateTotalStorage();
-                statStorage.textContent = totalStorageMB.toFixed(1);
+                const todayTimestamp = today.getTime();
+                statToday.textContent = allRecords.filter(r => (r.createdAt || 0) >= todayTimestamp).length;
+                const totalMB = getTotalStorageMB();
+                statStorage.textContent = totalMB.toFixed(1);
+                storageUsedDisplay.textContent = totalMB.toFixed(1) + ' MB';
                 bumpStat(statTotal, statChipTotal);
                 bumpStat(statToday, statChipToday);
                 bumpStat(statStorage, statChipStorage);
-                checkMemoryThreshold();
+                if (totalMB > storageThresholdMB && allRecords.length > 0) {
+                    statStorage.style.color = 'var(--accent-red)';
+                } else {
+                    statStorage.style.color = 'var(--primary)';
+                }
+            }
+
+            function generateId() {
+                return 'rec_' + Date.now() + '_' + Math.random().toString(36).substring(2, 10);
             }
 
             async function addPhotoRecord(photoBase64) {
                 const now = Date.now();
-                const thumbnail = await compressImage(photoBase64, 200, 0.55);
-                const compressedPhoto = await compressImage(photoBase64, 1100, 0.75);
+                const thumbnail = await compressImage(photoBase64, 240, 0.55);
+                const compressedPhoto = await compressImage(photoBase64, 1280, 0.78);
                 const record = {
                     id: generateId(),
                     workOrderNo: '',
@@ -1922,47 +2031,45 @@
                     photo: compressedPhoto,
                     thumbnail: thumbnail,
                 };
-                allRecords.unshift(record);
-                applySearchFilter();
-                updateStats();
-                addNotification('新照片已保存 📷', '📸');
-                showToast('照片已保存 ✓');
-                photoGridScroll.scrollTo({ top: 0, behavior: 'smooth' });
-                playSuccessSound();
+                try {
+                    await saveRecord(record);
+                    allRecords.unshift(record);
+                    applySearchFilter();
+                    updateStats();
+                    checkStorageThreshold();
+                    addNotification('新照片已保存 📷', '📸');
+                    showToast('照片已保存 ✓');
+                    playSound('success');
+                    photoGridScroll.scrollTo({ top: 0, behavior: 'smooth' });
+                } catch (err) {
+                    console.error('保存记录失败:', err);
+                    showToast('保存失败，请重试');
+                    playSound('error');
+                }
             }
 
             async function addMultiplePhotoRecords(base64Array) {
+                let count = 0;
                 for (const b of base64Array) {
-                    await addPhotoRecord(b);
+                    try {
+                        await addPhotoRecord(b);
+                        count++;
+                    } catch (e) {
+                        console.error('批量上传单张失败:', e);
+                    }
                 }
-                if (base64Array.length > 1) {
-                    addNotification(`批量上传 ${base64Array.length} 张照片`, '📁');
-                    showToast(`已上传 ${base64Array.length} 张照片 ✓`);
+                if (count > 1) {
+                    addNotification(`批量上传 ${count} 张照片`, '📁');
                 }
-            }
-
-            function fileToBase64(file) {
-                return new Promise((resolve, reject) => {
-                    const r = new FileReader();
-                    r.onload = () => resolve(r.result);
-                    r.onerror = reject;
-                    r.readAsDataURL(file);
-                });
-            }
-
-            function base64ToBlob(base64) {
-                const parts = base64.split(',');
-                const mimeMatch = parts[0].match(/:(.*?);/);
-                const mime = mimeMatch ? mimeMatch[1] : 'image/jpeg';
-                const bytes = atob(parts[1]);
-                const arr = new Uint8Array(bytes.length);
-                for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
-                return new Blob([arr], { type: mime });
+                if (count > 0) {
+                    showToast(`已上传 ${count} 张照片`);
+                    playSound('success');
+                }
             }
 
             function escapeHtml(str) {
                 const d = document.createElement('div');
-                d.textContent = str;
+                d.textContent = str || '';
                 return d.innerHTML;
             }
 
@@ -1982,25 +2089,30 @@
             // ==================== 渲染照片网格 ====================
             function renderPhotoGrid() {
                 if (filteredRecords.length === 0) {
-                    photoGrid.innerHTML =
-                        `<div class="empty-state"><div class="empty-emoji">${searchQuery?'🔍':'📷'}</div><div class="empty-text">${searchQuery?'没有匹配的记录':'点击下方按钮拍照<br>或上传照片开始记录'}</div></div>`;
+                    photoGrid.innerHTML = `
+                <div class="empty-state">
+                  <div class="empty-emoji">${searchQuery?'🔍':'📷'}</div>
+                  <div class="empty-text">${searchQuery?'没有匹配的记录':'点击下方按钮拍照<br>或上传照片开始记录'}</div>
+                </div>`;
                 } else {
                     photoGrid.innerHTML = filteredRecords.map((r, i) => {
                         const thumbSrc = r.thumbnail || r.photo || '';
                         const remarkPreview = r.remark ? r.remark.substring(0, 18) : '';
                         const woNo = r.workOrderNo || '未填写工单号';
-                        return `<div class="photo-card" data-id="${r.id}" style="animation-delay:${Math.min(i*0.02,0.6)}s;">
-                    <div class="card-shimmer"></div>
-                    <button class="card-action-btn card-delete-btn" data-action="quick-delete" data-id="${r.id}" title="快速删除">🗑️</button>
-                    <button class="card-action-btn card-download-btn" data-action="download-photo" data-id="${r.id}" title="保存照片到本地">💾</button>
-                    <div class="card-img-wrap" data-action="view-image" data-id="${r.id}">
-                      <img src="${thumbSrc}" alt="照片" loading="lazy">
-                    </div>
-                    <div class="card-info" data-action="edit" data-id="${r.id}">
-                      <div class="card-workorder">📋 ${escapeHtml(woNo)}</div>
-                      <div class="card-remark-preview">${escapeHtml(remarkPreview)||'无备注'}</div>
-                      <div class="card-meta"><span>📸 ${formatDateTime(r.photoTime)}</span></div>
-                    </div></div>`;
+                        return `
+                <div class="photo-card" data-id="${r.id}" style="animation-delay:${i*0.02}s;">
+                  <div class="card-shimmer"></div>
+                  <button class="card-delete-btn" data-action="quick-delete" data-id="${r.id}" title="快速删除">🗑️</button>
+                  <button class="card-download-btn" data-action="download-photo" data-id="${r.id}" title="保存照片">💾</button>
+                  <div class="card-img-wrap" data-action="view-image" data-id="${r.id}">
+                    <img src="${thumbSrc}" alt="照片" loading="lazy" draggable="false">
+                  </div>
+                  <div class="card-info" data-action="edit" data-id="${r.id}">
+                    <div class="card-workorder">📋 ${escapeHtml(woNo)}</div>
+                    <div class="card-remark-preview">${escapeHtml(remarkPreview)||'无备注'}</div>
+                    <div class="card-meta"><span>📸 ${formatDateTime(r.photoTime)}</span></div>
+                  </div>
+                </div>`;
                     }).join('');
                 }
                 // 绑定事件
@@ -2014,7 +2126,6 @@
                                 e.stopPropagation();
                                 openImageViewer(id);
                             } else if (action === 'edit') {
-                                e.stopPropagation();
                                 openEditModal(id);
                             } else if (action === 'quick-delete') {
                                 e.stopPropagation();
@@ -2036,137 +2147,144 @@
             }
 
             // ==================== 图片查看器（支持缩放） ====================
+            function resetImageViewerTransform() {
+                imageViewerScale = 1;
+                imageViewerTranslateX = 0;
+                imageViewerTranslateY = 0;
+                applyImageViewerTransform();
+                imageViewerZoomHint.style.opacity = '1';
+                setTimeout(() => { imageViewerZoomHint.style.opacity = '0'; }, 2500);
+            }
+
+            function applyImageViewerTransform() {
+                imageViewerImg.style.transform =
+                    `translate(${imageViewerTranslateX}px, ${imageViewerTranslateY}px) scale(${imageViewerScale})`;
+            }
+
             function openImageViewer(id) {
                 const record = allRecords.find(r => r.id === id);
                 if (!record || !record.photo) {
                     showToast('无照片数据');
-                    playErrorSound();
                     return;
                 }
                 imageViewerImg.src = record.photo;
-                imageViewerImg.style.transform = 'scale(1) translate(0px, 0px)';
-                currentZoom = 1;
-                panOffsetX = 0;
-                panOffsetY = 0;
+                resetImageViewerTransform();
                 imageViewerOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 pushView('imageViewer');
-                playOpenSound();
-                // 获取图片原始尺寸
-                imageViewerImg.onload = function() {
-                    imgNaturalW = imageViewerImg.naturalWidth;
-                    imgNaturalH = imageViewerImg.naturalHeight;
-                };
+                playSound('click');
             }
 
             function closeImageViewer() {
                 imageViewerOverlay.classList.remove('active');
                 document.body.style.overflow = '';
-                setTimeout(() => { imageViewerImg.src = '';
-                    currentZoom = 1;
-                    panOffsetX = 0;
-                    panOffsetY = 0; }, 280);
+                setTimeout(() => {
+                    imageViewerImg.src = '';
+                    resetImageViewerTransform();
+                }, 300);
                 popView('imageViewer');
-                playCloseSound();
             }
 
-            function applyZoom() {
-                const tx = panOffsetX;
-                const ty = panOffsetY;
-                imageViewerImg.style.transform = `scale(${currentZoom}) translate(${tx}px, ${ty}px)`;
-                zoomResetBtn.textContent = currentZoom.toFixed(1) + 'x';
+            function getTouchDistance(touches) {
+                if (touches.length < 2) return 0;
+                const dx = touches[0].clientX - touches[1].clientX;
+                const dy = touches[0].clientY - touches[1].clientY;
+                return Math.sqrt(dx * dx + dy * dy);
             }
 
-            function zoomIn() {
-                if (currentZoom < zoomMax) {
-                    currentZoom = Math.min(currentZoom * 1.3, zoomMax);
-                    applyZoom();
-                    playClickSound();
-                    showToast(`放大: ${currentZoom.toFixed(1)}x`, 800);
-                }
+            function getTouchCenter(touches) {
+                if (touches.length < 2) return { x: touches[0].clientX, y: touches[0].clientY };
+                return {
+                    x: (touches[0].clientX + touches[1].clientX) / 2,
+                    y: (touches[0].clientY + touches[1].clientY) / 2
+                };
             }
 
-            function zoomOut() {
-                if (currentZoom > zoomMin) {
-                    currentZoom = Math.max(currentZoom / 1.3, zoomMin);
-                    if (currentZoom <= zoomMin + 0.05) {
-                        currentZoom = 1;
-                        panOffsetX = 0;
-                        panOffsetY = 0;
-                    }
-                    applyZoom();
-                    playClickSound();
-                    showToast(`缩小: ${currentZoom.toFixed(1)}x`, 800);
-                }
-            }
-
-            function zoomReset() {
-                currentZoom = 1;
-                panOffsetX = 0;
-                panOffsetY = 0;
-                applyZoom();
-                playClickSound();
-                showToast('已重置', 600);
-            }
-
-            zoomInBtn.addEventListener('click', zoomIn);
-            zoomOutBtn.addEventListener('click', zoomOut);
-            zoomResetBtn.addEventListener('click', zoomReset);
-
-            // 图片查看器手势（双指缩放和拖动）
-            imgContainer.addEventListener('touchstart', function(e) {
-                if (e.touches.length === 2) {
-                    isZoomDragging = true;
-                    lastPinchDist = Math.hypot(
-                        e.touches[0].clientX - e.touches[1].clientX,
-                        e.touches[0].clientY - e.touches[1].clientY
-                    );
-                } else if (e.touches.length === 1 && currentZoom > 1) {
-                    lastPanX = e.touches[0].clientX;
-                    lastPanY = e.touches[0].clientY;
-                    isZoomDragging = true;
+            imageViewerContainer.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 1) {
+                    isDragging = true;
+                    dragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                    dragStartTranslate = { x: imageViewerTranslateX, y: imageViewerTranslateY };
+                } else if (e.touches.length === 2) {
+                    isDragging = false;
+                    lastTouchDistance = getTouchDistance(e.touches);
+                    lastTouchCenter = getTouchCenter(e.touches);
                 }
             }, { passive: false });
 
-            imgContainer.addEventListener('touchmove', function(e) {
-                if (!isZoomDragging) return;
-                if (e.touches.length === 2) {
+            imageViewerContainer.addEventListener('touchmove', function(e) {
+                if (e.touches.length === 1 && isDragging && imageViewerScale > 1) {
+                    const dx = e.touches[0].clientX - dragStart.x;
+                    const dy = e.touches[0].clientY - dragStart.y;
+                    imageViewerTranslateX = dragStartTranslate.x + dx;
+                    imageViewerTranslateY = dragStartTranslate.y + dy;
+                    applyImageViewerTransform();
                     e.preventDefault();
-                    const dist = Math.hypot(
-                        e.touches[0].clientX - e.touches[1].clientX,
-                        e.touches[0].clientY - e.touches[1].clientY
-                    );
-                    const scale = dist / lastPinchDist;
-                    currentZoom = Math.max(zoomMin, Math.min(zoomMax, currentZoom * scale));
-                    lastPinchDist = dist;
-                    applyZoom();
-                } else if (e.touches.length === 1 && currentZoom > 1) {
-                    const dx = e.touches[0].clientX - lastPanX;
-                    const dy = e.touches[0].clientY - lastPanY;
-                    panOffsetX += dx / currentZoom;
-                    panOffsetY += dy / currentZoom;
-                    lastPanX = e.touches[0].clientX;
-                    lastPanY = e.touches[0].clientY;
-                    applyZoom();
+                } else if (e.touches.length === 2) {
+                    const dist = getTouchDistance(e.touches);
+                    const center = getTouchCenter(e.touches);
+                    if (lastTouchDistance > 0 && dist > 0) {
+                        const scale = imageViewerScale * (dist / lastTouchDistance);
+                        const newScale = Math.max(0.5, Math.min(5, scale));
+                        const ratio = newScale / imageViewerScale;
+                        imageViewerTranslateX = center.x - (center.x - imageViewerTranslateX) * ratio;
+                        imageViewerTranslateY = center.y - (center.y - imageViewerTranslateY) * ratio;
+                        imageViewerScale = newScale;
+                        applyImageViewerTransform();
+                    }
+                    lastTouchDistance = dist;
+                    lastTouchCenter = center;
+                    e.preventDefault();
                 }
             }, { passive: false });
 
-            imgContainer.addEventListener('touchend', function() {
-                isZoomDragging = false;
-                lastPinchDist = 0;
+            imageViewerContainer.addEventListener('touchend', function() {
+                isDragging = false;
+                if (imageViewerScale < 0.8) {
+                    resetImageViewerTransform();
+                }
             });
 
-            // 鼠标滚轮缩放
-            imgContainer.addEventListener('wheel', function(e) {
+            imageViewerContainer.addEventListener('dblclick', function(e) {
                 e.preventDefault();
-                if (e.deltaY < 0) zoomIn();
-                else zoomOut();
-            }, { passive: false });
-
-            imageViewerClose.addEventListener('click', closeImageViewer);
-            imageViewerOverlay.addEventListener('click', function(e) {
-                if (e.target === imageViewerOverlay || e.target === imgContainer) closeImageViewer();
+                if (imageViewerScale > 1.2) {
+                    resetImageViewerTransform();
+                } else {
+                    imageViewerScale = 2.5;
+                    const rect = imageViewerContainer.getBoundingClientRect();
+                    imageViewerTranslateX = (rect.width / 2 - e.clientX) * (imageViewerScale - 1);
+                    imageViewerTranslateY = (rect.height / 2 - e.clientY) * (imageViewerScale - 1);
+                    applyImageViewerTransform();
+                    imageViewerZoomHint.style.opacity = '1';
+                    setTimeout(() => { imageViewerZoomHint.style.opacity = '0'; }, 2000);
+                }
+                playSound('click');
             });
+
+            imageViewerOverlay.addEventListener('click', function(e) {
+                if (e.target === imageViewerOverlay) closeImageViewer();
+            });
+            imageViewerClose.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeImageViewer();
+            });
+
+            // 鼠标滚轮缩放（PC端）
+            imageViewerContainer.addEventListener('wheel', function(e) {
+                if (imageViewerOverlay.classList.contains('active')) {
+                    e.preventDefault();
+                    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                    const newScale = Math.max(0.5, Math.min(5, imageViewerScale * delta));
+                    const rect = imageViewerContainer.getBoundingClientRect();
+                    const mx = e.clientX - rect.left;
+                    const my = e.clientY - rect.top;
+                    const ratio = newScale / imageViewerScale;
+                    imageViewerTranslateX = mx - (mx - imageViewerTranslateX) * ratio;
+                    imageViewerTranslateY = my - (my - imageViewerTranslateY) * ratio;
+                    imageViewerScale = newScale;
+                    applyImageViewerTransform();
+                }
+            }, { passive: false });
 
             // ==================== 编辑弹窗 ====================
             function openEditModal(id) {
@@ -2180,7 +2298,7 @@
                 editModalOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 pushView('editModal');
-                playOpenSound();
+                playSound('click');
             }
 
             function closeEditModal() {
@@ -2201,45 +2319,65 @@
                 if (!isNaN(pt)) record.photoTime = pt;
                 if (!isNaN(ut)) record.uploadTime = ut;
                 try {
+                    await saveRecord(record);
                     applySearchFilter();
                     updateStats();
                     closeEditModal();
                     addNotification('工单信息已更新 ✏️', '✅');
                     showToast('保存成功 ✓');
-                    playSuccessSound();
+                    playSound('success');
                 } catch (err) {
+                    console.error('保存编辑失败:', err);
                     showToast('保存失败，请重试');
-                    playErrorSound();
+                    playSound('error');
                 }
             }
 
             async function quickDeleteRecord(id) {
-                if (!confirm('确定要删除这条记录吗？此操作不可恢复。')) return;
-                allRecords = allRecords.filter(r => r.id !== id);
-                applySearchFilter();
-                updateStats();
-                addNotification('记录已删除 🗑️', '🗑️');
-                showToast('已删除');
-                playDeleteSound();
+                if (!confirm('确定要删除这条记录吗？\n此操作不可恢复。')) return;
+                try {
+                    await deleteRecordFromDB(id);
+                    allRecords = allRecords.filter(r => r.id !== id);
+                    applySearchFilter();
+                    updateStats();
+                    checkStorageThreshold();
+                    addNotification('记录已删除 🗑️', '🗑️');
+                    showToast('已删除');
+                    playSound('delete');
+                } catch (err) {
+                    console.error('删除失败:', err);
+                    showToast('删除失败');
+                    playSound('error');
+                }
             }
 
             async function deleteCurrentRecord() {
                 if (!currentEditId) return;
-                if (!confirm('确定要删除这条记录吗？此操作不可恢复。')) return;
+                if (!confirm('确定要删除这条记录吗？\n此操作不可恢复。')) return;
                 const id = currentEditId;
-                allRecords = allRecords.filter(r => r.id !== id);
-                applySearchFilter();
-                updateStats();
-                closeEditModal();
-                addNotification('记录已删除 🗑️', '🗑️');
-                showToast('已删除');
-                playDeleteSound();
+                try {
+                    await deleteRecordFromDB(id);
+                    allRecords = allRecords.filter(r => r.id !== id);
+                    applySearchFilter();
+                    updateStats();
+                    checkStorageThreshold();
+                    closeEditModal();
+                    addNotification('记录已删除 🗑️', '🗑️');
+                    showToast('已删除');
+                    playSound('delete');
+                } catch (err) {
+                    console.error('删除失败:', err);
+                    showToast('删除失败');
+                    playSound('error');
+                }
             }
 
             async function downloadSinglePhoto(id) {
                 const record = allRecords.find(r => r.id === id);
-                if (!record || !record.photo) { showToast('无照片数据');
-                    playErrorSound(); return; }
+                if (!record || !record.photo) {
+                    showToast('无照片数据');
+                    return;
+                }
                 try {
                     const blob = base64ToBlob(record.photo);
                     const url = URL.createObjectURL(blob);
@@ -2250,11 +2388,23 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                    showToast('照片已下载到默认下载目录');
+                    showToast('照片已下载');
                     addNotification('照片已保存到本地 💾', '💾');
-                    playSuccessSound();
-                } catch (err) { showToast('下载失败');
-                    playErrorSound(); }
+                    playSound('success');
+                } catch (err) {
+                    console.error('下载失败:', err);
+                    showToast('下载失败');
+                    playSound('error');
+                }
+            }
+
+            function base64ToBlob(base64) {
+                const parts = base64.split(',');
+                const mime = parts[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+                const bytes = atob(parts[1]);
+                const arr = new Uint8Array(bytes.length);
+                for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+                return new Blob([arr], { type: mime });
             }
 
             btnSaveEdit.addEventListener('click', saveEdit);
@@ -2269,9 +2419,8 @@
                 cameraOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 pushView('camera');
+                playSound('click');
                 await startCameraStream();
-                playOpenSound();
-                showToast('相机已打开，点击拍照');
             }
 
             function closeCamera() {
@@ -2294,11 +2443,13 @@
                     });
                     cameraVideo.srcObject = cameraStream;
                     cameraVideo.style.display = 'block';
+                    showToast('相机已就绪');
+                    playSound('success');
                 } catch (err) {
-                    console.warn('getUserMedia失败:', err.message);
+                    console.warn('摄像头不可用:', err.message);
                     cameraVideo.style.display = 'none';
                     showToast('摄像头不可用，请使用上传方式');
-                    playErrorSound();
+                    playSound('error');
                     hiddenFileInput.click();
                 }
             }
@@ -2323,16 +2474,17 @@
                 canvas.width = video.videoWidth || 1280;
                 canvas.height = video.videoHeight || 720;
                 canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-                addPhotoRecord(canvas.toDataURL('image/jpeg', 0.82));
+                const photoData = canvas.toDataURL('image/jpeg', 0.85);
+                addPhotoRecord(photoData);
                 addNotification('拍照成功！📷', '📸');
                 showToast('拍照成功！可继续拍摄');
-                playCameraSound();
+                playSound('camera');
             }
 
             function switchCamera() {
                 cameraFacingMode = cameraFacingMode === 'user' ? 'environment' : 'user';
-                showToast('切换: ' + (cameraFacingMode === 'user' ? '前置' : '后置'));
-                playClickSound();
+                showToast('切换: ' + (cameraFacingMode === 'user' ? '前置摄像头' : '后置摄像头'));
+                playSound('click');
                 startCameraStream();
             }
 
@@ -2341,39 +2493,54 @@
             camCaptureBtn.addEventListener('click', capturePhoto);
             camSwitchBtn.addEventListener('click', switchCamera);
             camUploadFallbackBtn.addEventListener('click', () => {
-                playClickSound();
+                playSound('click');
                 hiddenFileInput.click();
             });
             hiddenFileInput.addEventListener('change', async function() {
                 if (this.files && this.files.length > 0) {
                     for (const f of Array.from(this.files)) {
-                        const b64 = await fileToBase64(f);
-                        await addPhotoRecord(b64);
+                        const base64 = await fileToBase64(f);
+                        await addPhotoRecord(base64);
                     }
                     addNotification(`已上传 ${this.files.length} 张照片`, '📁');
-                    showToast(`已上传 ${this.files.length} 张照片 ✓`);
+                    showToast(`已上传 ${this.files.length} 张照片`);
+                    playSound('success');
                 }
                 this.value = '';
             });
 
+            function fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const r = new FileReader();
+                    r.onload = () => resolve(r.result);
+                    r.onerror = reject;
+                    r.readAsDataURL(file);
+                });
+            }
+
             // ==================== 上传 ====================
             btnUpload.addEventListener('click', () => {
-                playClickSound();
+                playSound('click');
                 hiddenFileInputMulti.click();
             });
             hiddenFileInputMulti.addEventListener('change', async function() {
                 if (this.files && this.files.length > 0) {
                     const arr = [];
-                    for (const f of Array.from(this.files)) arr.push(await fileToBase64(f));
+                    for (const f of Array.from(this.files)) {
+                        arr.push(await fileToBase64(f));
+                    }
                     await addMultiplePhotoRecords(arr);
                 }
                 this.value = '';
             });
 
-            // ==================== 导出JSON ====================
+            // ==================== 导出 ====================
             async function exportData() {
-                if (allRecords.length === 0) { showToast('没有数据可导出');
-                    playErrorSound(); return; }
+                if (allRecords.length === 0) {
+                    showToast('没有数据可导出');
+                    playSound('error');
+                    return;
+                }
                 try {
                     const exportData = {
                         version: '3.0',
@@ -2382,13 +2549,13 @@
                         storagePath: configuredStoragePath,
                         records: allRecords.map(r => ({
                             id: r.id,
-                            workOrderNo: r.workOrderNo,
-                            remark: r.remark,
-                            photoTime: r.photoTime,
-                            uploadTime: r.uploadTime,
-                            createdAt: r.createdAt,
-                            photo: r.photo,
-                            thumbnail: r.thumbnail,
+                            workOrderNo: r.workOrderNo || '',
+                            remark: r.remark || '',
+                            photoTime: r.photoTime || 0,
+                            uploadTime: r.uploadTime || 0,
+                            createdAt: r.createdAt || 0,
+                            photo: r.photo || '',
+                            thumbnail: r.thumbnail || '',
                         })),
                     };
                     const jsonStr = JSON.stringify(exportData);
@@ -2406,101 +2573,179 @@
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                     const sizeMB = (blob.size / (1024 * 1024)).toFixed(1);
-                    showToast(`导出成功！${sizeMB}MB，文件: ${filename}`);
-                    addNotification(`数据已导出 📤 (${sizeMB}MB)`, '📤');
-                    playSuccessSound();
-                    // 提示用户移动到pzhao文件夹
-                    setTimeout(() => {
-                        showToast('💡 请用MT管理器将文件移至: ' + configuredStoragePath, 2800);
-                    }, 1800);
+                    exportPathInfo.innerHTML = `
+                文件已下载：<strong>${filename}</strong><br>
+                大小：${sizeMB} MB<br>
+                <small style="color:var(--accent-green);">✓ 导出成功</small><br>
+                <small>建议用MT管理器移动到：<br><code>${escapeHtml(configuredStoragePath)}</code></small>`;
+                    addNotification(`数据已导出 (${sizeMB}MB) 📤`, '📤');
+                    showToast('导出成功！文件已下载到下载目录');
+                    playSound('success');
                 } catch (err) {
                     console.error('导出失败:', err);
                     showToast('导出失败，请重试');
-                    playErrorSound();
+                    playSound('error');
                 }
             }
-            btnExport.addEventListener('click', exportData);
+            btnExport.addEventListener('click', () => {
+                playSound('click');
+                exportData();
+            });
+            btnExportInSettings.addEventListener('click', () => {
+                playSound('click');
+                exportData();
+            });
 
-            // ==================== 导入JSON ====================
-            function triggerImportFile() {
-                importFileInput.click();
-                playClickSound();
-            }
-
-            async function importData(file) {
+            // ==================== 导入 ====================
+            async function importData() {
+                const file = importFileInput.files[0];
                 if (!file) {
                     showToast('请先选择JSON文件');
-                    playErrorSound();
+                    playSound('error');
                     return;
                 }
                 try {
                     const text = await file.text();
                     const importData = JSON.parse(text);
-                    if (!importData.records || !Array.isArray(importData.records)) throw new Error('无效格式');
-                    if (!confirm(
-                            `即将导入 ${importData.records.length} 条记录。\n现有 ${allRecords.length} 条。\n系统会自动去重（相同ID跳过）。\n确定导入？`
-                            )) return;
-                    let importedCount = 0;
-                    let skippedCount = 0;
+                    if (!importData.records || !Array.isArray(importData.records)) {
+                        throw new Error('无效的数据格式');
+                    }
                     const existingIds = new Set(allRecords.map(r => r.id));
+                    const existingPhotoHashes = new Set();
+                    allRecords.forEach(r => {
+                        if (r.photo && r.photo.length > 100) {
+                            existingPhotoHashes.add(r.photo.substring(r.photo.length - 200));
+                        }
+                    });
+                    let importCount = 0;
+                    let skipCount = 0;
                     for (const rec of importData.records) {
-                        if (!rec.id || !rec.photo) continue;
+                        if (!rec.id || !rec.photo) {
+                            skipCount++;
+                            continue;
+                        }
+                        // 检查ID是否已存在
                         if (existingIds.has(rec.id)) {
-                            // 去重：跳过已存在的ID
-                            skippedCount++;
+                            // 更新现有记录
+                            const existingIdx = allRecords.findIndex(r => r.id === rec.id);
+                            if (existingIdx >= 0) {
+                                const merged = { ...allRecords[existingIdx], ...rec, id: rec.id };
+                                allRecords[existingIdx] = merged;
+                                await saveRecord(merged);
+                                importCount++;
+                            }
                             continue;
                         }
-                        // 也检查photo内容是否相同（深度去重）
-                        const duplicateByPhoto = allRecords.find(r =>
-                            r.photo === rec.photo && r.workOrderNo === rec.workOrderNo && r.remark === rec
-                            .remark
-                        );
-                        if (duplicateByPhoto) {
-                            skippedCount++;
+                        // 检查照片是否重复（通过照片尾部hash）
+                        const photoTail = rec.photo.length > 100 ? rec.photo.substring(rec.photo.length - 200) : '';
+                        if (photoTail && existingPhotoHashes.has(photoTail)) {
+                            skipCount++;
                             continue;
                         }
-                        allRecords.unshift(rec);
+                        // 新记录
+                        await saveRecord(rec);
+                        if (photoTail) existingPhotoHashes.add(photoTail);
                         existingIds.add(rec.id);
-                        importedCount++;
+                        importCount++;
                     }
-                    // 按时间排序
-                    allRecords.sort((a, b) => b.createdAt - a.createdAt);
-                    if (importData.storagePath && !configuredStoragePath) {
+                    if (importData.storagePath) {
                         configuredStoragePath = importData.storagePath;
-                        storagePathInput.value = configuredStoragePath;
+                        await setConfig('storagePath', configuredStoragePath);
                     }
-                    applySearchFilter();
+                    await loadAllRecords();
                     updateStats();
-                    let msg = `导入成功！新增 ${importedCount} 条`;
-                    if (skippedCount > 0) msg += `，跳过重复 ${skippedCount} 条`;
-                    addNotification(msg + ' 📥', '📥');
-                    showToast(msg + ' ✓');
-                    playSuccessSound();
+                    checkStorageThreshold();
+                    if (importCount > 0) {
+                        addNotification(`成功导入 ${importCount} 条记录 📥`, '📥');
+                        showToast(`导入成功！新增/更新 ${importCount} 条` + (skipCount > 0 ? `，跳过 ${skipCount} 条重复` : ''));
+                        playSound('success');
+                    } else if (skipCount > 0) {
+                        showToast(`所有 ${skipCount} 条数据已存在，已跳过`);
+                        playSound('click');
+                    } else {
+                        showToast('没有有效数据可导入');
+                        playSound('error');
+                    }
                     importFileInput.value = '';
                 } catch (err) {
                     console.error('导入失败:', err);
-                    showToast('导入失败：文件格式不正确');
-                    playErrorSound();
+                    showToast('导入失败：文件格式不正确或已损坏');
+                    playSound('error');
                 }
             }
+            btnImportData.addEventListener('click', () => {
+                playSound('click');
+                importData();
+            });
 
-            btnImport.addEventListener('click', triggerImportFile);
-            btnImportDataSettings.addEventListener('click', triggerImportFile);
-            importFileInput.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    importData(this.files[0]);
+            // ==================== 清除数据 ====================
+            btnClearAllData.addEventListener('click', async () => {
+                playSound('click');
+                if (!confirm('⚠️ 确定清除所有数据？\n此操作不可恢复！\n建议先导出备份。')) return;
+                if (!confirm('再次确认：清除所有照片和工单数据？')) return;
+                try {
+                    await clearAllRecords();
+                    allRecords = [];
+                    filteredRecords = [];
+                    updateStats();
+                    renderPhotoGrid();
+                    checkStorageThreshold();
+                    addNotification('所有数据已清除 ⚠️', '⚠️');
+                    showToast('所有数据已清除');
+                    playSound('delete');
+                    closeSettings();
+                } catch (err) {
+                    console.error('清除失败:', err);
+                    showToast('清除失败');
+                    playSound('error');
                 }
+            });
+
+            // ==================== 存储阈值 ====================
+            async function loadStorageThreshold() {
+                const saved = await getConfig('storageThreshold');
+                if (saved && !isNaN(parseInt(saved))) {
+                    storageThresholdMB = parseInt(saved);
+                } else {
+                    storageThresholdMB = 500;
+                    await setConfig('storageThreshold', storageThresholdMB);
+                }
+                storageThresholdSlider.value = storageThresholdMB;
+                thresholdDisplay.textContent = storageThresholdMB + ' MB';
+            }
+
+            btnSetThreshold.addEventListener('click', async () => {
+                playSound('click');
+                const val = parseInt(storageThresholdSlider.value);
+                if (isNaN(val) || val < 10) {
+                    showToast('请输入有效阈值');
+                    return;
+                }
+                storageThresholdMB = val;
+                thresholdDisplay.textContent = storageThresholdMB + ' MB';
+                await setConfig('storageThreshold', storageThresholdMB);
+                showToast('阈值已设置为 ' + storageThresholdMB + ' MB');
+                checkStorageThreshold();
+                playSound('success');
+            });
+            storageThresholdSlider.addEventListener('input', () => {
+                thresholdDisplay.textContent = storageThresholdSlider.value + ' MB';
             });
 
             // ==================== 设置面板 ====================
             function openSettings() {
                 settingsPanel.classList.add('open');
                 updateModeLabel();
-                storagePathInput.value = configuredStoragePath;
-                storagePathStatus.textContent = '';
-                memoryThresholdInput.value = memoryThresholdMB;
+                const totalMB = getTotalStorageMB();
+                storageUsedDisplay.textContent = totalMB.toFixed(1) + ' MB';
+                thresholdDisplay.textContent = storageThresholdMB + ' MB';
+                storageThresholdSlider.value = storageThresholdMB;
+                exportPathInfo.innerHTML = `
+              浏览器默认下载目录<br>
+              文件名：拍照工单数据_日期时间.json<br>
+              <small>导出后用MT管理器移动到：<br><code>${escapeHtml(configuredStoragePath)}</code></small>`;
                 pushView('settingsPanel');
-                playOpenSound();
+                playSound('click');
             }
 
             function closeSettings() {
@@ -2511,54 +2756,17 @@
             function updateModeLabel() {
                 currentModeLabel.textContent = isDesktopMode ? '当前：🖥️ PC模式（宽屏布局）' : '当前：📱 手机模式（紧凑布局）';
             }
-
             btnSettings.addEventListener('click', openSettings);
-            btnSettingsBack.addEventListener('click', closeSettings);
-
-            btnSaveStoragePath.addEventListener('click', () => {
-                const newPath = storagePathInput.value.trim();
-                if (!newPath) { showToast('请输入有效路径');
-                    playErrorSound(); return; }
-                configuredStoragePath = newPath;
-                storagePathStatus.textContent = '✓ 路径已保存';
-                showToast('存储路径已保存 ✓');
-                playSuccessSound();
-                setTimeout(() => { storagePathStatus.textContent = ''; }, 2200);
-            });
-
-            btnSaveThreshold.addEventListener('click', () => {
-                const val = parseInt(memoryThresholdInput.value);
-                if (isNaN(val) || val < 10 || val > 500) {
-                    showToast('请输入10-500之间的数值');
-                    playErrorSound();
-                    return;
-                }
-                memoryThresholdMB = val;
-                showToast(`内存阈值已设为 ${val}MB ✓`);
-                playSuccessSound();
-                checkMemoryThreshold();
-            });
-
-            btnClearAllData.addEventListener('click', () => {
-                if (!confirm('⚠️ 确定清除所有数据？\n此操作不可恢复！\n建议先导出备份。')) return;
-                if (!confirm('再次确认：清除所有照片和工单数据？')) return;
-                allRecords = [];
-                filteredRecords = [];
-                updateStats();
-                renderPhotoGrid();
-                notifications = [];
-                updateNotifUI();
-                addNotification('所有数据已清除 ⚠️', '⚠️');
-                showToast('所有数据已清除');
-                playDeleteSound();
+            btnSettingsBack.addEventListener('click', () => {
+                playSound('click');
                 closeSettings();
             });
 
-            // ==================== 关于弹窗 ====================
+            // 关于弹窗
             function openAbout() {
                 aboutOverlay.classList.add('active');
                 pushView('aboutOverlay');
-                playOpenSound();
+                playSound('click');
             }
 
             function closeAbout() {
@@ -2566,7 +2774,10 @@
                 popView('aboutOverlay');
             }
             btnAbout.addEventListener('click', openAbout);
-            btnAboutClose.addEventListener('click', closeAbout);
+            btnAboutClose.addEventListener('click', () => {
+                playSound('click');
+                closeAbout();
+            });
             aboutOverlay.addEventListener('click', function(e) {
                 if (e.target === aboutOverlay) closeAbout();
             });
@@ -2577,17 +2788,16 @@
                 appWrapper.classList.toggle('desktop-mode', isDesktopMode);
                 updateModeLabel();
                 renderPhotoGrid();
-                const modeName = isDesktopMode ? 'PC模式' : '手机模式';
-                showToast('已切换至 ' + modeName);
-                addNotification(`切换至 ${modeName} 🔄`, '🔄');
-                playClickSound();
+                showToast('已切换至 ' + (isDesktopMode ? 'PC模式' : '手机模式'));
+                addNotification(`切换至 ${isDesktopMode?'PC':'手机'}模式 🔄`, '🔄');
+                playSound('click');
             }
             btnModeSwitch.addEventListener('click', toggleMode);
             btnToggleModeInSettings.addEventListener('click', toggleMode);
 
             function autoDetectMode() {
                 if (window.innerWidth >= 768 && !isDesktopMode) {
-                    // 可选自动切换
+                    // 不自动切换，让用户自己决定
                 }
                 updateModeLabel();
             }
@@ -2604,10 +2814,10 @@
                 searchClearBtn.classList.remove('visible');
                 applySearchFilter();
                 searchInput.focus();
-                playClickSound();
+                playSound('click');
             });
 
-            // ==================== 状态栏和通知 ====================
+            // ==================== 状态栏 ====================
             statusBar.addEventListener('click', function(e) {
                 e.stopPropagation();
                 toggleNotificationPanel();
@@ -2630,15 +2840,16 @@
             // ==================== 键盘快捷键 ====================
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
-                    if (imageViewerOverlay.classList.contains('active')) closeImageViewer();
-                    else if (editModalOverlay.classList.contains('active')) closeEditModal();
-                    else if (cameraOverlay.classList.contains('active')) closeCamera();
-                    else if (settingsPanel.classList.contains('open')) closeSettings();
-                    else if (notificationPanel.classList.contains('open')) closeNotificationPanel();
-                    else if (aboutOverlay.classList.contains('active')) closeAbout();
+                    if (!goBack()) {
+                        if (imageViewerOverlay.classList.contains('active')) closeImageViewer();
+                        else if (editModalOverlay.classList.contains('active')) closeEditModal();
+                        else if (cameraOverlay.classList.contains('active')) closeCamera();
+                        else if (settingsPanel.classList.contains('open')) closeSettings();
+                        else if (notificationPanel.classList.contains('open')) closeNotificationPanel();
+                        else if (aboutOverlay.classList.contains('active')) closeAbout();
+                    }
                 }
-                if (e.key === 's' && (e.ctrlKey || e.metaKey) && editModalOverlay.classList.contains(
-                    'active')) {
+                if (e.key === 's' && (e.ctrlKey || e.metaKey) && editModalOverlay.classList.contains('active')) {
                     e.preventDefault();
                     saveEdit();
                 }
@@ -2654,10 +2865,19 @@
                 if (viewStack.length > 0) {
                     e.preventDefault();
                     goBack();
+                    history.pushState({ view: 'app' }, '', '');
                 }
             });
+            const origPushView = pushView;
+            pushView = function(name) {
+                if (viewStack.length === 0 || viewStack[viewStack.length - 1] !== name) {
+                    history.pushState({ view: name }, '', '');
+                }
+                origPushView(name);
+            };
+            history.pushState({ view: 'app' }, '', '');
 
-            // ==================== 时间更新 ====================
+            // ==================== 时间 ====================
             function updateTimeDisplay() {
                 const now = new Date();
                 const p = (n) => String(n).padStart(2, '0');
@@ -2666,89 +2886,62 @@
             setInterval(updateTimeDisplay, 15000);
             updateTimeDisplay();
 
-            // ==================== 触摸手势（状态栏下拉） ====================
+            // ==================== 触摸手势 ====================
             let touchStartY = 0;
             statusBar.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; });
             statusBar.addEventListener('touchmove', function(e) {
-                if (e.touches[0].clientY - touchStartY > 25 && !notificationPanel.classList.contains('open')) {
+                if (e.touches[0].clientY - touchStartY > 30 && !notificationPanel.classList.contains('open')) {
                     openNotificationPanel();
                 }
             });
 
-            // ==================== 内存监控 ====================
-            setInterval(() => {
-                checkMemoryThreshold();
-            }, 30000);
-
-            // ==================== 窗口大小变化 ====================
-            window.addEventListener('resize', () => {
+            // ==================== 窗口大小监听 ====================
+            window.addEventListener('resize', function() {
                 autoDetectMode();
             });
 
             // ==================== 初始化 ====================
             async function init() {
                 try {
-                    // 从localStorage加载配置
-                    const savedPath = localStorage.getItem('pzhao_storage_path');
+                    await openDB();
+                    await loadStorageThreshold();
+                    const savedPath = await getConfig('storagePath');
                     if (savedPath) configuredStoragePath = savedPath;
-                    const savedThreshold = localStorage.getItem('pzhao_memory_threshold');
-                    if (savedThreshold) memoryThresholdMB = parseInt(savedThreshold) || DEFAULT_MEMORY_THRESHOLD_MB;
-
-                    storagePathInput.value = configuredStoragePath;
-                    memoryThresholdInput.value = memoryThresholdMB;
+                    await loadAllRecords();
                     updateStats();
                     renderPhotoGrid();
                     updateNotifUI();
                     updateTimeDisplay();
                     autoDetectMode();
                     updateModeLabel();
-                    checkMemoryThreshold();
-
+                    storageThresholdSlider.value = storageThresholdMB;
+                    thresholdDisplay.textContent = storageThresholdMB + ' MB';
+                    const totalMB = getTotalStorageMB();
+                    storageUsedDisplay.textContent = totalMB.toFixed(1) + ' MB';
                     console.log('✅ 拍照工单管理 v3.0 已就绪');
-                    console.log('📂 配置存储路径:', configuredStoragePath);
-                    console.log('📊 内存阈值:', memoryThresholdMB + 'MB');
-                    console.log('📸 拍照/上传/导出JSON/导入JSON - 全部真实可用');
+                    console.log('📂 存储路径配置:', configuredStoragePath);
+                    console.log('💾 数据存储在IndexedDB，导出JSON到下载目录');
+                    console.log('🔄 换设备：导出JSON → MT管理器移动 → 导入JSON');
+                    console.log('📸 拍照/上传/导出/导入 - 全部真实可用');
                     console.log('🔔 通知面板 | 🔍 搜索 | ⚙️ 设置 | ℹ️ 关于');
-                    console.log('🔄 手机/PC模式切换 | 🔍 图片缩放 | 🔊 音效反馈');
-                    console.log('💡 数据完全以JSON文件形式管理，MT管理器友好');
-                    console.log('📱 完全离线可用，无需网络');
-                    console.log('🔄 导入自动去重（ID+内容双重检测）');
-                    showToast('📷 拍照工单管理已就绪', 1500);
+                    console.log('🖼️ 图片缩放 | 🔊 音效反馈 | 💾 存储阈值');
+                    console.log('🔄 手机/PC模式切换 | 🗑️ 去重导入');
+                    console.log('📱 完全离线可用·无需网络');
+                    addNotification('应用已就绪 ✅', '✅');
                 } catch (err) {
                     console.error('初始化失败:', err);
                     showToast('初始化失败，请刷新页面');
-                    playErrorSound();
+                    playSound('error');
                 }
             }
-
-            // 保存配置到localStorage
-            function saveConfigToStorage() {
-                localStorage.setItem('pzhao_storage_path', configuredStoragePath);
-                localStorage.setItem('pzhao_memory_threshold', memoryThresholdMB.toString());
-            }
-
-            // 覆写路径保存以同步到localStorage
-            const origSaveStoragePath = btnSaveStoragePath.addEventListener.bind(btnSaveStoragePath);
-            btnSaveStoragePath.addEventListener('click', function() {
-                setTimeout(() => {
-                    saveConfigToStorage();
-                }, 100);
-            });
-
-            const origSaveThreshold = btnSaveThreshold.addEventListener.bind(btnSaveThreshold);
-            btnSaveThreshold.addEventListener('click', function() {
-                setTimeout(() => {
-                    saveConfigToStorage();
-                }, 100);
-            });
-
             init();
 
             // ==================== 全局API ====================
             window.PhotoWorkOrderApp = {
                 addPhotoRecord,
                 exportData,
-                importData: (file) => importData(file),
+                importData,
+                loadAllRecords,
                 getAllRecords: () => allRecords,
                 toggleMode,
                 getMode: () => isDesktopMode ? 'desktop' : 'mobile',
@@ -2758,39 +2951,37 @@
                 closeCamera,
                 goBack,
                 getStoragePath: () => configuredStoragePath,
-                setStoragePath: (p) => { configuredStoragePath = p;
-                    saveConfigToStorage(); },
-                getMemoryThreshold: () => memoryThresholdMB,
-                setMemoryThreshold: (m) => { memoryThresholdMB = m;
-                    saveConfigToStorage(); },
-                getTotalStorageMB: () => calculateTotalStorage(),
+                setStoragePath: async (p) => {
+                    configuredStoragePath = p;
+                    await setConfig('storagePath', p);
+                },
+                getStorageUsedMB: getTotalStorageMB,
+                getStorageThreshold: () => storageThresholdMB,
                 version: '3.0.0',
             };
 
-            console.log('📋 拍照工单管理 v3.0 - 完整功能列表:');
+            console.log('📋 拍照工单管理 v3.0 - 完整版');
             console.log('   ✅ 真实摄像头拍照');
-            console.log('   ✅ 内存存储 + JSON导出导入');
+            console.log('   ✅ 本地数据库存储(IndexedDB)');
+            console.log('   ✅ JSON导出到下载目录');
+            console.log('   ✅ JSON导入含去重');
             console.log('   ✅ 通知下拉面板');
             console.log('   ✅ 搜索过滤');
             console.log('   ✅ 编辑修改保存');
-            console.log('   ✅ JSON数据导出（含照片Base64）');
-            console.log('   ✅ JSON数据导入（自动去重）');
             console.log('   ✅ PC/手机模式切换');
             console.log('   ✅ 图片压缩优化');
-            console.log('   ✅ 存储路径配置（MT管理器友好）');
-            console.log('   ✅ 单张照片下载');
-            console.log('   ✅ 图片查看器缩放（手势+按钮+滚轮）');
-            console.log('   ✅ 涟漪动画 + 卡片闪光动画');
-            console.log('   ✅ 统计数字弹跳动画');
-            console.log('   ✅ Web Audio API音效（点击/成功/删除/拍照）');
-            console.log('   ✅ 操作Toast提示（所有操作均有反馈）');
-            console.log('   ✅ 内存阈值监控和警告');
+            console.log('   ✅ 图片查看器缩放(双指+双击+滚轮)');
+            console.log('   ✅ 存储阈值监控');
+            console.log('   ✅ 操作音效反馈');
+            console.log('   ✅ 涟漪动画');
+            console.log('   ✅ 统计数字弹跳');
+            console.log('   ✅ 卡片闪光动画');
             console.log('   ✅ 关于页面');
             console.log('   ✅ 返回栈管理');
             console.log('   ✅ 完全离线可用');
-            console.log('   ✅ 导入去重（ID+内容双重检测）');
-            console.log('   ✅ 所有功能真实可用，无模拟');
-            console.log('💡 使用MT管理器：导出JSON → 移动到pzhao文件夹 → 换设备导入');
+            console.log('   ✅ 数据持久化(关闭不丢失)');
+            console.log('   ✅ MT管理器可管理JSON文件');
+            console.log('   📱 换设备流程：旧设备导出JSON → MT管理器移动 → 新设备导入JSON');
         })();
     </script>
 </body>
